@@ -181,11 +181,9 @@ model Profile {
   userId       String   @unique
   user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
   firstName    String
-  // PRIVACY: lastName must be private by default and only exposed in API
-  // responses AFTER an interest has been accepted between the viewer and
-  // the profile owner. There is no schema-level enforcement — this MUST
-  // be handled in the service/read layer. See profile read API.
-  // TODO(privacy): enforce lastName gating in src/server/services/profile.*
+  /// Private by default. MUST be filtered out in public profile reads — only return when
+  /// interest is ACCEPTED between viewer and owner, or viewer is the owner themselves.
+  /// See src/server/services/profile.ts (TODO: create) for enforcement.
   lastName     String?
   displayName  String?
   dateOfBirth  DateTime

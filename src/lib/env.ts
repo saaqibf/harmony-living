@@ -18,7 +18,11 @@ import { z } from 'zod';
  */
 const envSchema = z.object({
   DATABASE_URL: z.string().min(1, 'DATABASE_URL is required'),
-  NEXT_PUBLIC_APP_URL: z.string().url().default('http://localhost:3000'),
+  NEXT_PUBLIC_APP_URL: z
+    .string()
+    .url()
+    .or(z.string().startsWith('http://localhost'))
+    .default('http://localhost:3000'),
   NODE_ENV: z.enum(['development', 'production', 'test']),
 
   COGNITO_USER_POOL_ID: z.string().optional(),
