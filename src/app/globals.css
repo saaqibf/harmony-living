@@ -22,8 +22,8 @@
   --color-background: #fafaf9;
   --color-surface: #ffffff;
 
-  /* Fonts */
-  --font-sans: var(--font-sans, "Inter"), system-ui, -apple-system, sans-serif;
+  /* Fonts — Inter is injected on <html> by next/font as --font-inter */
+  --font-sans: var(--font-inter), system-ui, -apple-system, sans-serif;
 
   /* Radii */
   --radius-card: 1rem;

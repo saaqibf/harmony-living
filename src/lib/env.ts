@@ -1,9 +1,25 @@
 import { z } from 'zod';
 
+/**
+ * Validates environment variables at module load.
+ *
+ * Imported as a side-effect from `src/lib/db/prisma.ts` so any code path
+ * that touches the database also triggers env validation at boot.
+ * If any required variable is missing or malformed, this throws immediately
+ * rather than failing at runtime in a surprising location.
+ *
+ * Notes:
+ * - DATABASE_URL is validated as a non-empty string rather than `.url()`.
+ *   Postgres connection strings (especially with SSL params and special
+ *   characters in passwords) are not always accepted by strict URL parsers.
+ * - NODE_ENV is NOT given a default — Node / Next.js always set it based
+ *   on the command being run (`next dev` → development, `next build` →
+ *   production). Setting it manually is almost always a bug.
+ */
 const envSchema = z.object({
-  DATABASE_URL: z.string().url(),
+  DATABASE_URL: z.string().min(1, 'DATABASE_URL is required'),
   NEXT_PUBLIC_APP_URL: z.string().url().default('http://localhost:3000'),
-  NODE_ENV: z.enum(['development', 'production', 'test']).default('development'),
+  NODE_ENV: z.enum(['development', 'production', 'test']),
 
   COGNITO_USER_POOL_ID: z.string().optional(),
   COGNITO_CLIENT_ID: z.string().optional(),
