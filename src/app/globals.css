@@ -18,6 +18,10 @@
   --color-accent-500: #f59e0b;
   --color-accent-600: #d97706;
 
+  /* Primary semantic aliases (used in component classes) */
+  --color-primary: var(--color-primary-500);
+  --color-primary-dark: var(--color-primary-600);
+
   /* Surfaces */
   --color-background: #fafaf9;
   --color-surface: #ffffff;
