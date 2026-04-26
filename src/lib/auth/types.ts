@@ -38,7 +38,15 @@ export interface AuthProvider {
   signIn(input: SignInInput): Promise<AuthTokens>;
   signOut(accessToken: string): Promise<void>;
   verifyIdToken(idToken: string): Promise<AuthUser>;
-  refreshTokens(refreshToken: string): Promise<AuthTokens>;
+  /**
+   * Mints a fresh ID + access token from a refresh token.
+   *
+   * `username` is the Cognito `sub` of the user owning the refresh token.
+   * It's required by Cognito's `REFRESH_TOKEN_AUTH` flow because the
+   * `SECRET_HASH` for confidential clients must be keyed on the username.
+   * Pass the value of the `hl_user_sub` cookie at the call site.
+   */
+  refreshTokens(refreshToken: string, username: string): Promise<AuthTokens>;
   getHostedUiUrl(
     provider: 'Google' | 'Apple',
     redirectUri: string,

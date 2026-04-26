@@ -43,7 +43,7 @@ export async function GET(request: NextRequest) {
     const tokens = await auth.exchangeAuthCodeForTokens(code, CALLBACK_URL);
     const authUser = await auth.verifyIdToken(tokens.idToken);
     await bootstrapUser(authUser);
-    await setAuthCookies(tokens);
+    await setAuthCookies(tokens, authUser.cognitoSub);
 
     // Clear the one-time state cookie.
     jar.delete(STATE_COOKIE);

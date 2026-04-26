@@ -33,7 +33,7 @@ export async function POST(request: Request) {
     // Idempotent — creates the Postgres User row on first login, updates on
     // subsequent logins. This is the only place User rows are created.
     await bootstrapUser(authUser);
-    await setAuthCookies(tokens);
+    await setAuthCookies(tokens, authUser.cognitoSub);
 
     return Response.json({ ok: true, user: { email: authUser.email } });
   } catch (err) {

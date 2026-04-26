@@ -29,15 +29,28 @@ const PROTECTED_PREFIXES = [
 
 const AUTH_ONLY_PREFIXES = ['/login', '/signup', '/confirm', '/forgot-password'];
 
-const SESSION_COOKIE = 'hl_id_token';
+/**
+ * Auth cookies the proxy looks at:
+ *
+ *   hl_id_token       — short-lived (1h). Verified inside server components.
+ *   hl_refresh_token  — long-lived (30d). Used at /api/auth/refresh to mint
+ *                       a fresh ID token when the short one has expired.
+ *
+ * The proxy never calls Cognito itself — it only routes the request to the
+ * appropriate handler based on which cookies are present.
+ */
+const ID_TOKEN_COOKIE = 'hl_id_token';
+const REFRESH_TOKEN_COOKIE = 'hl_refresh_token';
 
 export async function proxy(request: NextRequest) {
-  const { pathname } = request.nextUrl;
+  const { pathname, search } = request.nextUrl;
 
-  // Read the session cookie directly from the incoming request object.
+  // Read auth cookies directly from the incoming request object.
   // This is synchronous (no await needed) — NextRequest.cookies is a
   // RequestCookies instance backed by the request's Cookie header.
-  const hasSession = request.cookies.has(SESSION_COOKIE);
+  const hasIdToken = request.cookies.has(ID_TOKEN_COOKIE);
+  const hasRefreshToken = request.cookies.has(REFRESH_TOKEN_COOKIE);
+  const hasSession = hasIdToken || hasRefreshToken;
 
   const isProtected = PROTECTED_PREFIXES.some((prefix) =>
     pathname.startsWith(prefix),
@@ -46,6 +59,17 @@ export async function proxy(request: NextRequest) {
   const isAuthOnly = AUTH_ONLY_PREFIXES.some((prefix) =>
     pathname.startsWith(prefix),
   );
+
+  // Protected route + ID token expired/missing but refresh token present →
+  // bounce through /api/auth/refresh which mints fresh tokens, sets new
+  // cookies, then redirects back to the original path. Server Components
+  // can't write cookies during render, which is why this dance lives in a
+  // route handler instead of inside `getCurrentUser()`.
+  if (isProtected && !hasIdToken && hasRefreshToken) {
+    const refreshUrl = new URL('/api/auth/refresh', request.url);
+    refreshUrl.searchParams.set('from', pathname + search);
+    return NextResponse.redirect(refreshUrl);
+  }
 
   // Unauthenticated user hitting a protected route → redirect to /login.
   // Preserve the destination in `?from=` so the login page can bounce them
@@ -57,7 +81,10 @@ export async function proxy(request: NextRequest) {
   }
 
   // Authenticated user hitting an auth-only route → redirect to /dashboard.
-  if (isAuthOnly && hasSession) {
+  // We require a valid (non-expired) ID token here, not just the refresh
+  // cookie — otherwise an expired session would block the user from
+  // re-entering the login page to authenticate again.
+  if (isAuthOnly && hasIdToken) {
     return NextResponse.redirect(new URL('/dashboard', request.url));
   }
 

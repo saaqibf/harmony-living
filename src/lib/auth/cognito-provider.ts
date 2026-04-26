@@ -194,17 +194,18 @@ export class CognitoAuthProvider implements AuthProvider {
     }
   }
 
-  async refreshTokens(refreshToken: string): Promise<AuthTokens> {
+  async refreshTokens(refreshToken: string, username: string): Promise<AuthTokens> {
     try {
-      // REFRESH_TOKEN_AUTH does not accept USERNAME in AuthParameters for
-      // confidential clients — it uses the SECRET_HASH keyed on the client ID.
+      // REFRESH_TOKEN_AUTH for confidential clients requires SECRET_HASH
+      // to be keyed on the user's `sub`, not the client ID. Cognito returns
+      // "Unable to verify secret hash" if you key it on the client ID instead.
       const resp = await this.client.send(
         new InitiateAuthCommand({
           AuthFlow: 'REFRESH_TOKEN_AUTH' as AuthFlowType,
           ClientId: env.COGNITO_CLIENT_ID,
           AuthParameters: {
             REFRESH_TOKEN: refreshToken,
-            SECRET_HASH: computeSecretHash(env.COGNITO_CLIENT_ID),
+            SECRET_HASH: computeSecretHash(username),
           },
         }),
       );
