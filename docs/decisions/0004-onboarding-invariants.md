@@ -54,6 +54,7 @@ const adminRoles = existingUser.roles.filter(
   (r) => r === 'MODERATOR' || r === 'ADMIN' || r === 'SUPPORT',
 );
 const intentRoles = intentToRoles(input.intent);
+// Order matters for stability — admin roles first, then intent roles. Set preserves insertion order.
 const newRoles = Array.from(new Set([...adminRoles, ...intentRoles]));
 ```
 
@@ -67,6 +68,8 @@ the roles array may legitimately contain non-onboarding entries (a moderator
 who's also a seeker), so re-deriving "what intent did they pick?" from the
 array requires assumptions about which roles are "intent roles." Storing the
 label separately removes that fragility.
+
+Onboarding intent changes are additive, never subtractive. If a user later changes their step-1 intent (e.g. from 'seeker' to 'both'), the new intent's roles are unioned into the existing role set; previously-granted SEEKER/LISTER roles are not removed. A user who needs to remove SEEKER or LISTER requires an explicit user-initiated flow (e.g. 'leave seeker mode' or 'close all listings'), which is out of scope for Phase 3.
 
 ### 2. Partial onboarding state lives in `OnboardingState.draftData`; `Preferences` rows only exist for users with complete prefs
 
@@ -118,10 +121,7 @@ this invariant — the storage split is invisible above the service layer.
 **Idempotency.** Writing the same step twice is safe at every layer:
 - `draftData` writes are key-overwrite JSON merges.
 - The promotion uses `upsert`.
-- After promotion, subsequent step-3/4/5 writes go *through* the promotion
-  flow again — the draft contains the new field, the existing `Preferences`
-  row gets `update`d with the same values plus the new override, draft is
-  re-cleared.
+After Preferences is promoted, subsequent step-3/4/5 writes still flow through the promotion logic, not directly into Preferences. Each post-promotion write merges the new field into draftData, runs the promotion transaction (which becomes an update of the existing row rather than a create), and clears draftData. The draft is always transient — it never holds long-term state once Preferences exists. The same code path handles first-time promotion, post-promotion edits, and resume-after-drop. There is no separate 'edit existing prefs' code path.
 
 ### 3. Wizard versioning policy
 
@@ -184,6 +184,8 @@ later. Once the vocabulary has stabilized in production we may convert these
 columns to enum types via `ALTER TYPE` migrations. Doing it now would lock
 in values we haven't validated with users.
 
+Not locked. Profile.languages is open-ended free-text. Users enter language names via a typeahead chip input. We do not constrain values. Downstream features that need to compare languages (matching, search) do case-insensitive normalization ('English' === 'english') but not enum membership. This is intentional — there are too many languages globally to enumerate, and our user base will discover edge cases (e.g. dialects, sign languages) we shouldn't pre-judge.
+
 ### 5. Photo upload deferred to Phase 4
 
 Phase 3 step 6 does not collect a profile photo. The step renders a
@@ -209,6 +211,8 @@ flow lands. The cost of the deferral is one Phase-3 user trade-off (initials
 instead of photo on the dashboard); the cost of the alternative is real bug
 surface and user-visible churn during the Phase 4 transition.
 
+Implementation requirement. Because the placeholder copy points to 'Settings → Profile,' that route must exist as at least a placeholder page in Phase 3. Acceptable placeholder content: 'Profile editing is coming in a future update. For now, your onboarding answers are your profile.' A 404 on a route the onboarding flow explicitly mentions would erode user trust on day one. Phase 3 ships this placeholder; Phase 4+ replaces it with the real settings page.
+
 ### 6. Dealbreakers are a typed Zod discriminated union
 
 `Preferences.dealbreakers` is declared as `Json @default("[]")` in the
@@ -233,11 +237,9 @@ admin tooling) must import and parse via the same schema. Adding a new
 dealbreaker `kind` is a single edit to the union — and forces every reader
 to handle it (TypeScript exhaustiveness).
 
-This is the only typed contract we have over a `Json` column today. The
-contract is enforced in code, not in the database. If we ever discover a row
-with a non-conforming shape (e.g. legacy data, manual SQL edit), the
-matching engine should drop the malformed dealbreaker (and log it) rather
-than crash.
+This is the only typed contract we have over a `Json` column today. The contract is enforced in code, not in the database. If we ever discover a row with a non-conforming shape (legacy data, manual SQL edit, schema drift), the matching engine and any reader must drop the malformed entry and log it via the project's logging utility (TODO: wired up alongside Phase 5 observability — see src/lib/log.ts). The reader must not crash. Future improvement (Phase 5+): surface malformed-data detections to admin tooling so support can investigate, rather than relying on log review.
+
+Reads must also handle the case where the dealbreakers field is entirely null, missing from the JSON, or an empty array — these are all equivalent and mean 'no dealbreakers'. They are not error states.
 
 ### 7. DOB is stored as UTC midnight; age computation is canonical
 
@@ -327,7 +329,7 @@ the Task 7 end-to-end report must demonstrate each:
 | --------- | ------------ |
 | 1 (admin roles preserved) | V4 — manually grant a test user `MODERATOR` via direct DB write, run them through onboarding picking `seeker`, assert `roles` array still contains `MODERATOR` after step 1 save. |
 | 2 (draftData → Preferences promotion) | V6 — SQL inspection at three points: after step 3 (Preferences absent, draftData populated), after step 4 (Preferences present, draftData empty), after step 5 (Preferences updated, draftData empty). |
-| 3 (`CURRENT_ONBOARDING_VERSION`) | Static check — `rg "version: 1" src/server src/lib/onboarding` should return zero matches; `rg "CURRENT_ONBOARDING_VERSION" src` should return matches in service, schema-emit code, and the helper. |
+| 3 (`CURRENT_ONBOARDING_VERSION`) | Code review checklist — any code touching OnboardingState.version references CURRENT_ONBOARDING_VERSION from src/lib/onboarding/version.ts. Verified at code review time. |
 | 4 (vocabulary lock) | Type check — Zod parsing rejects unknown values in V4 negative cases. UI dropdown values come from the same module. |
 | 5 (photo deferred) | Static check — `rg "photoUrl" src/features/onboarding` should return zero non-comment matches. Dashboard renders initials when `photoUrl` is null (visual check in V1). |
 | 6 (typed dealbreakers) | V4 — Zod refinement rejects malformed dealbreaker shapes; matching engine import in Phase 5 will use the same module. |
