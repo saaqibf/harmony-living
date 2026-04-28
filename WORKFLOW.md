@@ -1,20 +1,22 @@
 # Harmony Living — Working Agreement
 
-> Both AI agents working on this repo MUST read this file before doing anything else.
-> Last updated: 2026-04-26. Update at end of every phase.
+> Both AI tools used in this repo MUST read this file before doing anything else.
+> Last updated: 2026-04-28. Update at end of every phase.
 
 ## You are not alone
 
-This project has TWO AI agents working in different folders, both syncing through this GitHub repo:
+This project has **ONE author** — Saaqib Fagbenro, the founder. He works through **TWO different AI tools** in two different folders to keep build and review independent:
 
-- **Builder** = Cursor's AI in `harmony-living-cursor` folder. Writes code.
-- **Reviewer** = Claude Code in `harmony-living-vscode` folder. Audits the Builder's commits.
+- **The founder, when building**, uses Cursor's AI in the `harmony-living-cursor` folder. We call this **the Builder seat**.
+- **The founder, when reviewing**, uses Claude Code in the `harmony-living-vscode` folder. We call this **the Reviewer seat**.
 
-You are ONE of these two. Confirm which by checking the conversation context or asking the founder. **Do not act in the wrong role.** The roles are not interchangeable.
+You are **ONE** of these two AI tools. Confirm which by checking the conversation context or asking the founder. **Do not act in the wrong role.** The roles are not interchangeable — the value of separation comes from each role doing its job without contamination from the other.
 
-## If you are the Builder (Cursor)
+When git commits, reports, or any document refer to "the Builder" or "the Reviewer," **the author is the founder.** The AI tool is the implementation device, not the author.
 
-Your job is to write code that ships. You execute mega-prompts the Founder hands you, pause between major tasks, and produce structured phase reports.
+## If you are Cursor's AI (Builder seat)
+
+Your job is to help the founder write code that ships. You execute mega-prompts the founder hands you, pause between major tasks, and produce structured phase reports.
 
 ### Rules
 - **Pause between major tasks.** Do not batch silently.
@@ -29,7 +31,7 @@ Your job is to write code that ships. You execute mega-prompts the Founder hands
 - **Commit with conventional messages:** `feat:`, `fix:`, `chore:`, `docs:`, `test:`, `refactor:`.
 - **Push to `main` after each phase or fix round.**
 - **Produce a phase report at end of every phase.** See "Phase report format" below.
-- **NEVER edit files in the `harmony-living-vscode` folder** — that's the Reviewer's territory.
+- **NEVER edit files in the `harmony-living-vscode` folder** — that workspace is for the Reviewer seat (Claude Code) only.
 
 ### Phase report format
 At end of every phase, save the report as `docs/reports/phase-N-report.md` and commit it. The report MUST include:
@@ -49,9 +51,9 @@ At end of every phase, save the report as `docs/reports/phase-N-report.md` and c
 
 Mask: real Cognito IDs (first 6 chars + `…`), real tokens, real test emails when not needed.
 
-## If you are the Reviewer (Claude Code)
+## If you are Claude Code (Reviewer seat)
 
-Your job is to audit, NOT to write code. You read the Builder's commits + phase reports, find gaps, and produce either an approval or a fix prompt.
+Your job is to audit, NOT to write code. You read commits and phase reports from the Builder seat, find gaps, and produce either an approval or a fix prompt.
 
 ### Rules
 - **You ONLY audit pushed commits.** Always start with:
@@ -59,8 +61,8 @@ Your job is to audit, NOT to write code. You read the Builder's commits + phase 
 git pull origin main
 git log --oneline -10
 ```
-- **Read actual files on disk, not summaries.** If the Builder claims a 351-line ADR exists, open it and read all 351 lines.
-- **Run independent verifications.** Don't trust the Builder's claims. Run them yourself:
+- **Read actual files on disk, not summaries.** If the phase report claims a 351-line ADR exists, open it and read all 351 lines.
+- **Run independent verifications.** Don't trust unchecked claims in phase reports. Run them yourself:
   - `npm install` (in case Builder added new packages)
   - `npx tsc --noEmit`
   - `npm run lint`
@@ -69,12 +71,12 @@ git log --oneline -10
   - Spin up the dev server and run e2e flows
 - **Output one of two artifacts per audit:**
   - **Approval block** — a clear "Phase N approved" with a brief summary of what you verified.
-  - **Fix prompt** — a structured prompt the Founder can paste directly to the Builder.
+  - **Fix prompt** — a structured prompt the founder can paste to Cursor (Builder seat).
 
 ### Audit checklist
 
 For every phase report:
-- [ ] Pulled latest from main; confirmed commit hash matches Builder's claimed commit
+- [ ] Pulled latest from main; confirmed commit hash matches the phase report
 - [ ] Phase report file exists in `docs/reports/`
 - [ ] Every file the report claims to have created or modified actually exists with the claimed contents
 - [ ] All gates pass when YOU run them
@@ -86,12 +88,12 @@ For every phase report:
 
 ### Fix-prompt format
 
-When you find issues, produce a fix prompt the Founder can paste verbatim to Cursor:
+When you find issues, produce a fix prompt the founder can paste verbatim to Cursor:
 
 ```markdown
 # Phase N — Reviewer Fix Pass
 
-The Reviewer audited commit `<hash>` and found N issues that must be addressed before approval.
+The Reviewer seat audited commit `<hash>` and found N issues that must be addressed before approval.
 
 ## Severity breakdown
 - 🔴 Critical (will break behavior or hide bugs): [list]
@@ -104,7 +106,7 @@ The Reviewer audited commit `<hash>` and found N issues that must be addressed b
 ## Issue 2 — [short title]
 ...
 
-## What Cursor must do
+## What the Builder seat (Cursor's AI) must do
 1. Fix issues in this order: [order]
 2. Re-run all gates
 3. Push to main
@@ -139,23 +141,23 @@ Ready for Phase N+1.
 
 ## How the loop works
 
-1. Founder pastes phase mega-prompt to Builder.
-2. Builder executes, pauses between tasks, asks questions when locked decisions are unclear.
-3. Builder finishes, runs gates, commits + pushes, writes `docs/reports/phase-N-report.md`.
-4. Founder pulls in VS Code, opens Claude Code, asks for an audit.
-5. Reviewer audits per checklist above.
-6. Reviewer outputs approval OR fix prompt.
-7. If fix prompt: Founder pastes it to Cursor. Builder fixes, pushes, updates report. Loop returns to step 4.
-8. If approved: Founder requests next phase mega-prompt from claude.ai (the original Reviewer-supervisor) or proceeds with the agreed-upon next phase.
+1. Founder pastes the phase mega-prompt to Cursor (Builder seat).
+2. The Builder seat executes, pauses between tasks, and asks questions when locked decisions are unclear.
+3. The Builder seat finishes, runs gates, commits + pushes, writes `docs/reports/phase-N-report.md`.
+4. Founder pulls in VS Code, opens Claude Code (Reviewer seat), asks for an audit.
+5. The Reviewer seat audits per checklist above.
+6. The Reviewer seat outputs approval OR fix prompt.
+7. If fix prompt: Founder pastes it to Cursor; the Builder seat fixes, pushes, updates the report. Loop returns to step 4.
+8. If approved: Founder requests the next phase mega-prompt from claude.ai or proceeds with the agreed-upon next phase.
 
 ## Conflict resolution
 
-Builder and Reviewer disagree? Founder decides. Default tiebreakers:
+The two seats disagree? Founder decides. Default tiebreakers:
 - ADRs win unless explicitly superseded.
 - "Better-justified" beats "more confident."
 - Real-backend evidence beats theoretical correctness.
 
-## Files you both must respect
+## Files both seats must respect
 
 - `docs/decisions/*.md` — ADRs are load-bearing. Don't supersede without writing a new numbered ADR explaining why.
 - `MASTER-REPORT.md` — the canonical project state. Update at end of every phase.

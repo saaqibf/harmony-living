@@ -65,7 +65,7 @@ Saaqib Fagbenro (saaqib.fagbenro@ucalgary.ca), Calgary, Alberta, Canada.
 | File storage (Phase 4) | AWS S3 | us-west-2, used for photos + intro media |
 | Server-side image blur (Phase 4) | sharp | Pre-blurred photo variant generated at upload |
 | Identity verification (Phase 6) | TBD — Persona or Stripe Identity | |
-| Testing | Jest, React Testing Library, Playwright | Wired up Phase 5+ |
+| Testing | Jest, React Testing Library, Playwright | Playwright used for Phase 3 onboarding E2E (`e2e/`); `npm run test:e2e` |
 | Deployment | Vercel primary, Amplify alternative | Local dev only currently |
 | Node version | v25.6.1 | Bleeding edge; LTS would be v22 |
 | Package manager | npm v11.9.0 | Default |
@@ -85,28 +85,28 @@ Saaqib Fagbenro (saaqib.fagbenro@ucalgary.ca), Calgary, Alberta, Canada.
 
 ## 3. Working agreement — two-agent workflow
 
-This project uses **three minds working together**: the founder, plus two independent AI agents.
+This project uses **one author** — Saaqib Fagbenro, the founder — who keeps **build** and **review** independent by working in two folders with two AI tools. Git attributes every commit to the founder; the table below clarifies **roles vs tools** so future readers are not misled about authorship.
 
-| Agent | Tool | Folder | Role |
-|---|---|---|---|
-| **Founder (Saaqib)** | claude.ai (any tool) | n/a | Product owner, decision-maker, courier between agents |
-| **Builder** | Cursor | `~/Projects/harmony-living-cursor` | Writes code, runs migrations, commits, pushes |
-| **Reviewer** | Claude Code in VS Code | `~/Projects/harmony-living-vscode` | Audits frozen commits, finds gaps, produces fix prompts |
+| Role | Person | Tool used | Folder | Responsibilities |
+|---|---|---|---|---|
+| **Founder** | Saaqib Fagbenro | claude.ai (or any tool, for high-level direction) | n/a | Product owner, decision-maker, courier between roles |
+| **Builder** | Saaqib Fagbenro | Cursor's AI in `harmony-living-cursor` | `~/Projects/harmony-living-cursor` | Writes code, runs migrations, commits, pushes (uses Cursor's AI as the implementation tool) |
+| **Reviewer** | Saaqib Fagbenro | Claude Code in `harmony-living-vscode` | `~/Projects/harmony-living-vscode` | Audits frozen commits, finds gaps, produces fix prompts (uses Claude Code as the audit tool) |
 
-GitHub repo: `https://github.com/saaqibf/harmony-living.git` (private). Both folders connected.
+GitHub repo: `https://github.com/saaqibf/harmony-living.git` (private). Both folders connect to this repo.
 
 ### The phase loop
 
-1. Founder pastes phase mega-prompt to Builder (Cursor).
-2. Builder executes step-by-step, pausing between major tasks. Commits + pushes + writes `docs/reports/phase-N-report.md`.
-3. Founder pulls in VS Code, pastes phase report to Reviewer.
-4. Reviewer audits, then either approves or produces a fix prompt.
-5. If fixes: Founder pastes fix prompt to Builder. Loop returns to step 2.
-6. If approved: Founder requests next phase mega-prompt from claude.ai.
+1. Founder pastes the phase mega-prompt to **Cursor** (Builder seat).
+2. The founder, in the Builder seat, executes step-by-step (pausing between major tasks), runs gates, commits, pushes, and writes `docs/reports/phase-N-report.md`.
+3. Founder pulls in VS Code, pastes the phase report to **Claude Code** (Reviewer seat).
+4. The founder, in the Reviewer seat, audits and either approves or produces a fix prompt.
+5. If fixes: Founder pastes the fix prompt to Cursor; loop returns to step 2.
+6. If approved: Founder requests the next phase mega-prompt from claude.ai (or proceeds as agreed).
 
-The Reviewer audits a frozen commit, not a moving target. They don't share conversation context. This pattern caught three real auth bugs in Phase 2 that single-agent synthetic tests missed.
+The Reviewer seat audits a **frozen commit**, not a moving target. The two tools do not share conversation context. This pattern caught three real auth bugs in Phase 2 that synthetic gates alone missed.
 
-Detailed rules for both agents are in `WORKFLOW.md` at the repo root.
+Detailed rules for both seats are in `WORKFLOW.md` at the repo root.
 
 ---
 
@@ -190,7 +190,7 @@ ADRs are load-bearing. Don't supersede without writing a new numbered ADR. They 
 - `add_onboarding_state` — pending, applied at start of Phase 3.
 - `add_swipe_match_household_and_privacy_controls` — pending, applied at start of Phase 3.
 
-The two pending migrations may be combined into one named `add_phase3_models` for cleanliness, at Cursor's discretion. Both are additive.
+The two pending migrations may be combined into one named `add_phase3_models` for cleanliness, at the founder's discretion. Both are additive.
 
 ---
 

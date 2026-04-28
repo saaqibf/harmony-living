@@ -95,6 +95,7 @@ export function HousingPrefsStep({ initial }: { initial: Partial<HousingPrefsFor
             control={form.control}
             render={({ field, fieldState }) => (
               <DatePicker
+                id="onboarding-move-in-date"
                 label="Target move-in date"
                 value={field.value}
                 onChange={field.onChange}
