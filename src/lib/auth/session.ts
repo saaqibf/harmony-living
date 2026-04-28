@@ -3,6 +3,7 @@ import { cookies } from 'next/headers';
 import { redirect } from 'next/navigation';
 import { auth } from './index';
 import type { AuthTokens, AuthUser } from './types';
+import { HL_ONBOARDED_COOKIE } from '@/lib/auth/cookie-names';
 
 const COOKIE_ID_TOKEN = 'hl_id_token';
 const COOKIE_ACCESS_TOKEN = 'hl_access_token';
@@ -74,6 +75,7 @@ export async function clearAuthCookies(): Promise<void> {
   jar.delete(COOKIE_ACCESS_TOKEN);
   jar.delete(COOKIE_REFRESH_TOKEN);
   jar.delete(COOKIE_USER_SUB);
+  jar.delete(HL_ONBOARDED_COOKIE);
 }
 
 /**

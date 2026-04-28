@@ -5,6 +5,8 @@ import crypto from 'crypto';
 import { auth } from '@/lib/auth';
 import { setAuthCookies } from '@/lib/auth/session';
 import { bootstrapUser } from '@/lib/auth/bootstrap-user';
+import { syncOnboardedCookieByCognitoSub } from '@/lib/auth/onboarding-cookie';
+import { prisma } from '@/lib/db/prisma';
 import { env } from '@/lib/env';
 
 const CALLBACK_URL = `${env.NEXT_PUBLIC_APP_URL}/api/auth/callback`;
@@ -64,6 +66,7 @@ export async function GET(request: NextRequest) {
     const authUser = await auth.verifyIdToken(tokens.idToken);
     await bootstrapUser(authUser);
     await setAuthCookies(tokens, authUser.cognitoSub);
+    await syncOnboardedCookieByCognitoSub(authUser.cognitoSub);
 
     // Clear the one-time state cookie.
     jar.delete(STATE_COOKIE);
@@ -72,6 +75,17 @@ export async function GET(request: NextRequest) {
     redirect('/login?error=oauth_failed');
   }
 
-  // redirect() must be called outside try/catch — throws NEXT_REDIRECT internally.
+  const userSub = jar.get('hl_user_sub')?.value;
+  if (!userSub) {
+    redirect('/onboarding');
+  }
+
+  const row = await prisma.user.findUnique({
+    where: { cognitoSub: userSub },
+    select: { onboardingState: { select: { completedAt: true } } },
+  });
+  if (!row?.onboardingState?.completedAt) {
+    redirect('/onboarding');
+  }
   redirect('/dashboard');
 }

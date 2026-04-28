@@ -134,6 +134,22 @@ enum NotificationType {
   SYSTEM
 }
 
+enum SwipeDirection {
+  CONNECT
+  PASS
+}
+
+enum PhotoVisibility {
+  ALWAYS
+  UNTIL_MATCH
+  PRIVATE
+}
+
+enum IntroMediaType {
+  VOICE
+  VIDEO
+}
+
 // ===== CORE USER =====
 model User {
   id             String      @id @default(cuid())
@@ -170,6 +186,17 @@ model User {
   compatibilityAsA    CompatibilityScore[]      @relation("CompatA")
   compatibilityAsB    CompatibilityScore[]      @relation("CompatB")
 
+  femaleOnlyMode             Boolean @default(false)
+  requireVerifiedConnections Boolean @default(false)
+  dailySwipeQuota            Int     @default(100)
+
+  onboardingState      OnboardingState?
+  swipesGiven          Swipe[]           @relation("SwipesGiven")
+  swipesReceived       Swipe[]           @relation("SwipesReceived")
+  matchesAsA           Match[]           @relation("MatchA")
+  matchesAsB           Match[]           @relation("MatchB")
+  householdMemberships HouseholdMember[]
+
   @@index([email])
   @@index([cognitoSub])
   @@index([status, lookingStatus])
@@ -177,28 +204,32 @@ model User {
 }
 
 model Profile {
-  id           String   @id @default(cuid())
-  userId       String   @unique
-  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-  firstName    String
+  id              String          @id @default(cuid())
+  userId          String          @unique
+  user            User            @relation(fields: [userId], references: [id], onDelete: Cascade)
+  firstName       String
   /// Private by default. MUST be filtered out in public profile reads — only return when
   /// interest is ACCEPTED between viewer and owner, or viewer is the owner themselves.
   /// See src/server/services/profile.ts (TODO: create) for enforcement.
-  lastName     String?
-  displayName  String?
-  dateOfBirth  DateTime
-  gender       Gender
-  occupation   String?
-  employer     String?
-  school       String?
-  bio          String?  @db.VarChar(500)
-  photoUrl     String?
-  photoGallery String[] @default([])
-  city         String
-  country      String   @default("CA")
-  languages    String[] @default([])
-  createdAt    DateTime @default(now())
-  updatedAt    DateTime @updatedAt
+  lastName        String?
+  displayName     String?
+  dateOfBirth     DateTime
+  gender          Gender
+  occupation      String?
+  employer        String?
+  school          String?
+  bio             String?         @db.VarChar(500)
+  photoUrl        String?
+  photoGallery    String[]        @default([])
+  city            String
+  country         String          @default("CA")
+  languages       String[]        @default([])
+  photoVisibility PhotoVisibility @default(UNTIL_MATCH)
+  introMediaUrl   String?
+  introMediaType  IntroMediaType?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 
   @@index([city])
 }
@@ -299,6 +330,7 @@ model Listing {
   interests    ListingInterest[]
   savedBy      SavedListing[]
   conversation Conversation?
+  households   Household[]
 
   @@index([city, status])
   @@index([city, availableFrom])
@@ -379,6 +411,7 @@ model Conversation {
 
   participants ConversationParticipant[]
   messages     Message[]
+  match        Match?
 
   @@index([lastMessageAt])
 }
@@ -495,4 +528,80 @@ model Notification {
 
   @@index([userId, readAt])
   @@index([userId, createdAt])
+}
+
+// ===== ONBOARDING =====
+model OnboardingState {
+  id             String    @id @default(cuid())
+  userId         String    @unique
+  user           User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  intent         String?
+  currentStep    Int       @default(1)
+  completedSteps Int[]     @default([])
+  completedAt    DateTime?
+  version        Int       @default(1)
+  draftData      Json      @default("{}")
+  createdAt      DateTime  @default(now())
+  updatedAt      DateTime  @updatedAt
+
+  @@index([userId])
+}
+
+// ===== DISCOVERY / MATCHING =====
+model Swipe {
+  id           String         @id @default(cuid())
+  swiperUserId String
+  swiper       User           @relation("SwipesGiven", fields: [swiperUserId], references: [id], onDelete: Cascade)
+  targetUserId String
+  target       User           @relation("SwipesReceived", fields: [targetUserId], references: [id], onDelete: Cascade)
+  direction    SwipeDirection
+  context      String?
+  createdAt    DateTime       @default(now())
+
+  @@unique([swiperUserId, targetUserId])
+  @@index([targetUserId, direction])
+  @@index([swiperUserId, createdAt])
+}
+
+model Match {
+  id             String        @id @default(cuid())
+  userAId        String
+  userA          User          @relation("MatchA", fields: [userAId], references: [id], onDelete: Cascade)
+  userBId        String
+  userB          User          @relation("MatchB", fields: [userBId], references: [id], onDelete: Cascade)
+  matchedAt      DateTime      @default(now())
+  conversationId String?       @unique
+  conversation   Conversation? @relation(fields: [conversationId], references: [id])
+  active         Boolean       @default(true)
+
+  @@unique([userAId, userBId])
+  @@index([userAId, matchedAt])
+  @@index([userBId, matchedAt])
+}
+
+// ===== HOUSEHOLDS (schema-only; group swipe ships Phase 4+) =====
+model Household {
+  id        String   @id @default(cuid())
+  name      String?
+  listingId String?
+  listing   Listing? @relation(fields: [listingId], references: [id])
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  members HouseholdMember[]
+
+  @@index([listingId])
+}
+
+model HouseholdMember {
+  id          String    @id @default(cuid())
+  householdId String
+  household   Household @relation(fields: [householdId], references: [id], onDelete: Cascade)
+  userId      String
+  user        User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  role        String
+  joinedAt    DateTime  @default(now())
+
+  @@unique([householdId, userId])
+  @@index([userId])
 }

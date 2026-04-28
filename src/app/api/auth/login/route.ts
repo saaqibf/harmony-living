@@ -3,6 +3,7 @@ import { AuthError, AuthErrorCode } from '@/lib/auth/errors';
 import { signInSchema } from '@/lib/auth/schemas';
 import { setAuthCookies } from '@/lib/auth/session';
 import { bootstrapUser } from '@/lib/auth/bootstrap-user';
+import { syncOnboardedCookieByCognitoSub } from '@/lib/auth/onboarding-cookie';
 
 export async function POST(request: Request) {
   let body: unknown;
@@ -34,6 +35,7 @@ export async function POST(request: Request) {
     // subsequent logins. This is the only place User rows are created.
     await bootstrapUser(authUser);
     await setAuthCookies(tokens, authUser.cognitoSub);
+    await syncOnboardedCookieByCognitoSub(authUser.cognitoSub);
 
     return Response.json({ ok: true, user: { email: authUser.email } });
   } catch (err) {

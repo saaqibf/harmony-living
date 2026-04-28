@@ -2,6 +2,7 @@ import { cookies } from 'next/headers';
 import { redirect } from 'next/navigation';
 import { auth } from '@/lib/auth';
 import { setAuthCookies, clearAuthCookies } from '@/lib/auth/session';
+import { syncOnboardedCookieByCognitoSub } from '@/lib/auth/onboarding-cookie';
 
 const REFRESH_COOKIE = 'hl_refresh_token';
 const USER_SUB_COOKIE = 'hl_user_sub';
@@ -52,6 +53,7 @@ export async function GET(request: Request) {
     const newTokens = await auth.refreshTokens(refreshToken, userSub);
     const authUser = await auth.verifyIdToken(newTokens.idToken);
     await setAuthCookies(newTokens, authUser.cognitoSub);
+    await syncOnboardedCookieByCognitoSub(authUser.cognitoSub);
   } catch (err) {
     console.error('[auth/refresh] Refresh failed:', err);
     await clearAuthCookies();
