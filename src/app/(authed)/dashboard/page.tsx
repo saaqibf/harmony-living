@@ -87,7 +87,7 @@ export default async function DashboardPage() {
   ] as const;
 
   return (
-    <div className="min-h-screen bg-[--color-bg]">
+    <div className="bg-[--color-bg]">
       {/* Header */}
       <div className="bg-gradient-to-br from-primary-600 to-primary-800 px-4 pt-10 pb-20">
         <div className="mx-auto max-w-lg flex items-center justify-between">
