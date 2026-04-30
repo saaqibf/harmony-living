@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useTransition, useEffect, useCallback } from 'react';
-import { Button } from '@/components/ui/button';
+import Link from 'next/link';
 import { ProfileCard } from './ProfileCard';
 import { swipeAction, type SwipeActionResult } from '@/features/discovery/lib/actions';
 import type { DiscoveryProfile } from '@/server/services/discovery';
@@ -55,88 +55,140 @@ export function SwipeDeck({ initialProfiles, swipesRemaining }: Props) {
     return () => window.removeEventListener('keydown', handler);
   }, [swipe]);
 
+  // Match celebration screen
   if (matchBanner) {
     return (
-      <div className="flex flex-col items-center justify-center gap-6 py-16 text-center">
-        <div className="text-5xl">🎉</div>
-        <h2 className="text-2xl font-bold text-[--color-fg]">It&apos;s a match!</h2>
-        <p className="text-[--color-muted-fg]">
-          You and {matchBanner.firstName} both connected.
+      <div className="min-h-screen bg-gradient-to-br from-teal-600 via-teal-700 to-teal-900 flex flex-col items-center justify-center px-6 text-center">
+        <div className="text-8xl mb-6">🎉</div>
+        <h2 className="text-4xl font-bold text-white mb-3">It&apos;s a match!</h2>
+        <p className="text-teal-100 text-lg mb-10 max-w-xs">
+          You and <strong>{matchBanner.firstName}</strong> both connected. Start a conversation!
         </p>
-        <div className="flex gap-3">
+        <div className="flex flex-col gap-3 w-full max-w-xs">
           {matchBanner.conversationId && (
-            <a
+            <Link
               href={`/messages/${matchBanner.conversationId}`}
-              className="inline-flex items-center justify-center gap-2 rounded-[var(--radius-button)] font-medium bg-primary-600 text-white hover:bg-primary-700 min-h-11 px-5 text-base transition-colors"
+              className="bg-white text-teal-700 font-bold py-4 rounded-2xl text-center hover:bg-teal-50 transition-colors shadow-lg text-base"
             >
-              Say hello
-            </a>
+              Say hello 👋
+            </Link>
           )}
-          <Button variant="secondary" onClick={() => setMatchBanner(null)}>
+          <button
+            onClick={() => setMatchBanner(null)}
+            className="bg-white/20 text-white font-semibold py-4 rounded-2xl hover:bg-white/30 transition-colors border border-white/30 text-base"
+          >
             Keep swiping
-          </Button>
+          </button>
         </div>
       </div>
     );
   }
 
+  // Quota exhausted
   if (remaining === 0) {
     return (
-      <div className="flex flex-col items-center justify-center gap-4 py-24 text-center">
-        <p className="text-lg font-semibold text-[--color-fg]">You&apos;ve used all your swipes for today.</p>
-        <p className="text-sm text-[--color-muted-fg]">Come back tomorrow — new profiles will be waiting.</p>
+      <div className="min-h-screen flex flex-col items-center justify-center gap-4 px-6 text-center bg-gray-50">
+        <div className="w-24 h-24 bg-amber-50 rounded-full flex items-center justify-center mb-2">
+          <span className="text-5xl">⏰</span>
+        </div>
+        <h2 className="text-xl font-bold text-gray-900">All done for today</h2>
+        <p className="text-sm text-gray-500 max-w-xs">
+          You&apos;ve used all your swipes. Come back tomorrow — new profiles will be waiting.
+        </p>
+        <Link
+          href="/matches"
+          className="mt-4 bg-teal-600 text-white font-semibold px-6 py-3 rounded-xl hover:bg-teal-700 transition-colors"
+        >
+          View my matches →
+        </Link>
       </div>
     );
   }
 
+  // Empty queue
   if (!current) {
     return (
-      <div className="flex flex-col items-center justify-center gap-4 py-24 text-center">
-        <p className="text-lg font-semibold text-[--color-fg]">No more profiles right now.</p>
-        <p className="text-sm text-[--color-muted-fg]">Check back later as more people join.</p>
+      <div className="min-h-screen flex flex-col items-center justify-center gap-4 px-6 text-center bg-gray-50">
+        <div className="w-24 h-24 bg-teal-50 rounded-full flex items-center justify-center mb-2">
+          <span className="text-5xl">🏠</span>
+        </div>
+        <h2 className="text-xl font-bold text-gray-900">No more profiles right now</h2>
+        <p className="text-sm text-gray-500 max-w-xs">
+          Check back later as more people join.
+        </p>
+        <Link
+          href="/matches"
+          className="mt-4 bg-teal-600 text-white font-semibold px-6 py-3 rounded-xl hover:bg-teal-700 transition-colors"
+        >
+          View my matches →
+        </Link>
       </div>
     );
   }
 
   return (
-    <div className="flex flex-col items-center gap-6">
-      <p className="text-xs text-[--color-muted-fg]">{remaining} swipes left today</p>
+    <div className="min-h-screen bg-gray-50 flex flex-col items-center py-6 px-4">
+      {/* Top bar */}
+      <div className="w-full max-w-sm flex items-center justify-between mb-5">
+        <h1 className="text-2xl font-bold text-gray-900">Discover</h1>
+        <div className="flex items-center gap-1.5 bg-white border border-gray-200 rounded-full px-4 py-1.5 shadow-sm">
+          <span className="w-2 h-2 rounded-full bg-teal-500" />
+          <span className="text-xs font-semibold text-gray-600">{remaining} left today</span>
+        </div>
+      </div>
 
-      <div className="relative w-full max-w-sm">
-        {/* Shadow cards behind */}
+      {/* Stacked cards */}
+      <div className="relative w-full max-w-sm flex-1 flex items-start pt-2">
+        {/* Third card (deepest) */}
         {profiles[2] && (
-          <div className="absolute inset-0 translate-y-4 scale-[0.92] rounded-2xl border border-[--color-border] bg-[--color-surface] opacity-40" />
+          <div
+            className="absolute inset-x-4 rounded-3xl bg-gray-200 shadow"
+            style={{ top: 10, bottom: 0, transform: 'scale(0.90)', transformOrigin: 'bottom center' }}
+          />
         )}
+        {/* Second card */}
         {profiles[1] && (
-          <div className="absolute inset-0 translate-y-2 scale-[0.96] rounded-2xl border border-[--color-border] bg-[--color-surface] opacity-70" />
+          <div
+            className="absolute inset-x-2 rounded-3xl bg-gray-100 shadow-md"
+            style={{ top: 5, bottom: 0, transform: 'scale(0.95)', transformOrigin: 'bottom center' }}
+          />
         )}
-        <div className="relative">
+        {/* Top card */}
+        <div className="relative w-full">
           <ProfileCard profile={current} hasMatch={false} />
         </div>
       </div>
 
-      {error && <p className="text-sm text-red-500">{error}</p>}
+      {error && <p className="text-sm text-red-500 mt-3">{error}</p>}
 
-      <div className="flex gap-6 mt-2">
+      {/* Swipe buttons */}
+      <div className="flex items-center gap-8 mt-6 mb-2">
+        {/* PASS */}
         <button
           onClick={() => swipe('PASS')}
           disabled={isPending}
           aria-label="Pass"
-          className="w-16 h-16 rounded-full border-2 border-[--color-border] bg-[--color-surface] text-2xl flex items-center justify-center hover:bg-red-50 hover:border-red-300 transition-colors disabled:opacity-50"
+          className="w-[68px] h-[68px] rounded-full bg-white border-2 border-red-100 shadow-lg flex items-center justify-center hover:bg-red-50 hover:border-red-300 hover:shadow-xl active:scale-90 disabled:opacity-40 transition-all"
         >
-          ✕
+          <svg className="w-7 h-7 text-red-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
+            <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
+          </svg>
         </button>
+
+        {/* CONNECT */}
         <button
           onClick={() => swipe('CONNECT')}
           disabled={isPending}
           aria-label="Connect"
-          className="w-16 h-16 rounded-full border-2 border-[--color-border] bg-[--color-surface] text-2xl flex items-center justify-center hover:bg-green-50 hover:border-green-300 transition-colors disabled:opacity-50"
+          className="w-[68px] h-[68px] rounded-full bg-teal-600 border-2 border-teal-600 shadow-lg shadow-teal-500/30 flex items-center justify-center hover:bg-teal-700 hover:shadow-xl active:scale-90 disabled:opacity-40 transition-all"
         >
-          ♥
+          <svg className="w-7 h-7 text-white" fill="currentColor" viewBox="0 0 24 24">
+            <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" />
+          </svg>
         </button>
       </div>
 
-      <p className="text-xs text-[--color-muted-fg]">← Pass &nbsp; Connect →</p>
+      <p className="text-xs text-gray-400 pb-2">← Pass · Connect →</p>
     </div>
   );
 }
