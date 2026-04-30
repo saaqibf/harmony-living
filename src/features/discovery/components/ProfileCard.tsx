@@ -16,7 +16,11 @@ export function ProfileCard({ profile, hasMatch }: Props) {
   const showPhoto =
     profile.photoVisibility === 'ALWAYS' ||
     (profile.photoVisibility === 'UNTIL_MATCH' && hasMatch);
-  const photoSrc = showPhoto ? profile.photoUrl : profile.photoUrlBlurred;
+  const photoSrc = showPhoto
+    ? profile.photoUrl
+    : profile.photoVisibility === 'PRIVATE'
+      ? null
+      : profile.photoUrlBlurred;
 
   const faithLabel =
     profile.faith && profile.faithPractice
