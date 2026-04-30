@@ -33,8 +33,8 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: 'Invalid form data' }, { status: 400 });
   }
 
-  const listing = await prisma.listing.findUnique({
-    where: { id: listingId },
+  const listing = await prisma.listing.findFirst({
+    where: { id: listingId, deletedAt: null },
     select: { ownerId: true },
   });
   if (!listing || listing.ownerId !== user.id) {
