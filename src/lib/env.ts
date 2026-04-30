@@ -42,14 +42,14 @@ const envSchema = z.object({
   COGNITO_REGION: z.string().default('us-west-2'),
   COGNITO_DOMAIN: z.string().min(1, 'COGNITO_DOMAIN is required'),
 
-  // --- AWS S3 / IAM (required for file uploads — set in Phase 4) ---
-  AWS_S3_BUCKET: z.string().optional(),
+  // --- AWS S3 / IAM ---
+  AWS_S3_BUCKET: z.string().min(1, 'AWS_S3_BUCKET is required'),
   AWS_S3_REGION: z.string().default('us-west-2'),
-  AWS_ACCESS_KEY_ID: z.string().optional(),
-  AWS_SECRET_ACCESS_KEY: z.string().optional(),
+  AWS_ACCESS_KEY_ID: z.string().min(1, 'AWS_ACCESS_KEY_ID is required'),
+  AWS_SECRET_ACCESS_KEY: z.string().min(1, 'AWS_SECRET_ACCESS_KEY is required'),
 
-  // --- Mapbox (set when map features are built) ---
-  NEXT_PUBLIC_MAPBOX_TOKEN: z.string().optional(),
+  // --- Mapbox ---
+  NEXT_PUBLIC_MAPBOX_TOKEN: z.string().min(1, 'NEXT_PUBLIC_MAPBOX_TOKEN is required'),
 
   // --- Pusher / Realtime (set when messaging is built) ---
   PUSHER_APP_ID: z.string().optional(),
