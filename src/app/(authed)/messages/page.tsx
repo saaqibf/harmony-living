@@ -5,7 +5,7 @@ import Link from 'next/link';
 
 function relativeTime(d: Date) {
   const ms = Date.now() - new Date(d).getTime();
-  if (ms < 60_000) return 'now';
+  if (ms < 60_000) return 'now'; // also catches clock-skew negatives
   if (ms < 3_600_000) return `${Math.floor(ms / 60_000)}m`;
   if (ms < 86_400_000) return `${Math.floor(ms / 3_600_000)}h`;
   if (ms < 604_800_000) return `${Math.floor(ms / 86_400_000)}d`;
