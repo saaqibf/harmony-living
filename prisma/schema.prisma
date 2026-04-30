@@ -275,6 +275,9 @@ model Preferences {
   personality String?
   socialLevel Int     @default(3)
 
+  proximityPriorities String[] @default([])
+  nearUniversity      String?
+
   dealbreakers Json @default("[]")
   extra        Json @default("{}")
 

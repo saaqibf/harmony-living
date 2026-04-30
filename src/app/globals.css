@@ -1,8 +1,8 @@
 @import "tailwindcss";
 
 @theme {
-  /* Primary — Sage/Teal */
-  --color-primary-50: #f0fdfa;
+  /* Primary — Teal */
+  --color-primary-50:  #f0fdfa;
   --color-primary-100: #ccfbf1;
   --color-primary-200: #99f6e4;
   --color-primary-300: #5eead4;
@@ -18,25 +18,35 @@
   --color-accent-500: #f59e0b;
   --color-accent-600: #d97706;
 
-  /* Primary semantic aliases (used in component classes) */
-  --color-primary: var(--color-primary-500);
+  /* Semantic aliases */
+  --color-primary:      var(--color-primary-500);
   --color-primary-dark: var(--color-primary-600);
 
-  /* Surfaces */
-  --color-background: #fafaf9;
-  --color-surface: #ffffff;
+  /* Surfaces & backgrounds */
+  --color-bg:         #f8f7f5;
+  --color-background: #f8f7f5;
+  --color-surface:    #ffffff;
+  --color-muted:      #f2f1ef;
 
-  /* Fonts — Inter is injected on <html> by next/font as --font-inter */
+  /* Text */
+  --color-fg:        #1c1917;
+  --color-muted-fg:  #78716c;
+
+  /* Borders */
+  --color-border:    #e7e5e4;
+
+  /* Fonts */
   --font-sans: var(--font-inter), system-ui, -apple-system, sans-serif;
 
   /* Radii */
-  --radius-card: 1rem;
+  --radius-card:   1rem;
   --radius-button: 0.75rem;
 }
 
 html,
 body {
-  background-color: var(--color-background);
+  background-color: var(--color-bg);
+  color: var(--color-fg);
   font-family: var(--font-sans);
   -webkit-font-smoothing: antialiased;
 }

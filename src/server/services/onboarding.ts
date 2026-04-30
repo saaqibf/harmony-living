@@ -123,6 +123,8 @@ function preferencesToDraftShape(prefs: Preferences | null): OnboardingDraft {
     personality: prefs.personality ?? undefined,
     socialLevel: prefs.socialLevel,
     dealbreakers: dealArr.length > 0 ? dealArr : undefined,
+    proximityPriorities: prefs.proximityPriorities.length > 0 ? prefs.proximityPriorities : undefined,
+    nearUniversity: prefs.nearUniversity ?? undefined,
   };
 }
 
@@ -184,6 +186,8 @@ function buildPrefsUpdateFromDraft(draft: OnboardingDraft) {
     personality: draft.personality ?? null,
     socialLevel: draft.socialLevel ?? 3,
     dealbreakers: dealJson,
+    proximityPriorities: draft.proximityPriorities ?? [],
+    nearUniversity: draft.nearUniversity ?? null,
   };
 }
 
@@ -406,9 +410,9 @@ async function finishOnboarding(
       data: { privacyMode },
     });
 
-    const completed = new Set([...state.completedSteps, 6]);
+    const completed = new Set([...state.completedSteps, 4]);
     const sorted = [...completed].sort((a, b) => a - b);
-    const needed = [1, 2, 3, 4, 5, 6];
+    const needed = [1, 2, 3, 4];
     if (!needed.every((s) => sorted.includes(s))) {
       throw new OnboardingError('INCOMPLETE_STEPS');
     }
@@ -417,7 +421,7 @@ async function finishOnboarding(
       where: { userId },
       data: {
         completedSteps: sorted,
-        currentStep: 6,
+        currentStep: 4,
         completedAt: new Date(),
       },
     });
@@ -426,14 +430,14 @@ async function finishOnboarding(
 
 function lowestIncompleteStep(completed: number[]): number {
   const set = new Set(completed);
-  for (let s = 1; s <= 6; s += 1) {
+  for (let s = 1; s <= 4; s += 1) {
     if (!set.has(s)) return s;
   }
-  return 7;
+  return 5;
 }
 
 async function markStepComplete(userId: string, step: number): Promise<void> {
-  if (step < 1 || step > 6) {
+  if (step < 1 || step > 4) {
     throw new OnboardingError('INVALID_STEP');
   }
 
@@ -446,7 +450,7 @@ async function markStepComplete(userId: string, step: number): Promise<void> {
     where: { userId },
     data: {
       completedSteps: sorted,
-      currentStep: next === 7 ? 6 : next,
+      currentStep: next === 5 ? 4 : next,
     },
   });
 }
@@ -462,7 +466,7 @@ async function completeOnboarding(userId: string): Promise<void> {
   if (!state) {
     throw new OnboardingError('NOT_FOUND');
   }
-  const needed = [1, 2, 3, 4, 5, 6];
+  const needed = [1, 2, 3, 4];
   if (!needed.every((s) => state.completedSteps.includes(s))) {
     throw new OnboardingError('INCOMPLETE_STEPS');
   }

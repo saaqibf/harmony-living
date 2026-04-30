@@ -35,6 +35,8 @@ export const housingPrefsSchema = z
     leaseMaxMonths: z.number().int().min(1).default(12),
     preferredCities: z.array(z.string().min(1)).min(1),
     preferredNeighborhoods: z.array(z.string()).optional().default([]),
+    proximityPriorities: z.array(z.string()).optional().default([]),
+    nearUniversity: z.string().optional(),
   })
   .refine((d) => d.budgetMin <= d.budgetMax, {
     message: 'Minimum budget must be less than or equal to maximum',

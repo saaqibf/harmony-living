@@ -36,6 +36,9 @@ export const onboardingDraftSchema = z.object({
   personality: z.string().optional(),
   socialLevel: z.number().int().min(1).max(5).optional(),
   dealbreakers: z.array(z.unknown()).optional(),
+
+  proximityPriorities: z.array(z.string()).optional(),
+  nearUniversity: z.string().optional(),
 });
 
 export type OnboardingDraft = z.infer<typeof onboardingDraftSchema>;

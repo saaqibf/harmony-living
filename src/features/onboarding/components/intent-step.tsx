@@ -1,74 +1,60 @@
 'use client';
 
-import { useTransition } from 'react';
-import { Controller, useForm } from 'react-hook-form';
-import { zodResolver } from '@hookform/resolvers/zod';
-import { intentSchema, type IntentForm } from '@/lib/onboarding/step-schemas';
+import { useState, useTransition } from 'react';
 import { saveIntentAction } from '@/features/onboarding/lib/actions';
-import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { RadioGroup } from '@/components/ui/radio-group';
-import { Label } from '@/components/ui/label';
 
 const OPTIONS = [
-  { value: 'seeker', label: "I'm looking for a room / roommate" },
-  { value: 'lister', label: "I'm listing a spare room" },
-  { value: 'both', label: 'Both' },
-];
+  { value: 'seeker', emoji: '🔍', label: "I'm looking for a room or roommate" },
+  { value: 'lister', emoji: '🏠', label: "I have a room to rent out" },
+  { value: 'both', emoji: '🔄', label: 'Both — I want to do both' },
+] as const;
 
 export function IntentStep({ initialIntent }: { initialIntent: string | null }) {
+  const [selected, setSelected] = useState<string>(initialIntent ?? '');
   const [pending, start] = useTransition();
-  const form = useForm<IntentForm>({
-    resolver: zodResolver(intentSchema),
-    defaultValues: {
-      intent:
-        initialIntent === 'seeker' || initialIntent === 'lister' || initialIntent === 'both'
-          ? initialIntent
-          : undefined,
-    },
-  });
+
+  const handleSubmit = () => {
+    if (!selected) return;
+    start(async () => {
+      await saveIntentAction({ intent: selected });
+    });
+  };
 
   return (
-    <Card>
-      <CardHeader>
-        <CardTitle>What brings you here?</CardTitle>
-        <p className="text-sm text-slate-500">
-          We use this to tailor your experience. You can change it later.
-        </p>
-      </CardHeader>
-      <CardContent>
-        <form
-          className="space-y-6"
-          onSubmit={form.handleSubmit((data) => {
-            start(async () => {
-              await saveIntentAction(data);
-            });
-          })}
-        >
-          <div className="space-y-2">
-            <Label>Your goal</Label>
-            <Controller
-              name="intent"
-              control={form.control}
-              render={({ field }) => (
-                <RadioGroup
-                  name="intent"
-                  options={OPTIONS}
-                  value={field.value}
-                  onChange={field.onChange}
-                  aria-invalid={!!form.formState.errors.intent}
-                />
-              )}
-            />
-            {form.formState.errors.intent ? (
-              <p className="text-sm text-red-600">{form.formState.errors.intent.message}</p>
-            ) : null}
-          </div>
-          <Button type="submit" className="w-full" disabled={pending}>
-            {pending ? 'Saving…' : 'Continue'}
-          </Button>
-        </form>
-      </CardContent>
-    </Card>
+    <div className="space-y-6">
+      <div className="text-center space-y-2">
+        <h1 className="text-2xl font-bold text-gray-900">What brings you here?</h1>
+        <p className="text-gray-500 text-sm">We'll tailor your experience from the start.</p>
+      </div>
+
+      <div className="space-y-3">
+        {OPTIONS.map((opt) => (
+          <button
+            key={opt.value}
+            type="button"
+            onClick={() => setSelected(opt.value)}
+            className={`w-full flex items-center gap-4 p-4 rounded-2xl border-2 text-left transition-all ${
+              selected === opt.value
+                ? 'border-primary-500 bg-primary-50'
+                : 'border-gray-200 bg-white hover:border-gray-300'
+            }`}
+          >
+            <span className="text-2xl">{opt.emoji}</span>
+            <span className={`font-medium text-sm ${selected === opt.value ? 'text-primary-700' : 'text-gray-700'}`}>
+              {opt.label}
+            </span>
+          </button>
+        ))}
+      </div>
+
+      <button
+        type="button"
+        onClick={handleSubmit}
+        disabled={!selected || pending}
+        className="w-full py-3 rounded-2xl bg-primary-600 text-white font-semibold text-sm disabled:opacity-50 transition-opacity"
+      >
+        {pending ? 'Saving…' : 'Continue →'}
+      </button>
+    </div>
   );
 }

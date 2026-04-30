@@ -18,7 +18,7 @@ export default async function OnboardingLayout({
   }
 
   return (
-    <div className="min-h-screen bg-slate-50 px-4 py-10">
+    <div className="min-h-screen bg-[--color-bg] px-4 py-10">
       <div className="mx-auto w-full max-w-lg">
         <p className="mb-6 text-center text-lg font-semibold tracking-tight text-slate-900">
           harmony<span className="text-primary-600">.</span>living
