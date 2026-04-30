@@ -44,20 +44,35 @@ export default async function ConversationPage({
   }));
 
   return (
-    <div className="flex flex-col h-screen bg-[--color-bg]">
+    <div className="flex flex-col h-screen bg-gray-50">
       {/* Header */}
-      <div className="flex items-center gap-4 px-4 py-3 border-b border-[--color-border] bg-[--color-surface]">
-        <Link href="/messages" className="text-[--color-muted-fg] hover:text-[--color-fg] text-sm">
-          ←
+      <div className="flex items-center gap-3 px-4 py-3 bg-white border-b border-gray-100 shadow-sm shrink-0">
+        <Link
+          href="/messages"
+          className="w-9 h-9 rounded-full flex items-center justify-center hover:bg-gray-100 active:bg-gray-200 transition-colors"
+          aria-label="Back to messages"
+        >
+          <svg className="w-5 h-5 text-gray-700" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+            <path strokeLinecap="round" strokeLinejoin="round" d="M15 19l-7-7 7-7" />
+          </svg>
         </Link>
-        <div className="w-9 h-9 rounded-full overflow-hidden bg-[--color-muted]">
+
+        <div className="w-10 h-10 rounded-full overflow-hidden bg-gray-100 shrink-0 ring-2 ring-teal-100">
           {otherPhotoUrl ? (
             <img src={otherPhotoUrl} alt={otherFirstName} className="w-full h-full object-cover" />
           ) : (
-            <div className="w-full h-full flex items-center justify-center text-sm">👤</div>
+            <div className="w-full h-full flex items-center justify-center text-base select-none">👤</div>
           )}
         </div>
-        <p className="font-semibold text-[--color-fg] flex-1">{otherFirstName}</p>
+
+        <div className="flex-1 min-w-0">
+          <p className="font-semibold text-gray-900 text-[15px] truncate">{otherFirstName}</p>
+          <div className="flex items-center gap-1.5">
+            <span className="w-2 h-2 rounded-full bg-teal-500" />
+            <span className="text-xs text-teal-600 font-medium">Active now</span>
+          </div>
+        </div>
+
         {otherUserId && (
           <ReportBlockMenu targetUserId={otherUserId} targetName={otherFirstName} />
         )}
