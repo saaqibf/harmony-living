@@ -1,20 +1,20 @@
 # Harmony Living — Working Agreement
 
 > Both AI tools used in this repo MUST read this file before doing anything else.
-> Last updated: 2026-04-28. Update at end of every phase.
+> Last updated: 2026-04-29. Update at end of every phase.
 
 ## You are not alone
 
 This project has **ONE author** — Saaqib Fagbenro, the founder. He works through **TWO different AI tools** in two different folders to keep build and review independent:
 
-- **The founder, when building**, uses Cursor's AI in the `harmony-living-cursor` folder. We call this **the Builder seat**.
-- **The founder, when reviewing**, uses Claude Code in the `harmony-living-vscode` folder. We call this **the Reviewer seat**.
+- **The founder, when building**, uses Claude Code in the `harmony-living-vscode` folder. We call this **the Builder seat**.
+- **The founder, when reviewing**, uses Cursor's AI in the `harmony-living-cursor` folder. We call this **the Reviewer seat**.
 
 You are **ONE** of these two AI tools. Confirm which by checking the conversation context or asking the founder. **Do not act in the wrong role.** The roles are not interchangeable — the value of separation comes from each role doing its job without contamination from the other.
 
 When git commits, reports, or any document refer to "the Builder" or "the Reviewer," **the author is the founder.** The AI tool is the implementation device, not the author.
 
-## If you are Cursor's AI (Builder seat)
+## If you are Claude Code (Builder seat — `harmony-living-vscode`)
 
 Your job is to help the founder write code that ships. You execute mega-prompts the founder hands you, pause between major tasks, and produce structured phase reports.
 
@@ -31,7 +31,7 @@ Your job is to help the founder write code that ships. You execute mega-prompts 
 - **Commit with conventional messages:** `feat:`, `fix:`, `chore:`, `docs:`, `test:`, `refactor:`.
 - **Push to `main` after each phase or fix round.**
 - **Produce a phase report at end of every phase.** See "Phase report format" below.
-- **NEVER edit files in the `harmony-living-vscode` folder** — that workspace is for the Reviewer seat (Claude Code) only.
+- **NEVER edit files in the `harmony-living-cursor` folder** — that workspace is for the Reviewer seat (Cursor's AI) only.
 
 ### Phase report format
 At end of every phase, save the report as `docs/reports/phase-N-report.md` and commit it. The report MUST include:
@@ -51,7 +51,7 @@ At end of every phase, save the report as `docs/reports/phase-N-report.md` and c
 
 Mask: real Cognito IDs (first 6 chars + `…`), real tokens, real test emails when not needed.
 
-## If you are Claude Code (Reviewer seat)
+## If you are Cursor's AI (Reviewer seat — `harmony-living-cursor`)
 
 Your job is to audit, NOT to write code. You read commits and phase reports from the Builder seat, find gaps, and produce either an approval or a fix prompt.
 
@@ -71,7 +71,7 @@ git log --oneline -10
   - Spin up the dev server and run e2e flows
 - **Output one of two artifacts per audit:**
   - **Approval block** — a clear "Phase N approved" with a brief summary of what you verified.
-  - **Fix prompt** — a structured prompt the founder can paste to Cursor (Builder seat).
+  - **Fix prompt** — a structured prompt the founder can paste to Claude Code (Builder seat).
 
 ### Audit checklist
 
@@ -88,7 +88,7 @@ For every phase report:
 
 ### Fix-prompt format
 
-When you find issues, produce a fix prompt the founder can paste verbatim to Cursor:
+When you find issues, produce a fix prompt the founder can paste verbatim to Claude Code:
 
 ```markdown
 # Phase N — Reviewer Fix Pass
@@ -106,7 +106,7 @@ The Reviewer seat audited commit `<hash>` and found N issues that must be addres
 ## Issue 2 — [short title]
 ...
 
-## What the Builder seat (Cursor's AI) must do
+## What the Builder seat (Claude Code) must do
 1. Fix issues in this order: [order]
 2. Re-run all gates
 3. Push to main
@@ -141,14 +141,16 @@ Ready for Phase N+1.
 
 ## How the loop works
 
-1. Founder pastes the phase mega-prompt to Cursor (Builder seat).
-2. The Builder seat executes, pauses between tasks, and asks questions when locked decisions are unclear.
-3. The Builder seat finishes, runs gates, commits + pushes, writes `docs/reports/phase-N-report.md`.
-4. Founder pulls in VS Code, opens Claude Code (Reviewer seat), asks for an audit.
-5. The Reviewer seat audits per checklist above.
-6. The Reviewer seat outputs approval OR fix prompt.
-7. If fix prompt: Founder pastes it to Cursor; the Builder seat fixes, pushes, updates the report. Loop returns to step 4.
-8. If approved: Founder requests the next phase mega-prompt from claude.ai or proceeds with the agreed-upon next phase.
+**The founder never copy-pastes phase mega-prompts.** Claude Code self-generates and self-executes them.
+
+1. **Claude Code (Builder seat) proposes the next phase plan** — drafts what it will build, presents it to the founder, and asks for approval or changes.
+2. **Founder approves** (or redirects). Claude Code proceeds once approved.
+3. **Claude Code executes** — builds step-by-step, pauses between major tasks, asks if a locked decision is in the way, runs all gates, commits + pushes, writes `docs/reports/phase-N-report.md`.
+4. **Claude Code notifies the founder** that the phase is done and ready for review.
+5. **Founder pulls in Cursor** (`harmony-living-cursor`) and asks the Reviewer seat to audit.
+6. **Reviewer seat outputs approval OR fix prompt.**
+7. **If fix prompt:** Founder pastes it to Claude Code; Claude Code fixes, pushes, updates the report. Loop returns to step 5.
+8. **If approved:** Claude Code drafts the next phase plan. Loop returns to step 1.
 
 ## Conflict resolution
 

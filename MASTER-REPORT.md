@@ -2,9 +2,9 @@
 
 A complete, self-contained handoff document. The canonical source of truth for the project's architecture, history, and current state. Updated at the end of every phase.
 
-**Document version:** 1.1
-**As of:** April 26, 2026
-**Project state:** End of Phase 2; Phase 3 architecture locked; ADR 0005 (discovery pivot) accepted; code not yet started
+**Document version:** 1.2
+**As of:** April 29, 2026
+**Project state:** End of Phase 3 (onboarding wizard + discovery schema shipped, e2e verified); 2 open bugs to fix before Phase 4; tool roles swapped (Claude Code = Builder, Cursor = Reviewer)
 
 ---
 
@@ -90,19 +90,25 @@ This project uses **one author** — Saaqib Fagbenro, the founder — who keeps 
 | Role | Person | Tool used | Folder | Responsibilities |
 |---|---|---|---|---|
 | **Founder** | Saaqib Fagbenro | claude.ai (or any tool, for high-level direction) | n/a | Product owner, decision-maker, courier between roles |
-| **Builder** | Saaqib Fagbenro | Cursor's AI in `harmony-living-cursor` | `~/Projects/harmony-living-cursor` | Writes code, runs migrations, commits, pushes (uses Cursor's AI as the implementation tool) |
-| **Reviewer** | Saaqib Fagbenro | Claude Code in `harmony-living-vscode` | `~/Projects/harmony-living-vscode` | Audits frozen commits, finds gaps, produces fix prompts (uses Claude Code as the audit tool) |
+| **Builder** | Saaqib Fagbenro | **Claude Code** | `~/harmony-living-vscode` | Writes code, runs migrations, commits, pushes |
+| **Reviewer** | Saaqib Fagbenro | **Cursor's AI** | `~/Projects/harmony-living-cursor` | Audits frozen commits, finds gaps, produces fix prompts |
+
+> **Role swap (2026-04-29):** Claude Code moved from Reviewer to Builder; Cursor moved from Builder to Reviewer. Cursor usage exhausted / downgraded to Composer 2. Workflow contract unchanged — only which tool sits in each seat changed.
 
 GitHub repo: `https://github.com/saaqibf/harmony-living.git` (private). Both folders connect to this repo.
 
 ### The phase loop
 
-1. Founder pastes the phase mega-prompt to **Cursor** (Builder seat).
-2. The founder, in the Builder seat, executes step-by-step (pausing between major tasks), runs gates, commits, pushes, and writes `docs/reports/phase-N-report.md`.
-3. Founder pulls in VS Code, pastes the phase report to **Claude Code** (Reviewer seat).
-4. The founder, in the Reviewer seat, audits and either approves or produces a fix prompt.
-5. If fixes: Founder pastes the fix prompt to Cursor; loop returns to step 2.
-6. If approved: Founder requests the next phase mega-prompt from claude.ai (or proceeds as agreed).
+**The founder never copy-pastes phase mega-prompts.** Claude Code self-generates and self-executes them.
+
+1. **Claude Code proposes** the next phase plan and asks the founder to approve or redirect.
+2. **Founder approves** (or requests changes). Claude Code proceeds once approved.
+3. **Claude Code builds** — executes step-by-step, pauses between major tasks, runs all gates, commits + pushes, writes `docs/reports/phase-N-report.md`.
+4. **Claude Code notifies the founder** that the phase is done and ready for Cursor review.
+5. **Founder opens Cursor** (Reviewer seat, `harmony-living-cursor`) and asks for an audit.
+6. **Cursor outputs approval or fix prompt.**
+7. If fix prompt: Founder pastes it to Claude Code; Claude Code fixes, pushes, updates the report. Loop returns to step 5.
+8. If approved: Claude Code drafts the next phase plan. Loop returns to step 1.
 
 The Reviewer seat audits a **frozen commit**, not a moving target. The two tools do not share conversation context. This pattern caught three real auth bugs in Phase 2 that synthetic gates alone missed.
 
