@@ -51,13 +51,17 @@ const envSchema = z.object({
   // --- Mapbox ---
   NEXT_PUBLIC_MAPBOX_TOKEN: z.string().min(1, 'NEXT_PUBLIC_MAPBOX_TOKEN is required'),
 
-  // --- Pusher / Realtime (set when messaging is built) ---
-  PUSHER_APP_ID: z.string().optional(),
-  PUSHER_KEY: z.string().optional(),
-  PUSHER_SECRET: z.string().optional(),
+  // --- Pusher / Realtime ---
+  PUSHER_APP_ID: z.string().min(1, 'PUSHER_APP_ID is required'),
+  PUSHER_KEY: z.string().min(1, 'PUSHER_KEY is required'),
+  PUSHER_SECRET: z.string().min(1, 'PUSHER_SECRET is required'),
   PUSHER_CLUSTER: z.string().default('us2'),
-  NEXT_PUBLIC_PUSHER_KEY: z.string().optional(),
+  NEXT_PUBLIC_PUSHER_KEY: z.string().min(1, 'NEXT_PUBLIC_PUSHER_KEY is required'),
   NEXT_PUBLIC_PUSHER_CLUSTER: z.string().default('us2'),
+
+  // --- Stripe Identity ---
+  STRIPE_SECRET_KEY: z.string().min(1, 'STRIPE_SECRET_KEY is required'),
+  STRIPE_WEBHOOK_SECRET: z.string().min(1, 'STRIPE_WEBHOOK_SECRET is required'),
 
   // --- Auth / Session ---
   AUTH_SECRET: z.string().min(32, 'AUTH_SECRET must be at least 32 chars — run: openssl rand -base64 32'),
