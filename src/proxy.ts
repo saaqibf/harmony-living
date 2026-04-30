@@ -27,6 +27,8 @@ const PROTECTED_PREFIXES = [
   '/inbox',
   '/messages',
   '/onboarding',
+  '/discover',
+  '/matches',
 ];
 
 const AUTH_ONLY_PREFIXES = ['/login', '/signup', '/confirm', '/forgot-password'];
