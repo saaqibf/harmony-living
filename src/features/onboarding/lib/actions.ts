@@ -113,13 +113,11 @@ export async function saveProfileFinishAction(input: unknown) {
   const userId = await requireDbUserId(user.cognitoSub);
   const data = profileFinishSchema.parse(input);
   try {
-    await onboardingService.saveProfileFinish(userId, {
+    await onboardingService.finishOnboarding(userId, {
       bio: data.bio,
       languages: data.languages,
       privacyMode: data.privacyMode,
     });
-    await onboardingService.markStepComplete(userId, 6);
-    await onboardingService.completeOnboarding(userId);
   } catch (err) {
     log.error('saveProfileFinishAction failed', { userId, err: String(err) });
     if (err instanceof OnboardingError) throw err;

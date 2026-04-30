@@ -256,23 +256,31 @@ async function saveBasics(
     throw new OnboardingError('UNDERAGE', 'You must be at least 18');
   }
 
-  await prisma.profile.upsert({
-    where: { userId },
-    create: {
-      userId,
-      firstName: input.firstName,
-      dateOfBirth: dob,
-      gender: input.gender,
-      occupation: input.occupation,
-      city: input.city,
-    },
-    update: {
-      firstName: input.firstName,
-      dateOfBirth: dob,
-      gender: input.gender,
-      ...(input.occupation !== undefined ? { occupation: input.occupation } : {}),
-      city: input.city,
-    },
+  await prisma.$transaction(async (tx) => {
+    await tx.profile.upsert({
+      where: { userId },
+      create: {
+        userId,
+        firstName: input.firstName,
+        dateOfBirth: dob,
+        gender: input.gender,
+        occupation: input.occupation,
+        city: input.city,
+      },
+      update: {
+        firstName: input.firstName,
+        dateOfBirth: dob,
+        gender: input.gender,
+        ...(input.occupation !== undefined ? { occupation: input.occupation } : {}),
+        city: input.city,
+      },
+    });
+
+    // ADR 0005 invariant 3: female-only mode is derived from self-reported gender.
+    await tx.user.update({
+      where: { id: userId },
+      data: { femaleOnlyMode: input.gender === 'FEMALE' },
+    });
   });
 }
 
@@ -366,16 +374,23 @@ async function saveValues(userId: string, input: ValuesInput): Promise<void> {
   });
 }
 
-async function saveProfileFinish(
+async function finishOnboarding(
   userId: string,
   input: ProfileFinishInput,
 ): Promise<void> {
   const privacyMode = input.privacyMode as PrivacyMode;
 
   await prisma.$transaction(async (tx) => {
-    const profile = await tx.profile.findUnique({ where: { userId } });
+    const [profile, state] = await Promise.all([
+      tx.profile.findUnique({ where: { userId } }),
+      tx.onboardingState.findUnique({ where: { userId } }),
+    ]);
+
     if (!profile) {
       throw new OnboardingError('NOT_FOUND', 'Profile missing — complete basics first');
+    }
+    if (!state) {
+      throw new OnboardingError('NOT_FOUND', 'Onboarding state missing');
     }
 
     await tx.profile.update({
@@ -389,6 +404,22 @@ async function saveProfileFinish(
     await tx.user.update({
       where: { id: userId },
       data: { privacyMode },
+    });
+
+    const completed = new Set([...state.completedSteps, 6]);
+    const sorted = [...completed].sort((a, b) => a - b);
+    const needed = [1, 2, 3, 4, 5, 6];
+    if (!needed.every((s) => sorted.includes(s))) {
+      throw new OnboardingError('INCOMPLETE_STEPS');
+    }
+
+    await tx.onboardingState.update({
+      where: { userId },
+      data: {
+        completedSteps: sorted,
+        currentStep: 6,
+        completedAt: new Date(),
+      },
     });
   });
 }
@@ -470,7 +501,7 @@ export const onboardingService = {
   saveHousingPrefs,
   saveLifestyle,
   saveValues,
-  saveProfileFinish,
+  finishOnboarding,
   markStepComplete,
   getResumeStep,
   completeOnboarding,
