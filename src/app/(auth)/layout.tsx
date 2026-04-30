@@ -13,7 +13,7 @@ export default function AuthLayout({ children }: { children: ReactNode }) {
         <div className="mb-8 text-center">
           <Link href="/" className="inline-flex items-center gap-2">
             <span className="text-2xl font-bold text-gray-900 tracking-tight">
-              harmony<span className="text-[--color-primary]">.</span>living
+              harmony<span className="text-teal-600">.</span>living
             </span>
           </Link>
         </div>

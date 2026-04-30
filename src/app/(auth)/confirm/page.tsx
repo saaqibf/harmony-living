@@ -97,7 +97,7 @@ function ConfirmForm() {
             maxLength={6}
             autoComplete="one-time-code"
             {...register('code')}
-            className="block w-full rounded-lg border border-gray-300 px-3.5 py-2.5 text-center text-lg font-mono tracking-widest text-gray-900 focus:border-[--color-primary] focus:outline-none focus:ring-2 focus:ring-[--color-primary]/20"
+            className="block w-full rounded-xl border border-gray-300 px-4 py-3 text-center text-lg font-mono tracking-widest text-gray-900 outline-none transition focus:border-teal-500 focus:ring-2 focus:ring-teal-500/20"
             placeholder="000000"
           />
           {errors.code && (
@@ -108,7 +108,7 @@ function ConfirmForm() {
         <button
           type="submit"
           disabled={isSubmitting}
-          className="mt-2 w-full rounded-lg bg-[--color-primary] px-4 py-2.5 text-sm font-semibold text-white transition hover:bg-[--color-primary-dark] focus:outline-none focus:ring-2 focus:ring-[--color-primary]/40 disabled:opacity-60"
+          className="mt-2 w-full rounded-xl bg-teal-600 py-3 text-sm font-semibold text-white transition hover:bg-teal-700 active:scale-95 disabled:opacity-60"
         >
           {isSubmitting ? 'Verifying…' : 'Verify email'}
         </button>
@@ -119,7 +119,7 @@ function ConfirmForm() {
         <button
           onClick={handleResend}
           disabled={resendStatus !== 'idle'}
-          className="font-medium text-[--color-primary] hover:underline disabled:opacity-50"
+          className="font-medium text-teal-600 hover:underline disabled:opacity-50"
         >
           {resendStatus === 'idle' && 'Resend code'}
           {resendStatus === 'sending' && 'Sending…'}
@@ -129,7 +129,7 @@ function ConfirmForm() {
 
       <p className="mt-4 text-center text-sm text-gray-500">
         Wrong email?{' '}
-        <Link href="/signup" className="font-medium text-[--color-primary] hover:underline">
+        <Link href="/signup" className="font-medium text-teal-600 hover:underline">
           Start over
         </Link>
       </p>

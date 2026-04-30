@@ -42,24 +42,21 @@ export default function SignUpPage() {
       return;
     }
 
-    // Redirect to confirm page with the email pre-filled.
     router.push(`/confirm?email=${encodeURIComponent(data.email)}`);
   }
 
   return (
-    <div className="rounded-2xl bg-white p-8 shadow-sm ring-1 ring-gray-200">
-      <h1 className="mb-1 text-2xl font-semibold text-gray-900">Create your account</h1>
-      <p className="mb-6 text-sm text-gray-500">
-        Find your perfect living situation.
-      </p>
+    <div className="rounded-2xl bg-white px-8 py-8 shadow-sm ring-1 ring-gray-200">
+      <h1 className="mb-1 text-xl font-semibold text-gray-900">Create your account</h1>
+      <p className="mb-6 text-sm text-gray-500">Find your perfect living situation.</p>
+
+      {serverError && (
+        <div className="mb-4 rounded-xl bg-red-50 px-4 py-3 text-sm text-red-600 ring-1 ring-red-200">
+          {serverError}
+        </div>
+      )}
 
       <form onSubmit={handleSubmit(onSubmit)} noValidate className="space-y-4">
-        {serverError && (
-          <div className="rounded-lg bg-red-50 px-4 py-3 text-sm text-red-700 ring-1 ring-red-200">
-            {serverError}
-          </div>
-        )}
-
         <div>
           <label htmlFor="email" className="mb-1.5 block text-sm font-medium text-gray-700">
             Email
@@ -69,12 +66,10 @@ export default function SignUpPage() {
             type="email"
             autoComplete="email"
             {...register('email')}
-            className="block w-full rounded-lg border border-gray-300 px-3.5 py-2.5 text-sm text-gray-900 placeholder-gray-400 focus:border-[--color-primary] focus:outline-none focus:ring-2 focus:ring-[--color-primary]/20"
             placeholder="you@example.com"
+            className="block w-full rounded-xl border border-gray-300 px-4 py-3 text-sm text-gray-900 placeholder-gray-400 outline-none transition focus:border-teal-500 focus:ring-2 focus:ring-teal-500/20"
           />
-          {errors.email && (
-            <p className="mt-1.5 text-xs text-red-600">{errors.email.message}</p>
-          )}
+          {errors.email && <p className="mt-1 text-xs text-red-500">{errors.email.message}</p>}
         </div>
 
         <div>
@@ -86,12 +81,10 @@ export default function SignUpPage() {
             type="password"
             autoComplete="new-password"
             {...register('password')}
-            className="block w-full rounded-lg border border-gray-300 px-3.5 py-2.5 text-sm text-gray-900 placeholder-gray-400 focus:border-[--color-primary] focus:outline-none focus:ring-2 focus:ring-[--color-primary]/20"
             placeholder="At least 10 characters"
+            className="block w-full rounded-xl border border-gray-300 px-4 py-3 text-sm text-gray-900 placeholder-gray-400 outline-none transition focus:border-teal-500 focus:ring-2 focus:ring-teal-500/20"
           />
-          {errors.password && (
-            <p className="mt-1.5 text-xs text-red-600">{errors.password.message}</p>
-          )}
+          {errors.password && <p className="mt-1 text-xs text-red-500">{errors.password.message}</p>}
         </div>
 
         <div>
@@ -103,12 +96,10 @@ export default function SignUpPage() {
             type="password"
             autoComplete="new-password"
             {...register('confirmPassword')}
-            className="block w-full rounded-lg border border-gray-300 px-3.5 py-2.5 text-sm text-gray-900 placeholder-gray-400 focus:border-[--color-primary] focus:outline-none focus:ring-2 focus:ring-[--color-primary]/20"
             placeholder="Repeat your password"
+            className="block w-full rounded-xl border border-gray-300 px-4 py-3 text-sm text-gray-900 placeholder-gray-400 outline-none transition focus:border-teal-500 focus:ring-2 focus:ring-teal-500/20"
           />
-          {errors.confirmPassword && (
-            <p className="mt-1.5 text-xs text-red-600">{errors.confirmPassword.message}</p>
-          )}
+          {errors.confirmPassword && <p className="mt-1 text-xs text-red-500">{errors.confirmPassword.message}</p>}
         </div>
 
         <div className="flex items-start gap-2.5 pt-1">
@@ -116,63 +107,54 @@ export default function SignUpPage() {
             id="terms"
             type="checkbox"
             {...register('terms')}
-            className="mt-0.5 h-4 w-4 shrink-0 rounded border-gray-300 text-[--color-primary] focus:ring-[--color-primary]"
+            className="mt-0.5 h-4 w-4 shrink-0 rounded border-gray-300 accent-teal-600"
           />
           <label htmlFor="terms" className="text-sm text-gray-600">
             I agree to the{' '}
-            <Link href="/terms" className="text-[--color-primary] underline-offset-2 hover:underline">
+            <Link href="/terms" className="text-teal-600 underline-offset-2 hover:underline">
               Terms of Service
             </Link>{' '}
             and{' '}
-            <Link href="/privacy" className="text-[--color-primary] underline-offset-2 hover:underline">
+            <Link href="/privacy" className="text-teal-600 underline-offset-2 hover:underline">
               Privacy Policy
             </Link>
           </label>
         </div>
-        {errors.terms && (
-          <p className="text-xs text-red-600">{errors.terms.message}</p>
-        )}
+        {errors.terms && <p className="text-xs text-red-500">{errors.terms.message}</p>}
 
         <button
           type="submit"
           disabled={isSubmitting}
-          className="mt-2 w-full rounded-lg bg-[--color-primary] px-4 py-2.5 text-sm font-semibold text-white transition hover:bg-[--color-primary-dark] focus:outline-none focus:ring-2 focus:ring-[--color-primary]/40 disabled:opacity-60"
+          className="w-full rounded-xl bg-teal-600 py-3 text-sm font-semibold text-white transition hover:bg-teal-700 active:scale-95 disabled:opacity-60"
         >
           {isSubmitting ? 'Creating account…' : 'Create account'}
         </button>
-
-        <div className="relative my-2">
-          <div className="absolute inset-0 flex items-center">
-            <span className="w-full border-t border-gray-200" />
-          </div>
-          <div className="relative flex justify-center text-xs">
-            <span className="bg-white px-2 text-gray-400">or continue with</span>
-          </div>
-        </div>
-
-        <div className="grid grid-cols-2 gap-3">
-          <a
-            href="/api/auth/oauth-start?provider=Google"
-            className="flex items-center justify-center gap-2 rounded-lg border border-gray-300 px-3 py-2.5 text-sm font-medium text-gray-700 transition hover:bg-gray-50"
-          >
-            <GoogleIcon />
-            Google
-          </a>
-          <a
-            href="/api/auth/oauth-start?provider=Apple"
-            className="flex items-center justify-center gap-2 rounded-lg border border-gray-300 px-3 py-2.5 text-sm font-medium text-gray-700 transition hover:bg-gray-50"
-          >
-            <AppleIcon />
-            Apple
-          </a>
-        </div>
       </form>
+
+      <div className="my-5 flex items-center gap-3">
+        <span className="h-px flex-1 bg-gray-200" />
+        <span className="text-xs text-gray-400">or continue with</span>
+        <span className="h-px flex-1 bg-gray-200" />
+      </div>
+
+      <div className="grid grid-cols-2 gap-3">
+        <a
+          href="/api/auth/oauth-start?provider=Google"
+          className="flex items-center justify-center gap-2 rounded-xl border border-gray-200 px-3 py-2.5 text-sm font-medium text-gray-700 transition hover:bg-gray-50 active:scale-95"
+        >
+          <GoogleIcon /> Google
+        </a>
+        <a
+          href="/api/auth/oauth-start?provider=Apple"
+          className="flex items-center justify-center gap-2 rounded-xl border border-gray-200 px-3 py-2.5 text-sm font-medium text-gray-700 transition hover:bg-gray-50 active:scale-95"
+        >
+          <AppleIcon /> Apple
+        </a>
+      </div>
 
       <p className="mt-6 text-center text-sm text-gray-500">
         Already have an account?{' '}
-        <Link href="/login" className="font-medium text-[--color-primary] hover:underline">
-          Log in
-        </Link>
+        <Link href="/login" className="font-semibold text-teal-600 hover:underline">Log in</Link>
       </p>
     </div>
   );

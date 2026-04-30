@@ -11,7 +11,7 @@ export default function ForgotPasswordPage() {
         Password reset is coming soon. In the meantime, contact{' '}
         <a
           href="mailto:support@harmonyliving.app"
-          className="text-[--color-primary] hover:underline"
+          className="text-teal-600 hover:underline"
         >
           support@harmonyliving.app
         </a>{' '}
