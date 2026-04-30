@@ -111,6 +111,5 @@ export async function getMessages(userId: string, conversationId: string, limit 
     where: { conversationId, deletedAt: null },
     orderBy: { createdAt: 'asc' },
     take: limit,
-    include: { sender: { include: { profile: { select: { firstName: true, photoUrl: true } } } } },
   });
 }

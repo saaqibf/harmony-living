@@ -38,6 +38,7 @@ export function ChatView({ conversationId, currentUserId, initialMessages, other
     channel.bind(PUSHER_EVENTS.NEW_MESSAGE, (data: Message) => {
       setMessages((prev) => {
         if (prev.some((m) => m.id === data.id)) return prev;
+        if (data.senderId === currentUserId) return prev; // already added optimistically
         return [...prev, data];
       });
     });
