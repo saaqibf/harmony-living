@@ -24,14 +24,14 @@ export default async function MessagesPage() {
   const conversations = await getConversations(user.id);
 
   return (
-    <div className="min-h-screen bg-white">
+    <div className="min-h-screen bg-stone-50">
       {/* Header */}
-      <div className="px-6 pt-10 pb-2">
-        <div className="flex items-center justify-between">
-          <h1 className="text-[26px] font-bold tracking-tight text-gray-900">Chat</h1>
+      <div className="bg-white border-b border-stone-100 px-6 pt-10 pb-4">
+        <div className="flex items-center justify-between max-w-lg mx-auto">
+          <h1 className="text-2xl font-bold text-gray-900">Messages</h1>
           <button
             aria-label="Search conversations"
-            className="w-9 h-9 rounded-full bg-gray-100 flex items-center justify-center hover:bg-gray-200 transition-colors"
+            className="w-9 h-9 rounded-full bg-stone-100 flex items-center justify-center hover:bg-stone-200 transition-colors"
           >
             <svg className="w-4 h-4 text-gray-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
               <circle cx="11" cy="11" r="8" /><path d="m21 21-4.35-4.35" />
@@ -42,7 +42,7 @@ export default async function MessagesPage() {
 
       {/* Stories row — active conversations */}
       {conversations.length > 0 && (
-        <div className="px-4 pt-4 pb-2">
+        <div className="bg-white px-4 pt-4 pb-2">
           <div className="flex gap-4 overflow-x-auto pb-2" style={{ scrollbarWidth: 'none' }}>
             {conversations.slice(0, 10).map((c) => (
               <Link
@@ -84,7 +84,7 @@ export default async function MessagesPage() {
       )}
 
       {/* Divider */}
-      {conversations.length > 0 && <div className="h-px bg-gray-100 mx-0 mt-2" />}
+      {conversations.length > 0 && <div className="h-px bg-stone-100" />}
 
       {/* Conversation list */}
       {conversations.length === 0 ? (
@@ -109,7 +109,7 @@ export default async function MessagesPage() {
             <Link
               key={c.conversationId}
               href={`/messages/${c.conversationId}`}
-              className="flex items-center gap-4 px-5 py-4 hover:bg-gray-50 active:bg-gray-100 transition-colors"
+              className="flex items-center gap-4 px-5 py-4 bg-white hover:bg-stone-50 active:bg-stone-100 transition-colors border-b border-stone-50"
             >
               {/* Avatar with unread dot */}
               <div className="relative shrink-0">

@@ -11,7 +11,7 @@ export default async function ListingsPage() {
   const auth = await requireUser();
   const user = await prisma.user.findUnique({
     where: { cognitoSub: auth.cognitoSub },
-    select: { roles: true },
+    select: { roles: true, verifications: { where: { status: 'APPROVED' }, select: { id: true } } },
   });
 
   const listings = await getActiveListings({ limit: 50 });
@@ -24,15 +24,15 @@ export default async function ListingsPage() {
     rent: l.rentAmount,
   }));
 
-  const isLister = user?.roles.includes('LISTER') || user?.roles.includes('ADMIN');
+  const canPost = (user?.verifications.length ?? 0) > 0 || user?.roles.includes('ADMIN');
 
   return (
-    <div className="min-h-screen bg-[--color-bg]">
+    <div className="min-h-screen bg-stone-50">
       <div className="max-w-7xl mx-auto px-4 py-8">
         <div className="flex items-center justify-between mb-6">
-          <h1 className="text-2xl font-bold text-[--color-fg]">Listings</h1>
+          <h1 className="text-2xl font-bold text-gray-900">Listings</h1>
           <div className="flex gap-3">
-            {isLister && (
+            {canPost && (
               <Link href="/listings/new" className={buttonClasses()}>+ New listing</Link>
             )}
             <Link href="/listings/my" className={buttonClasses({ variant: 'secondary' })}>My listings</Link>
@@ -40,9 +40,9 @@ export default async function ListingsPage() {
         </div>
 
         {listings.length === 0 ? (
-          <div className="text-center py-24 text-[--color-muted-fg]">
+          <div className="text-center py-24 text-gray-400">
             No active listings yet.
-            {isLister && (
+            {canPost && (
               <div className="mt-4">
                 <Link href="/listings/new" className={buttonClasses()}>Create the first one</Link>
               </div>
@@ -51,7 +51,7 @@ export default async function ListingsPage() {
         ) : (
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
             <div className="space-y-4">
-              <p className="text-sm text-[--color-muted-fg]">{listings.length} listing{listings.length !== 1 ? 's' : ''}</p>
+              <p className="text-sm text-gray-400">{listings.length} listing{listings.length !== 1 ? 's' : ''}</p>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 {listings.map((l) => (
                   <ListingCard
@@ -71,8 +71,8 @@ export default async function ListingsPage() {
                 ))}
               </div>
             </div>
-            <div className="hidden lg:block sticky top-24 h-[calc(100vh-8rem)] rounded-xl overflow-hidden border border-[--color-border]">
-              <Suspense fallback={<div className="w-full h-full bg-[--color-muted]" />}>
+            <div className="hidden lg:block sticky top-24 h-[calc(100vh-8rem)] rounded-xl overflow-hidden border border-stone-200">
+              <Suspense fallback={<div className="w-full h-full bg-stone-100" />}>
                 <ListingMap pins={pins} className="w-full h-full" />
               </Suspense>
             </div>

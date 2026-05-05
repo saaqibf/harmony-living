@@ -73,6 +73,7 @@ const vibeSchema = z.object({
   drinkingSelf: z.string(),
   pets: z.boolean(),
   genderPreference: z.enum(['MALE_ONLY', 'FEMALE_ONLY', 'ANY', 'NON_BINARY_INCLUSIVE']),
+  personality: z.string().max(2000).optional(),
 });
 
 export async function saveVibeAction(input: unknown) {
@@ -101,6 +102,7 @@ export async function saveVibeAction(input: unknown) {
       faithMatchRequired: false,
       socialLevel: 3,
       dealbreakers: [],
+      personality: data.personality,
     });
     await onboardingService.markStepComplete(userId, 3);
   } catch (err) {

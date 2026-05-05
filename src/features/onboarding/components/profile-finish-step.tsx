@@ -1,6 +1,6 @@
 'use client';
 
-import { useTransition } from 'react';
+import { useRef, useTransition } from 'react';
 import type { Resolver } from 'react-hook-form';
 import { Controller, useForm, useWatch } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -34,8 +34,22 @@ export function ProfileFinishStep({
     },
   });
 
+  const bioRef = useRef<HTMLTextAreaElement | null>(null);
   const bio = useWatch({ control: form.control, name: 'bio', defaultValue: '' });
   const bioLen = bio?.length ?? 0;
+
+  const BIO_PROMPTS = [
+    "I'm the kind of roommate who...",
+    "My ideal home vibe is...",
+    "One thing about living with me...",
+  ];
+
+  function injectPrompt(prompt: string) {
+    const current = form.getValues('bio') ?? '';
+    const next = current ? `${current} ${prompt}` : prompt;
+    form.setValue('bio', next.slice(0, 500), { shouldDirty: true });
+    setTimeout(() => bioRef.current?.focus(), 0);
+  }
 
   return (
     <Card>
@@ -55,8 +69,30 @@ export function ProfileFinishStep({
           })}
         >
           <div className="space-y-2">
-            <Label htmlFor="bio">Bio (optional)</Label>
-            <Textarea id="bio" maxLength={500} {...form.register('bio')} />
+            <Label htmlFor="bio">Introduce yourself <span className="text-slate-400 font-normal">(optional)</span></Label>
+            <p className="text-xs text-slate-500">Tap a prompt to get started, or write your own.</p>
+            <div className="flex flex-wrap gap-2">
+              {BIO_PROMPTS.map((p) => (
+                <button
+                  key={p}
+                  type="button"
+                  onClick={() => injectPrompt(p)}
+                  className="text-xs px-3 py-1.5 rounded-full border border-teal-200 bg-teal-50 text-teal-700 hover:bg-teal-100 transition-colors font-medium"
+                >
+                  {p}
+                </button>
+              ))}
+            </div>
+            <Textarea
+              id="bio"
+              maxLength={500}
+              placeholder="Tell future roommates who you are..."
+              {...form.register('bio')}
+              ref={(el) => {
+                form.register('bio').ref(el);
+                bioRef.current = el;
+              }}
+            />
             <p className="text-right text-xs text-slate-500">{bioLen}/500</p>
           </div>
 

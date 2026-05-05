@@ -87,12 +87,12 @@ export default async function DashboardPage() {
   ] as const;
 
   return (
-    <div className="bg-[--color-bg]">
+    <div className="bg-stone-50">
       {/* Header */}
-      <div className="bg-gradient-to-br from-primary-600 to-primary-800 px-4 pt-10 pb-20">
+      <div className="bg-gradient-to-br from-teal-600 to-teal-800 px-4 pt-10 pb-20">
         <div className="mx-auto max-w-lg flex items-center justify-between">
           <span className="text-white text-lg font-bold tracking-tight">
-            harmony<span className="text-primary-200">.</span>living
+            harmony<span className="text-teal-200">.</span>living
           </span>
           <LogoutButton />
         </div>
@@ -106,7 +106,7 @@ export default async function DashboardPage() {
             )}
           </div>
           <div>
-            <p className="text-primary-100 text-sm">{greeting()},</p>
+            <p className="text-teal-100 text-sm">{greeting()},</p>
             <h1 className="text-white text-2xl font-bold">{firstName}!</h1>
           </div>
         </div>
@@ -116,17 +116,17 @@ export default async function DashboardPage() {
       <div className="mx-auto max-w-lg px-4 -mt-10">
         <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-4 flex divide-x divide-gray-100">
           <div className="flex-1 text-center">
-            <p className="text-2xl font-bold text-[--color-fg]">{matchCount}</p>
-            <p className="text-xs text-[--color-muted-fg] mt-0.5">Matches</p>
+            <p className="text-2xl font-bold text-gray-900">{matchCount}</p>
+            <p className="text-xs text-gray-500 mt-0.5">Matches</p>
           </div>
           <div className="flex-1 text-center">
-            <p className="text-2xl font-bold text-[--color-fg]">{unreadCount}</p>
-            <p className="text-xs text-[--color-muted-fg] mt-0.5">Unread</p>
+            <p className="text-2xl font-bold text-gray-900">{unreadCount}</p>
+            <p className="text-xs text-gray-500 mt-0.5">Unread</p>
           </div>
           <div className="flex-1 text-center">
             <Link href="/discover" className="block">
-              <p className="text-2xl font-bold text-primary-600">→</p>
-              <p className="text-xs text-[--color-muted-fg] mt-0.5">Discover</p>
+              <p className="text-2xl font-bold text-teal-600">→</p>
+              <p className="text-xs text-gray-500 mt-0.5">Discover</p>
             </Link>
           </div>
         </div>
@@ -134,7 +134,7 @@ export default async function DashboardPage() {
 
       {/* Action grid */}
       <div className="mx-auto max-w-lg px-4 mt-6 pb-8">
-        <h2 className="text-sm font-semibold text-[--color-muted-fg] uppercase tracking-wide mb-3">Quick access</h2>
+        <h2 className="text-sm font-semibold text-gray-500 uppercase tracking-wide mb-3">Quick access</h2>
         <div className="grid grid-cols-2 gap-3">
           {ACTIONS.map((item) => (
             <Link

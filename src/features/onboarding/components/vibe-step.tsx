@@ -73,6 +73,7 @@ export function VibeStep() {
   const [pets, setPets] = useState(false);
   const [drinkingSelf, setDrinkingSelf] = useState('socially');
   const [genderPreference, setGenderPreference] = useState<GenderPref>('ANY');
+  const [personality, setPersonality] = useState('');
 
   const handleSubmit = () => {
     start(async () => {
@@ -84,6 +85,7 @@ export function VibeStep() {
         drinkingSelf,
         pets,
         genderPreference,
+        personality: personality.trim() || undefined,
       });
     });
   };
@@ -133,6 +135,19 @@ export function VibeStep() {
       </div>
 
       <ChipGroup label="Preferred roommate gender" options={GENDER_PREF} value={genderPreference} onChange={setGenderPreference} cols={4} />
+
+      <div className="space-y-2">
+        <p className="text-sm font-medium text-gray-700">How would you describe your vibe? <span className="text-gray-400 font-normal">(optional)</span></p>
+        <textarea
+          value={personality}
+          onChange={(e) => setPersonality(e.target.value)}
+          maxLength={200}
+          rows={2}
+          placeholder="e.g. homebody who loves cooking, social butterfly, chill and laid-back, adventurous..."
+          className="w-full rounded-xl border border-gray-200 bg-white px-3 py-2.5 text-sm resize-none focus:outline-none focus:ring-2 focus:ring-teal-500 placeholder:text-gray-400"
+        />
+        <p className="text-right text-xs text-gray-400">{personality.length}/200</p>
+      </div>
 
       <button
         type="button"

@@ -139,14 +139,15 @@ export async function getMyMatches(userId: string) {
       OR: [{ userAId: userId }, { userBId: userId }],
     },
     include: {
-      userA: { include: { profile: true } },
-      userB: { include: { profile: true } },
+      userA: { include: { profile: true, preferences: true } },
+      userB: { include: { profile: true, preferences: true } },
     },
     orderBy: { matchedAt: 'desc' },
   });
 
   return matches.map((m) => {
     const other = m.userAId === userId ? m.userB : m.userA;
+    const dob = other.profile?.dateOfBirth;
     return {
       matchId: m.id,
       conversationId: m.conversationId,
@@ -155,6 +156,11 @@ export async function getMyMatches(userId: string) {
       firstName: other.profile?.firstName ?? 'Unknown',
       photoUrl: other.profile?.photoUrl ?? null,
       city: other.profile?.city ?? null,
+      ageYears: dob ? calcAge(dob) : null,
+      occupation: other.profile?.occupation ?? null,
+      bio: other.profile?.bio ?? null,
+      faith: other.preferences?.faith ?? null,
+      faithPractice: other.preferences?.faithPractice ?? null,
     };
   });
 }
@@ -166,4 +172,186 @@ export async function getDailySwipesRemaining(userId: string, quota: number): Pr
     where: { swiperUserId: userId, createdAt: { gte: today } },
   });
   return Math.max(0, quota - used);
+}
+
+export type BrowseProfile = {
+  userId: string;
+  firstName: string;
+  ageYears: number;
+  city: string;
+  gender: string;
+  occupation: string | null;
+  bio: string | null;
+  photoUrl: string | null;
+  photoUrlBlurred: string | null;
+  photoVisibility: PhotoVisibility;
+  faith: string | null;
+  isVerified: boolean;
+  personality: string | null;
+};
+
+export async function getBrowseProfiles(viewerId: string, limit = 100): Promise<BrowseProfile[]> {
+  const blocks = await prisma.block.findMany({
+    where: { OR: [{ blockerId: viewerId }, { blockedId: viewerId }] },
+    select: { blockerId: true, blockedId: true },
+  });
+
+  const excludeIds = new Set<string>([
+    viewerId,
+    ...blocks.flatMap((b) => [b.blockerId, b.blockedId]),
+  ]);
+
+  const users = await prisma.user.findMany({
+    where: {
+      id: { notIn: [...excludeIds] },
+      lookingStatus: true,
+      deletedAt: null,
+      profile: { isNot: null },
+    },
+    include: {
+      profile: true,
+      preferences: true,
+      verifications: { where: { status: 'APPROVED' }, select: { id: true } },
+    },
+    take: limit,
+  });
+
+  return users
+    .filter((u) => u.profile !== null)
+    .map((u) => ({
+      userId: u.id,
+      firstName: u.profile!.firstName,
+      ageYears: calcAge(u.profile!.dateOfBirth),
+      city: u.profile!.city,
+      gender: u.profile!.gender,
+      occupation: u.profile!.occupation,
+      bio: u.profile!.bio,
+      photoUrl: u.profile!.photoUrl,
+      photoUrlBlurred: u.profile!.photoUrlBlurred,
+      photoVisibility: u.profile!.photoVisibility,
+      faith: u.preferences?.faith ?? null,
+      isVerified: u.verifications.length > 0,
+      personality: u.preferences?.personality ?? null,
+    }));
+}
+
+export type BrowseProfileDetail = {
+  userId: string;
+  firstName: string;
+  ageYears: number;
+  city: string;
+  gender: string;
+  occupation: string | null;
+  bio: string | null;
+  photoUrl: string | null;
+  photoUrlBlurred: string | null;
+  photoVisibility: PhotoVisibility;
+  faith: string | null;
+  isVerified: boolean;
+  personality: string | null;
+  preferences: {
+    budgetMin: number;
+    budgetMax: number;
+    moveInDate: Date;
+    moveInFlexibilityDays: number;
+    preferredCities: string[];
+    preferredNeighborhoods: string[];
+    cleanliness: string;
+    schedule: string;
+    pets: boolean;
+    smokingSelf: boolean;
+  } | null;
+  activeListing: {
+    id: string;
+    title: string;
+    rentAmount: number;
+    currency: string;
+    city: string;
+    neighborhood: string | null;
+    bedroomsTotal: number;
+    bathroomsTotal: number;
+    furnished: boolean;
+    availableFrom: Date;
+    coverImageUrl: string | null;
+  } | null;
+};
+
+export async function getBrowseProfileById(
+  viewerId: string,
+  targetUserId: string,
+): Promise<BrowseProfileDetail | null> {
+  if (viewerId === targetUserId) return null;
+
+  const blocks = await prisma.block.findMany({
+    where: {
+      OR: [
+        { blockerId: viewerId, blockedId: targetUserId },
+        { blockerId: targetUserId, blockedId: viewerId },
+      ],
+    },
+    select: { id: true },
+  });
+
+  if (blocks.length > 0) return null;
+
+  const user = await prisma.user.findUnique({
+    where: { id: targetUserId },
+    include: {
+      profile: true,
+      preferences: true,
+      verifications: { where: { status: 'APPROVED' }, select: { id: true } },
+    },
+  });
+
+  if (!user || !user.profile) return null;
+
+  const listing = await prisma.listing.findFirst({
+    where: { ownerId: targetUserId, status: 'ACTIVE', deletedAt: null },
+    include: { images: { orderBy: { orderIdx: 'asc' }, take: 1 } },
+  });
+
+  return {
+    userId: user.id,
+    firstName: user.profile.firstName,
+    ageYears: calcAge(user.profile.dateOfBirth),
+    city: user.profile.city,
+    gender: user.profile.gender,
+    occupation: user.profile.occupation,
+    bio: user.profile.bio,
+    photoUrl: user.profile.photoUrl,
+    photoUrlBlurred: user.profile.photoUrlBlurred,
+    photoVisibility: user.profile.photoVisibility,
+    faith: user.preferences?.faith ?? null,
+    isVerified: user.verifications.length > 0,
+    personality: user.preferences?.personality ?? null,
+    preferences: user.preferences
+      ? {
+          budgetMin: user.preferences.budgetMin,
+          budgetMax: user.preferences.budgetMax,
+          moveInDate: user.preferences.moveInDate,
+          moveInFlexibilityDays: user.preferences.moveInFlexibilityDays,
+          preferredCities: user.preferences.preferredCities,
+          preferredNeighborhoods: user.preferences.preferredNeighborhoods,
+          cleanliness: user.preferences.cleanliness,
+          schedule: user.preferences.schedule,
+          pets: user.preferences.pets,
+          smokingSelf: user.preferences.smokingSelf,
+        }
+      : null,
+    activeListing: listing
+      ? {
+          id: listing.id,
+          title: listing.title,
+          rentAmount: listing.rentAmount,
+          currency: listing.currency,
+          city: listing.city,
+          neighborhood: listing.neighborhood ?? null,
+          bedroomsTotal: listing.bedroomsTotal,
+          bathroomsTotal: listing.bathroomsTotal,
+          furnished: listing.furnished,
+          availableFrom: listing.availableFrom,
+          coverImageUrl: listing.images[0]?.url ?? null,
+        }
+      : null,
+  };
 }
