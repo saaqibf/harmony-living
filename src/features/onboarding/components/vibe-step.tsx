@@ -144,7 +144,7 @@ export function VibeStep() {
           maxLength={200}
           rows={2}
           placeholder="e.g. homebody who loves cooking, social butterfly, chill and laid-back, adventurous..."
-          className="w-full rounded-xl border border-gray-200 bg-white px-3 py-2.5 text-sm resize-none focus:outline-none focus:ring-2 focus:ring-teal-500 placeholder:text-gray-400"
+          className="w-full rounded-xl border border-gray-200 bg-white px-3 py-2.5 text-sm resize-none focus:outline-none focus:ring-2 focus:ring-primary-500 placeholder:text-gray-400"
         />
         <p className="text-right text-xs text-gray-400">{personality.length}/200</p>
       </div>

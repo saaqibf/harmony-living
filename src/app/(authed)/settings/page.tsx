@@ -16,10 +16,10 @@ export default async function SettingsPage() {
 
         <Link
           href="/settings/profile"
-          className="bg-white rounded-2xl border border-stone-100 shadow-sm px-5 py-4 flex items-center justify-between hover:border-teal-100 hover:shadow-md active:scale-[0.99] transition-all group"
+          className="bg-white rounded-2xl border border-stone-100 shadow-sm px-5 py-4 flex items-center justify-between hover:border-primary-100 hover:shadow-md active:scale-[0.99] transition-all group"
         >
           <div className="flex items-center gap-4">
-            <div className="w-10 h-10 rounded-xl bg-teal-50 flex items-center justify-center text-xl">
+            <div className="w-10 h-10 rounded-xl bg-primary-50 flex items-center justify-center text-xl">
               👤
             </div>
             <div>
@@ -27,14 +27,14 @@ export default async function SettingsPage() {
               <p className="text-xs text-gray-400 mt-0.5">Name, photo, bio, preferences</p>
             </div>
           </div>
-          <svg className="w-4 h-4 text-gray-300 group-hover:text-teal-500 transition-colors" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
+          <svg className="w-4 h-4 text-gray-300 group-hover:text-primary-500 transition-colors" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
             <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
           </svg>
         </Link>
 
         <Link
           href="/settings/verify"
-          className="bg-white rounded-2xl border border-stone-100 shadow-sm px-5 py-4 flex items-center justify-between hover:border-teal-100 hover:shadow-md active:scale-[0.99] transition-all group"
+          className="bg-white rounded-2xl border border-stone-100 shadow-sm px-5 py-4 flex items-center justify-between hover:border-primary-100 hover:shadow-md active:scale-[0.99] transition-all group"
         >
           <div className="flex items-center gap-4">
             <div className="w-10 h-10 rounded-xl bg-amber-50 flex items-center justify-center text-xl">
@@ -45,7 +45,7 @@ export default async function SettingsPage() {
               <p className="text-xs text-gray-400 mt-0.5">ID and identity checks</p>
             </div>
           </div>
-          <svg className="w-4 h-4 text-gray-300 group-hover:text-teal-500 transition-colors" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
+          <svg className="w-4 h-4 text-gray-300 group-hover:text-primary-500 transition-colors" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
             <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
           </svg>
         </Link>
@@ -54,7 +54,7 @@ export default async function SettingsPage() {
 
         <Link
           href="/listings/my"
-          className="bg-white rounded-2xl border border-stone-100 shadow-sm px-5 py-4 flex items-center justify-between hover:border-teal-100 hover:shadow-md active:scale-[0.99] transition-all group"
+          className="bg-white rounded-2xl border border-stone-100 shadow-sm px-5 py-4 flex items-center justify-between hover:border-primary-100 hover:shadow-md active:scale-[0.99] transition-all group"
         >
           <div className="flex items-center gap-4">
             <div className="w-10 h-10 rounded-xl bg-rose-50 flex items-center justify-center text-xl">
@@ -65,7 +65,7 @@ export default async function SettingsPage() {
               <p className="text-xs text-gray-400 mt-0.5">Manage your rooms</p>
             </div>
           </div>
-          <svg className="w-4 h-4 text-gray-300 group-hover:text-teal-500 transition-colors" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
+          <svg className="w-4 h-4 text-gray-300 group-hover:text-primary-500 transition-colors" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
             <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
           </svg>
         </Link>

@@ -17,7 +17,7 @@ export default async function DiscoverPage() {
     return (
       <div className="min-h-screen bg-gray-50 flex items-center justify-center px-6">
         <div className="text-center max-w-sm">
-          <div className="w-24 h-24 bg-teal-50 rounded-full flex items-center justify-center mx-auto mb-6">
+          <div className="w-24 h-24 bg-primary-50 rounded-full flex items-center justify-center mx-auto mb-6">
             <span className="text-5xl">🏠</span>
           </div>
           <h1 className="text-xl font-bold text-gray-900 mb-2">Finish your profile first</h1>
@@ -26,7 +26,7 @@ export default async function DiscoverPage() {
           </p>
           <Link
             href="/onboarding"
-            className="inline-flex items-center justify-center bg-teal-600 text-white font-semibold px-6 py-3 rounded-xl hover:bg-teal-700 transition-colors"
+            className="inline-flex items-center justify-center bg-primary-600 text-white font-semibold px-6 py-3 rounded-xl hover:bg-primary-700 transition-colors"
           >
             Complete onboarding →
           </Link>

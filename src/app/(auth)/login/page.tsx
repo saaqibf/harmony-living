@@ -78,7 +78,7 @@ function LoginForm() {
             autoComplete="email"
             {...register('email')}
             placeholder="you@example.com"
-            className="block w-full rounded-xl border border-gray-300 px-4 py-3 text-sm text-gray-900 placeholder-gray-400 outline-none transition focus:border-teal-500 focus:ring-2 focus:ring-teal-500/20"
+            className="block w-full rounded-xl border border-gray-300 px-4 py-3 text-sm text-gray-900 placeholder-gray-400 outline-none transition focus:border-primary-500 focus:ring-2 focus:ring-primary-500/20"
           />
           {errors.email && <p className="mt-1 text-xs text-red-500">{errors.email.message}</p>}
         </div>
@@ -86,7 +86,7 @@ function LoginForm() {
         <div>
           <div className="mb-1.5 flex items-center justify-between">
             <label htmlFor="password" className="text-sm font-medium text-gray-700">Password</label>
-            <Link href="/forgot-password" className="text-xs text-teal-600 hover:underline">Forgot password?</Link>
+            <Link href="/forgot-password" className="text-xs text-primary-600 hover:underline">Forgot password?</Link>
           </div>
           <input
             id="password"
@@ -94,7 +94,7 @@ function LoginForm() {
             autoComplete="current-password"
             {...register('password')}
             placeholder="Your password"
-            className="block w-full rounded-xl border border-gray-300 px-4 py-3 text-sm text-gray-900 placeholder-gray-400 outline-none transition focus:border-teal-500 focus:ring-2 focus:ring-teal-500/20"
+            className="block w-full rounded-xl border border-gray-300 px-4 py-3 text-sm text-gray-900 placeholder-gray-400 outline-none transition focus:border-primary-500 focus:ring-2 focus:ring-primary-500/20"
           />
           {errors.password && <p className="mt-1 text-xs text-red-500">{errors.password.message}</p>}
         </div>
@@ -102,7 +102,7 @@ function LoginForm() {
         <button
           type="submit"
           disabled={isSubmitting}
-          className="w-full rounded-xl bg-teal-600 py-3 text-sm font-semibold text-white transition hover:bg-teal-700 active:scale-95 disabled:opacity-60"
+          className="w-full rounded-xl bg-primary-600 py-3 text-sm font-semibold text-white transition hover:bg-primary-700 active:scale-95 disabled:opacity-60"
         >
           {isSubmitting ? 'Logging in…' : 'Log in'}
         </button>
@@ -131,7 +131,7 @@ function LoginForm() {
 
       <p className="mt-6 text-center text-sm text-gray-500">
         Don&apos;t have an account?{' '}
-        <Link href="/signup" className="font-semibold text-teal-600 hover:underline">Sign up</Link>
+        <Link href="/signup" className="font-semibold text-primary-600 hover:underline">Sign up</Link>
       </p>
     </div>
   );

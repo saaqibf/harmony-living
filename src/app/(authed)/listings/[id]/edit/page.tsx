@@ -5,7 +5,6 @@ import { prisma } from '@/lib/db/prisma';
 import { ListingForm } from '@/features/listings/components/listing-form';
 import { PhotoUpload } from '@/features/listings/components/photo-upload';
 import { publishListingAction, deleteListingAction } from '@/features/listings/lib/actions';
-import { buttonClasses } from '@/components/ui/button';
 import { Button } from '@/components/ui/button';
 
 export default async function EditListingPage({
@@ -30,12 +29,18 @@ export default async function EditListingPage({
   if (!listing || listing.ownerId !== user.id) notFound();
 
   return (
-    <div className="min-h-screen bg-[--color-bg]">
-      <div className="max-w-3xl mx-auto px-4 py-8 space-y-10">
-        <div className="flex items-center justify-between">
-          <h1 className="text-2xl font-bold text-[--color-fg]">Edit listing</h1>
+    <div className="min-h-screen bg-stone-50 pb-12">
+      {/* Header */}
+      <div className="bg-white border-b border-stone-100 px-4 py-4 sticky top-0 z-10">
+        <div className="max-w-3xl mx-auto flex items-center justify-between">
+          <h1 className="text-xl font-bold text-gray-900">Edit listing</h1>
           <div className="flex gap-2">
-            <Link href={`/listings/${id}`} className={buttonClasses({ variant: 'secondary' })}>View</Link>
+            <Link
+              href={`/listings/${id}`}
+              className="text-sm font-semibold text-gray-600 bg-stone-100 hover:bg-stone-200 px-4 py-2 rounded-xl transition-colors"
+            >
+              View
+            </Link>
             {listing.status === 'DRAFT' && (
               <form action={publishListingAction.bind(null, id)}>
                 <Button type="submit">Publish</Button>
@@ -46,28 +51,34 @@ export default async function EditListingPage({
             </form>
           </div>
         </div>
+      </div>
 
-        <section className="space-y-4">
-          <h2 className="font-semibold text-[--color-fg]">Photos</h2>
-          <div className="flex flex-wrap gap-3">
-            {listing.images.map((img) => (
-              <img
-                key={img.id}
-                src={img.url}
-                alt={img.caption ?? 'Listing photo'}
-                className="w-24 h-24 object-cover rounded-lg border border-[--color-border]"
-              />
-            ))}
-          </div>
+      <div className="max-w-3xl mx-auto px-4 pt-6 space-y-8">
+        {/* Photos section */}
+        <div className="bg-white rounded-2xl border border-stone-100 p-5 space-y-4">
+          <h2 className="font-bold text-gray-900">Photos</h2>
+          {listing.images.length > 0 && (
+            <div className="flex flex-wrap gap-3">
+              {listing.images.map((img) => (
+                <img
+                  key={img.id}
+                  src={img.url}
+                  alt={img.caption ?? 'Listing photo'}
+                  className="w-24 h-24 object-cover rounded-xl border border-stone-200"
+                />
+              ))}
+            </div>
+          )}
           <PhotoUpload
             endpoint="/api/upload/listing-image"
             extraFields={{ listingId: id, orderIdx: String(listing.images.length) }}
             label="Add photo"
           />
-        </section>
+        </div>
 
-        <section>
-          <h2 className="font-semibold text-[--color-fg] mb-6">Details</h2>
+        {/* Details section */}
+        <div className="bg-white rounded-2xl border border-stone-100 p-5">
+          <h2 className="font-bold text-gray-900 mb-6">Details</h2>
           <ListingForm
             listingId={id}
             initial={{
@@ -94,7 +105,7 @@ export default async function EditListingPage({
               amenities: listing.amenities,
             }}
           />
-        </section>
+        </div>
       </div>
     </div>
   );

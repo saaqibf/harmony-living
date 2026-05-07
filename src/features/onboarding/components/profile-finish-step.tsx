@@ -77,7 +77,7 @@ export function ProfileFinishStep({
                   key={p}
                   type="button"
                   onClick={() => injectPrompt(p)}
-                  className="text-xs px-3 py-1.5 rounded-full border border-teal-200 bg-teal-50 text-teal-700 hover:bg-teal-100 transition-colors font-medium"
+                  className="text-xs px-3 py-1.5 rounded-full border border-primary-200 bg-primary-50 text-primary-700 hover:bg-primary-100 transition-colors font-medium"
                 >
                   {p}
                 </button>

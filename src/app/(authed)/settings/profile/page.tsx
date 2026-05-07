@@ -12,14 +12,14 @@ export default async function SettingsProfilePage() {
 
   return (
     <div className="space-y-6">
-      <h1 className="text-2xl font-semibold text-[--color-fg]">Profile</h1>
+      <h1 className="text-2xl font-semibold text-gray-900">Profile</h1>
 
       <Card>
         <CardHeader>
           <CardTitle>Profile photo</CardTitle>
         </CardHeader>
         <CardContent className="space-y-4">
-          <p className="text-sm text-[--color-muted-fg]">
+          <p className="text-sm text-gray-500">
             Your photo is shown to other users based on your photo visibility setting. A blurred version is generated automatically.
           </p>
           <PhotoUpload
@@ -35,7 +35,7 @@ export default async function SettingsProfilePage() {
           <CardTitle>Intro media</CardTitle>
         </CardHeader>
         <CardContent className="space-y-4">
-          <p className="text-sm text-[--color-muted-fg]">
+          <p className="text-sm text-gray-500">
             A short voice or video intro. Profiles with intros get a queue boost in discovery.
           </p>
           <PhotoUpload

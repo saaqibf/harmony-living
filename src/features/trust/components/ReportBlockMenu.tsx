@@ -46,7 +46,7 @@ export function ReportBlockMenu({ targetUserId, targetName }: Props) {
     return (
       <button
         onClick={() => setOpen(true)}
-        className="text-sm text-[--color-muted-fg] hover:text-[--color-fg] transition-colors"
+        className="text-sm text-gray-400 hover:text-gray-700 transition-colors"
         aria-label="More options"
       >
         ···
@@ -57,15 +57,15 @@ export function ReportBlockMenu({ targetUserId, targetName }: Props) {
   return (
     <div className="fixed inset-0 z-50 flex items-end justify-center bg-black/40" onClick={() => { setOpen(false); setView('menu'); }}>
       <div
-        className="w-full max-w-sm bg-[--color-surface] rounded-t-2xl p-6 space-y-4"
+        className="w-full max-w-sm bg-white rounded-t-2xl p-6 space-y-4"
         onClick={(e) => e.stopPropagation()}
       >
         {view === 'menu' && (
           <>
-            <h3 className="font-semibold text-[--color-fg]">{targetName}</h3>
+            <h3 className="font-semibold text-gray-900">{targetName}</h3>
             <button
               onClick={() => setView('report')}
-              className="w-full text-left py-3 text-sm text-[--color-fg] border-b border-[--color-border]"
+              className="w-full text-left py-3 text-sm text-gray-700 border-b border-stone-100"
             >
               Report
             </button>
@@ -76,7 +76,7 @@ export function ReportBlockMenu({ targetUserId, targetName }: Props) {
             >
               Block
             </button>
-            <button onClick={() => setOpen(false)} className="w-full text-center py-2 text-sm text-[--color-muted-fg]">
+            <button onClick={() => setOpen(false)} className="w-full text-center py-2 text-sm text-gray-400">
               Cancel
             </button>
           </>
@@ -84,7 +84,7 @@ export function ReportBlockMenu({ targetUserId, targetName }: Props) {
 
         {view === 'report' && (
           <>
-            <h3 className="font-semibold text-[--color-fg]">Report {targetName}</h3>
+            <h3 className="font-semibold text-gray-900">Report {targetName}</h3>
             <div className="space-y-2">
               {REPORT_REASONS.map((r) => (
                 <label key={r.value} className="flex items-center gap-3 py-2 cursor-pointer">
@@ -96,13 +96,13 @@ export function ReportBlockMenu({ targetUserId, targetName }: Props) {
                     onChange={() => setSelectedReason(r.value)}
                     className="accent-primary-600"
                   />
-                  <span className="text-sm text-[--color-fg]">{r.label}</span>
+                  <span className="text-sm text-gray-700">{r.label}</span>
                 </label>
               ))}
             </div>
             {error && <p className="text-sm text-red-500">{error}</p>}
             <div className="flex gap-3">
-              <button onClick={() => setView('menu')} className="flex-1 py-2 text-sm text-[--color-muted-fg]">Back</button>
+              <button onClick={() => setView('menu')} className="flex-1 py-2 text-sm text-gray-400">Back</button>
               <button
                 onClick={submitReport}
                 disabled={!selectedReason || isPending}
@@ -116,9 +116,9 @@ export function ReportBlockMenu({ targetUserId, targetName }: Props) {
 
         {view === 'reported' && (
           <>
-            <h3 className="font-semibold text-[--color-fg]">Report submitted</h3>
-            <p className="text-sm text-[--color-muted-fg]">Thanks for letting us know. Our team will review it.</p>
-            <button onClick={() => { setOpen(false); setView('menu'); }} className="w-full py-2 text-sm text-[--color-muted-fg]">Close</button>
+            <h3 className="font-semibold text-gray-900">Report submitted</h3>
+            <p className="text-sm text-gray-500">Thanks for letting us know. Our team will review it.</p>
+            <button onClick={() => { setOpen(false); setView('menu'); }} className="w-full py-2 text-sm text-gray-400">Close</button>
           </>
         )}
       </div>

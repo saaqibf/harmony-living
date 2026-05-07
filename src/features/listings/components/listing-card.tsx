@@ -17,6 +17,12 @@ type ListingCardProps = {
   className?: string;
 };
 
+const STATUS_LABELS: Record<string, { label: string; color: string }> = {
+  DRAFT: { label: 'Draft', color: 'bg-amber-50 text-amber-700 border border-amber-200' },
+  INACTIVE: { label: 'Inactive', color: 'bg-stone-100 text-gray-500 border border-stone-200' },
+  PENDING: { label: 'Pending review', color: 'bg-blue-50 text-blue-700 border border-blue-200' },
+};
+
 export function ListingCard({
   id,
   title,
@@ -38,15 +44,17 @@ export function ListingCard({
     year: 'numeric',
   }).format(new Date(availableFrom));
 
+  const statusInfo = status && status !== 'ACTIVE' ? (STATUS_LABELS[status] ?? { label: status, color: 'bg-stone-100 text-gray-500 border border-stone-200' }) : null;
+
   return (
     <Link
       href={`/listings/${id}`}
       className={cn(
-        'group block rounded-xl border border-[--color-border] bg-[--color-surface] overflow-hidden hover:shadow-md transition-shadow',
+        'group block rounded-2xl border border-stone-200 bg-white overflow-hidden hover:shadow-md hover:border-primary-100 active:scale-[0.99] transition-all',
         className,
       )}
     >
-      <div className="aspect-[4/3] bg-[--color-muted] overflow-hidden">
+      <div className="aspect-[4/3] bg-stone-100 overflow-hidden relative">
         {coverImageUrl ? (
           <img
             src={coverImageUrl}
@@ -54,30 +62,41 @@ export function ListingCard({
             className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
           />
         ) : (
-          <div className="w-full h-full flex items-center justify-center text-[--color-muted-fg] text-sm">
-            No photo
+          <div className="w-full h-full flex flex-col items-center justify-center text-stone-400">
+            <span className="text-3xl mb-1">🏠</span>
+            <span className="text-xs font-medium">No photo yet</span>
           </div>
         )}
-      </div>
-      <div className="p-4 space-y-1">
-        {status && status !== 'ACTIVE' && (
-          <span className="text-xs font-medium uppercase tracking-wide text-[--color-muted-fg]">
-            {status}
+        {statusInfo && (
+          <span className={`absolute top-2.5 left-2.5 text-[10px] font-bold uppercase tracking-wide px-2 py-0.5 rounded-full ${statusInfo.color}`}>
+            {statusInfo.label}
           </span>
         )}
-        <p className="font-semibold text-[--color-fg] line-clamp-1">{title}</p>
-        <p className="text-sm text-[--color-muted-fg]">
+      </div>
+      <div className="p-4 space-y-2">
+        <p className="font-semibold text-gray-900 line-clamp-1 leading-snug">{title}</p>
+        <p className="text-xs text-gray-500 flex items-center gap-1">
+          <svg className="w-3 h-3 shrink-0" fill="currentColor" viewBox="0 0 20 20">
+            <path fillRule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clipRule="evenodd"/>
+          </svg>
           {neighborhood ? `${neighborhood}, ${city}` : city}
         </p>
-        <div className="flex items-center justify-between pt-1">
-          <span className="font-bold text-[--color-fg]">
-            {currency} {rentAmount.toLocaleString()}/mo
+        <div className="flex items-center justify-between pt-0.5">
+          <span className="font-bold text-primary-700 text-base">
+            {currency} {rentAmount.toLocaleString()}<span className="text-xs font-medium text-gray-400">/mo</span>
           </span>
-          <span className="text-xs text-[--color-muted-fg]">
-            {bedroomsTotal}bd · {bathroomsTotal}ba{furnished ? ' · Furnished' : ''}
-          </span>
+          <div className="flex items-center gap-1.5 flex-wrap justify-end">
+            <span className="text-[11px] text-gray-500 bg-stone-100 px-2 py-0.5 rounded-full">
+              {bedroomsTotal}bd · {bathroomsTotal}ba
+            </span>
+            {furnished && (
+              <span className="text-[11px] text-primary-700 bg-primary-50 border border-primary-100 px-2 py-0.5 rounded-full">
+                Furnished
+              </span>
+            )}
+          </div>
         </div>
-        <p className="text-xs text-[--color-muted-fg]">Available {available}</p>
+        <p className="text-[11px] text-gray-400">Available {available}</p>
       </div>
     </Link>
   );

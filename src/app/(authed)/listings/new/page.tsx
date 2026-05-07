@@ -26,7 +26,7 @@ export default async function NewListingPage() {
         <div className="flex flex-col gap-3 w-full max-w-xs">
           <Link
             href="/settings/verify"
-            className="w-full py-3 rounded-2xl bg-teal-600 text-white font-semibold text-center hover:bg-teal-700 transition-colors"
+            className="w-full py-3 rounded-2xl bg-primary-600 text-white font-semibold text-center hover:bg-primary-700 transition-colors"
           >
             Verify my identity →
           </Link>

@@ -22,30 +22,48 @@ export default function VerifyPage() {
 
   return (
     <div className="space-y-6">
-      <h1 className="text-2xl font-semibold text-[--color-fg]">Identity verification</h1>
+      <h1 className="text-2xl font-semibold text-gray-900">Identity verification</h1>
 
-      <div className="rounded-xl border border-[--color-border] bg-[--color-surface] p-6 space-y-4">
-        <div className="space-y-2">
-          <h2 className="font-semibold text-[--color-fg]">Why verify?</h2>
-          <ul className="space-y-1 text-sm text-[--color-muted-fg]">
-            <li>• A verified badge appears on your profile — builds trust instantly</li>
-            <li>• Some users only connect with verified members</li>
-            <li>• Verification is one-time and takes about 2 minutes</li>
-          </ul>
+      <div className="rounded-2xl border border-stone-200 bg-white p-6 space-y-5">
+        <div className="flex items-start gap-4 pb-5 border-b border-stone-100">
+          <div className="w-12 h-12 rounded-2xl bg-amber-50 flex items-center justify-center text-2xl shrink-0">
+            🛡️
+          </div>
+          <div>
+            <h2 className="font-bold text-gray-900 mb-1">Why verify?</h2>
+            <ul className="space-y-1.5 text-sm text-gray-500">
+              <li className="flex items-start gap-2">
+                <span className="text-primary-500 mt-0.5 shrink-0">✓</span>
+                A verified badge appears on your profile — builds trust instantly
+              </li>
+              <li className="flex items-start gap-2">
+                <span className="text-primary-500 mt-0.5 shrink-0">✓</span>
+                Some users only connect with verified members
+              </li>
+              <li className="flex items-start gap-2">
+                <span className="text-primary-500 mt-0.5 shrink-0">✓</span>
+                One-time process — takes about 2 minutes
+              </li>
+            </ul>
+          </div>
         </div>
 
-        <div className="space-y-2">
-          <h2 className="font-semibold text-[--color-fg]">What you&apos;ll need</h2>
-          <p className="text-sm text-[--color-muted-fg]">
+        <div>
+          <h2 className="font-bold text-gray-900 mb-2">What you&apos;ll need</h2>
+          <p className="text-sm text-gray-500 leading-relaxed">
             A government-issued photo ID (passport, driver&apos;s licence, or national ID) and a selfie.
             Powered by Stripe Identity — your ID is processed by Stripe and never stored on Harmony Living servers.
           </p>
         </div>
 
-        {error && <p className="text-sm text-red-500">{error}</p>}
+        {error && (
+          <div className="rounded-xl bg-red-50 border border-red-100 px-4 py-3 text-sm text-red-600">
+            {error}
+          </div>
+        )}
 
-        <Button onClick={startVerification} disabled={isPending}>
-          {isPending ? 'Starting…' : 'Start verification'}
+        <Button onClick={startVerification} disabled={isPending} className="w-full">
+          {isPending ? 'Starting…' : 'Start verification →'}
         </Button>
       </div>
     </div>

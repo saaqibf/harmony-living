@@ -47,7 +47,7 @@ export default async function DashboardPage() {
       emoji: '✨',
       label: 'Discover',
       desc: 'Find your next roommate',
-      color: 'bg-teal-50 text-teal-700 border-teal-100',
+      color: 'bg-primary-50 text-primary-700 border-primary-100',
     },
     {
       href: '/matches',
@@ -89,10 +89,10 @@ export default async function DashboardPage() {
   return (
     <div className="bg-stone-50">
       {/* Header */}
-      <div className="bg-gradient-to-br from-teal-600 to-teal-800 px-4 pt-10 pb-20">
+      <div className="bg-gradient-to-br from-primary-600 to-primary-800 px-4 pt-10 pb-20">
         <div className="mx-auto max-w-lg flex items-center justify-between">
           <span className="text-white text-lg font-bold tracking-tight">
-            harmony<span className="text-teal-200">.</span>living
+            harmony<span className="text-primary-200">.</span>living
           </span>
           <LogoutButton />
         </div>
@@ -106,7 +106,7 @@ export default async function DashboardPage() {
             )}
           </div>
           <div>
-            <p className="text-teal-100 text-sm">{greeting()},</p>
+            <p className="text-primary-100 text-sm">{greeting()},</p>
             <h1 className="text-white text-2xl font-bold">{firstName}!</h1>
           </div>
         </div>
@@ -125,7 +125,7 @@ export default async function DashboardPage() {
           </div>
           <div className="flex-1 text-center">
             <Link href="/discover" className="block">
-              <p className="text-2xl font-bold text-teal-600">→</p>
+              <p className="text-2xl font-bold text-primary-600">→</p>
               <p className="text-xs text-gray-500 mt-0.5">Discover</p>
             </Link>
           </div>

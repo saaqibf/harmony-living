@@ -142,7 +142,7 @@ export function ListingForm({ listingId, initial }: Props) {
           <Input id="longitude" type="number" step="0.0001" {...register('longitude', { valueAsNumber: true })} />
         </div>
       </div>
-      <p className="text-xs text-[--color-muted-fg]">
+      <p className="text-xs text-gray-400">
         Find coordinates at maps.google.com → right-click your address → copy lat/lng.
         The map shows an approximate location to protect your privacy.
       </p>

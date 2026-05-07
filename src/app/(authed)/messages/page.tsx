@@ -54,7 +54,7 @@ export default async function MessagesPage() {
                 <div
                   className={`w-[62px] h-[62px] rounded-full p-[2.5px] ${
                     c.hasUnread
-                      ? 'bg-gradient-to-br from-teal-400 to-teal-700'
+                      ? 'bg-gradient-to-br from-primary-400 to-primary-700'
                       : 'bg-gray-200'
                   }`}
                 >
@@ -89,8 +89,8 @@ export default async function MessagesPage() {
       {/* Conversation list */}
       {conversations.length === 0 ? (
         <div className="flex flex-col items-center justify-center py-32 px-8 text-center">
-          <div className="w-20 h-20 rounded-full bg-teal-50 flex items-center justify-center mb-5">
-            <svg className="w-9 h-9 text-teal-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
+          <div className="w-20 h-20 rounded-full bg-primary-50 flex items-center justify-center mb-5">
+            <svg className="w-9 h-9 text-primary-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
               <path strokeLinecap="round" strokeLinejoin="round" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
             </svg>
           </div>
@@ -98,7 +98,7 @@ export default async function MessagesPage() {
           <p className="text-sm text-gray-400 mb-6">Match with someone to start a conversation.</p>
           <Link
             href="/discover"
-            className="px-6 py-3 bg-teal-600 text-white rounded-2xl text-sm font-semibold hover:bg-teal-700 active:scale-95 transition-all"
+            className="px-6 py-3 bg-primary-600 text-white rounded-2xl text-sm font-semibold hover:bg-primary-700 active:scale-95 transition-all"
           >
             Find roommates →
           </Link>
@@ -127,7 +127,7 @@ export default async function MessagesPage() {
                   )}
                 </div>
                 {c.hasUnread && (
-                  <span className="absolute bottom-0.5 right-0.5 w-3.5 h-3.5 rounded-full bg-teal-500 border-2 border-white" />
+                  <span className="absolute bottom-0.5 right-0.5 w-3.5 h-3.5 rounded-full bg-primary-500 border-2 border-white" />
                 )}
               </div>
 
@@ -138,7 +138,7 @@ export default async function MessagesPage() {
                     {c.otherUser.firstName}
                   </p>
                   {c.lastMessage && (
-                    <span className={`text-xs shrink-0 ${c.hasUnread ? 'text-teal-600 font-semibold' : 'text-gray-400'}`}>
+                    <span className={`text-xs shrink-0 ${c.hasUnread ? 'text-primary-600 font-semibold' : 'text-gray-400'}`}>
                       {relativeTime(c.lastMessage.createdAt)}
                     </span>
                   )}

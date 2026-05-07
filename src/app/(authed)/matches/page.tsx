@@ -30,7 +30,7 @@ export default async function MatchesPage() {
           </div>
           <Link
             href="/discover"
-            className="bg-teal-600 text-white text-sm font-bold px-5 py-2.5 rounded-2xl hover:bg-teal-700 active:scale-95 transition-all shadow-md shadow-teal-600/20"
+            className="bg-primary-600 text-white text-sm font-bold px-5 py-2.5 rounded-2xl hover:bg-primary-700 active:scale-95 transition-all shadow-md shadow-primary-600/20"
           >
             Discover ✨
           </Link>
@@ -40,7 +40,7 @@ export default async function MatchesPage() {
       <div className="max-w-lg mx-auto px-4 py-6 pb-12">
         {matches.length === 0 ? (
           <div className="flex flex-col items-center justify-center py-24 text-center">
-            <div className="w-28 h-28 bg-teal-50 rounded-full flex items-center justify-center mb-6 border-4 border-teal-100">
+            <div className="w-28 h-28 bg-primary-50 rounded-full flex items-center justify-center mb-6 border-4 border-primary-100">
               <span className="text-5xl">💫</span>
             </div>
             <h2 className="text-xl font-bold text-gray-900 mb-2">No matches yet</h2>
@@ -49,7 +49,7 @@ export default async function MatchesPage() {
             </p>
             <Link
               href="/discover"
-              className="bg-teal-600 text-white font-bold px-8 py-3.5 rounded-2xl hover:bg-teal-700 active:scale-95 transition-all shadow-lg shadow-teal-600/20"
+              className="bg-primary-600 text-white font-bold px-8 py-3.5 rounded-2xl hover:bg-primary-700 active:scale-95 transition-all shadow-lg shadow-primary-600/20"
             >
               Start discovering →
             </Link>

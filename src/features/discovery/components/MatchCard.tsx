@@ -17,9 +17,9 @@ export function MatchCard({ conversationId, firstName, photoUrl, city, matchedAt
   const timeLabel = new Intl.DateTimeFormat('en-CA', { month: 'short', day: 'numeric' }).format(matchedAt);
 
   const card = (
-    <div className="rounded-2xl overflow-hidden bg-white border border-stone-100 shadow-sm hover:shadow-md hover:border-teal-100 active:scale-[0.98] transition-all group">
+    <div className="rounded-2xl overflow-hidden bg-white border border-stone-100 shadow-sm hover:shadow-md hover:border-primary-100 active:scale-[0.98] transition-all group">
       {/* Photo */}
-      <div className="h-44 bg-teal-50 relative overflow-hidden">
+      <div className="h-44 bg-primary-50 relative overflow-hidden">
         {photoUrl ? (
           <img src={photoUrl} alt={firstName} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
         ) : (
@@ -57,7 +57,7 @@ export function MatchCard({ conversationId, firstName, photoUrl, city, matchedAt
         {(occupation || faith) && (
           <div className="flex flex-wrap gap-1.5">
             {occupation && (
-              <span className="text-[10px] font-medium text-teal-700 bg-teal-50 border border-teal-100 px-2 py-0.5 rounded-full truncate max-w-[90px]">
+              <span className="text-[10px] font-medium text-primary-700 bg-primary-50 border border-primary-100 px-2 py-0.5 rounded-full truncate max-w-[90px]">
                 {occupation}
               </span>
             )}
@@ -75,7 +75,7 @@ export function MatchCard({ conversationId, firstName, photoUrl, city, matchedAt
         )}
 
         {conversationId ? (
-          <div className="w-full bg-teal-600 text-white text-xs font-bold py-2.5 rounded-xl text-center group-hover:bg-teal-700 transition-colors mt-0.5">
+          <div className="w-full bg-primary-600 text-white text-xs font-bold py-2.5 rounded-xl text-center group-hover:bg-primary-700 transition-colors mt-0.5">
             Message →
           </div>
         ) : (

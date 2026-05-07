@@ -45,7 +45,7 @@ export function ProfileCard({ profile, hasMatch }: Props) {
             style={!showPhoto ? { filter: 'blur(12px)', transform: 'scale(1.05)' } : undefined}
           />
         ) : (
-          <div className="w-full h-full bg-gradient-to-br from-teal-100 via-teal-200 to-teal-400 flex items-center justify-center">
+          <div className="w-full h-full bg-gradient-to-br from-primary-100 via-primary-200 to-primary-400 flex items-center justify-center">
             <span className="text-8xl opacity-40">👤</span>
           </div>
         )}

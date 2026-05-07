@@ -57,7 +57,7 @@ export default async function ConversationPage({
           </svg>
         </Link>
 
-        <div className="w-10 h-10 rounded-full overflow-hidden bg-gray-100 shrink-0 ring-2 ring-teal-100">
+        <div className="w-10 h-10 rounded-full overflow-hidden bg-gray-100 shrink-0 ring-2 ring-primary-100">
           {otherPhotoUrl ? (
             <img src={otherPhotoUrl} alt={otherFirstName} className="w-full h-full object-cover" />
           ) : (
@@ -68,8 +68,8 @@ export default async function ConversationPage({
         <div className="flex-1 min-w-0">
           <p className="font-semibold text-gray-900 text-[15px] truncate">{otherFirstName}</p>
           <div className="flex items-center gap-1.5">
-            <span className="w-2 h-2 rounded-full bg-teal-500" />
-            <span className="text-xs text-teal-600 font-medium">Active now</span>
+            <span className="w-2 h-2 rounded-full bg-primary-500" />
+            <span className="text-xs text-primary-600 font-medium">Active now</span>
           </div>
         </div>
 

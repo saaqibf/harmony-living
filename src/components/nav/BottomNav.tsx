@@ -26,13 +26,13 @@ export function BottomNav() {
               key={item.href}
               href={item.href}
               className={`flex flex-col items-center gap-0.5 px-3 py-2 rounded-xl transition-colors text-xs ${
-                active ? 'text-teal-600' : 'text-gray-400 hover:text-gray-600'
+                active ? 'text-primary-600' : 'text-gray-400 hover:text-gray-600'
               }`}
             >
               <span className={`text-xl leading-none transition-transform ${active ? 'scale-110' : ''}`}>
                 {item.icon}
               </span>
-              <span className={`font-medium ${active ? 'text-teal-600' : ''}`}>{item.label}</span>
+              <span className={`font-medium ${active ? 'text-primary-600' : ''}`}>{item.label}</span>
             </Link>
           );
         })}

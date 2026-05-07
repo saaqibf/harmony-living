@@ -13,7 +13,7 @@ const HOW_IT_WORKS = [
     icon: '✨',
     title: 'Discover your matches',
     body: 'We surface compatible roommates every day — swipe to connect with people who fit your world.',
-    color: 'bg-teal-50 border-teal-100 text-teal-600',
+    color: 'bg-primary-50 border-primary-100 text-primary-600',
   },
   {
     num: '03',
@@ -49,7 +49,7 @@ export default function HomePage() {
       <nav className="bg-white/80 backdrop-blur-sm border-b border-stone-100 sticky top-0 z-20">
         <div className="max-w-6xl mx-auto px-5 md:px-10 flex items-center justify-between h-16">
           <span className="text-xl font-extrabold text-gray-900 tracking-tight">
-            harmony<span className="text-teal-600">.</span>living
+            harmony<span className="text-primary-600">.</span>living
           </span>
           <div className="flex items-center gap-2">
             <Link
@@ -60,7 +60,7 @@ export default function HomePage() {
             </Link>
             <Link
               href="/signup"
-              className="text-sm font-bold bg-teal-600 text-white px-5 py-2.5 rounded-2xl hover:bg-teal-700 active:scale-95 transition-all shadow-md shadow-teal-600/20"
+              className="text-sm font-bold bg-primary-600 text-white px-5 py-2.5 rounded-2xl hover:bg-primary-700 active:scale-95 transition-all shadow-md shadow-primary-600/20"
             >
               Join free →
             </Link>
@@ -69,23 +69,23 @@ export default function HomePage() {
       </nav>
 
       {/* ── HERO ── */}
-      <section className="relative overflow-hidden bg-gradient-to-br from-amber-50 via-stone-50 to-teal-50">
+      <section className="relative overflow-hidden bg-gradient-to-br from-amber-50 via-stone-50 to-primary-50">
         {/* Warm decorative blobs */}
-        <div className="absolute top-0 right-0 w-[700px] h-[700px] rounded-full bg-teal-100 opacity-40 translate-x-1/3 -translate-y-1/3 pointer-events-none" />
+        <div className="absolute top-0 right-0 w-[700px] h-[700px] rounded-full bg-primary-100 opacity-40 translate-x-1/3 -translate-y-1/3 pointer-events-none" />
         <div className="absolute bottom-0 left-0 w-[500px] h-[500px] rounded-full bg-amber-100 opacity-50 -translate-x-1/3 translate-y-1/3 pointer-events-none" />
 
         <div className="relative max-w-6xl mx-auto px-5 md:px-10 pt-16 pb-20 md:pt-24 md:pb-28">
           <div className="grid md:grid-cols-5 gap-12 items-center">
             {/* Copy */}
             <div className="md:col-span-3">
-              <div className="inline-flex items-center gap-2 bg-teal-50 text-teal-700 text-xs font-bold px-4 py-2 rounded-full border border-teal-100 mb-7">
-                <span className="w-2 h-2 rounded-full bg-teal-500 animate-pulse" />
+              <div className="inline-flex items-center gap-2 bg-primary-50 text-primary-700 text-xs font-bold px-4 py-2 rounded-full border border-primary-100 mb-7">
+                <span className="w-2 h-2 rounded-full bg-primary-500 animate-pulse" />
                 Now live · Calgary, AB
               </div>
 
               <h1 className="text-5xl md:text-[60px] font-extrabold text-gray-900 leading-[1.06] tracking-tight mb-6">
                 Your next home.<br />
-                <span className="text-teal-600">Your kind of people.</span>
+                <span className="text-primary-600">Your kind of people.</span>
               </h1>
 
               <p className="text-[17px] text-stone-500 leading-relaxed mb-9 max-w-lg">
@@ -96,7 +96,7 @@ export default function HomePage() {
               <div className="flex flex-col sm:flex-row gap-3 mb-6">
                 <Link
                   href="/signup"
-                  className="inline-flex items-center justify-center bg-teal-600 text-white font-bold px-8 py-4 rounded-2xl hover:bg-teal-700 active:scale-[0.98] transition-all shadow-lg shadow-teal-600/25 text-base"
+                  className="inline-flex items-center justify-center bg-primary-600 text-white font-bold px-8 py-4 rounded-2xl hover:bg-primary-700 active:scale-[0.98] transition-all shadow-lg shadow-primary-600/25 text-base"
                 >
                   Get started — it&apos;s free
                 </Link>
@@ -111,7 +111,7 @@ export default function HomePage() {
               <div className="flex items-center gap-5">
                 <p className="text-xs text-stone-400">No credit card required · Takes 3 minutes</p>
                 <div className="flex -space-x-2">
-                  {['from-amber-300 to-orange-400', 'from-teal-400 to-teal-600', 'from-violet-400 to-purple-600'].map((g, i) => (
+                  {['from-amber-300 to-orange-400', 'from-primary-400 to-primary-600', 'from-violet-400 to-purple-600'].map((g, i) => (
                     <div key={i} className={`w-7 h-7 rounded-full bg-gradient-to-br ${g} border-2 border-white`} />
                   ))}
                   <div className="w-7 h-7 rounded-full bg-stone-100 border-2 border-white flex items-center justify-center">
@@ -136,7 +136,7 @@ export default function HomePage() {
 
                 {/* Card — front center (teal) */}
                 <div
-                  className="absolute left-1/2 top-4 -translate-x-1/2 z-10 w-48 rounded-3xl bg-gradient-to-br from-teal-400 via-teal-500 to-teal-700 shadow-2xl rotate-[2deg] overflow-hidden flex flex-col justify-end p-5"
+                  className="absolute left-1/2 top-4 -translate-x-1/2 z-10 w-48 rounded-3xl bg-gradient-to-br from-primary-400 via-primary-500 to-primary-700 shadow-2xl rotate-[2deg] overflow-hidden flex flex-col justify-end p-5"
                   style={{ height: 280 }}
                 >
                   <div className="absolute top-4 left-4 bg-emerald-400 rounded-full px-2.5 py-0.5 flex items-center gap-1 shadow-sm">
@@ -185,7 +185,7 @@ export default function HomePage() {
       <section className="bg-white border-y border-stone-100 py-16 px-5 md:px-10">
         <div className="max-w-6xl mx-auto">
           <div className="text-center mb-14">
-            <p className="text-teal-600 text-sm font-bold uppercase tracking-widest mb-3">How it works</p>
+            <p className="text-primary-600 text-sm font-bold uppercase tracking-widest mb-3">How it works</p>
             <h2 className="text-3xl md:text-4xl font-extrabold text-gray-900 mb-3">Finding harmony is easy</h2>
             <p className="text-stone-500 text-lg">Three steps to your perfect living match.</p>
           </div>
@@ -210,7 +210,7 @@ export default function HomePage() {
       <section className="py-16 px-5 md:px-10 bg-gradient-to-b from-stone-50 to-amber-50/40">
         <div className="max-w-6xl mx-auto">
           <div className="text-center mb-12">
-            <p className="text-teal-600 text-sm font-bold uppercase tracking-widest mb-3">Our promise</p>
+            <p className="text-primary-600 text-sm font-bold uppercase tracking-widest mb-3">Our promise</p>
             <h2 className="text-3xl md:text-4xl font-extrabold text-gray-900 mb-3">Built for real life</h2>
             <p className="text-stone-500 text-lg">Finding a roommate should feel good, not stressful.</p>
           </div>
@@ -218,9 +218,9 @@ export default function HomePage() {
             {VALUES.map((v) => (
               <div
                 key={v.title}
-                className="bg-white rounded-3xl p-7 border border-stone-100 shadow-sm hover:shadow-md hover:border-teal-100 transition-all group cursor-default"
+                className="bg-white rounded-3xl p-7 border border-stone-100 shadow-sm hover:shadow-md hover:border-primary-100 transition-all group cursor-default"
               >
-                <div className="w-14 h-14 rounded-2xl bg-stone-50 flex items-center justify-center text-3xl mb-5 group-hover:bg-teal-50 transition-colors">
+                <div className="w-14 h-14 rounded-2xl bg-stone-50 flex items-center justify-center text-3xl mb-5 group-hover:bg-primary-50 transition-colors">
                   {v.emoji}
                 </div>
                 <h3 className="font-bold text-gray-900 text-[17px] mb-2">{v.title}</h3>
@@ -250,19 +250,19 @@ export default function HomePage() {
 
       {/* ── CTA BANNER ── */}
       <section className="px-5 md:px-10 py-16">
-        <div className="max-w-2xl mx-auto bg-gradient-to-br from-teal-600 to-teal-800 rounded-3xl px-8 py-14 text-center shadow-xl shadow-teal-600/25 relative overflow-hidden">
+        <div className="max-w-2xl mx-auto bg-gradient-to-br from-primary-600 to-primary-800 rounded-3xl px-8 py-14 text-center shadow-xl shadow-primary-600/25 relative overflow-hidden">
           <div className="absolute inset-0 opacity-10">
             <div className="absolute top-0 right-0 w-64 h-64 rounded-full bg-white translate-x-1/3 -translate-y-1/3" />
             <div className="absolute bottom-0 left-0 w-48 h-48 rounded-full bg-white -translate-x-1/3 translate-y-1/3" />
           </div>
           <div className="relative">
             <h2 className="text-3xl font-extrabold text-white mb-3">Ready to find your person?</h2>
-            <p className="text-teal-100 text-lg mb-8 leading-relaxed">
+            <p className="text-primary-100 text-lg mb-8 leading-relaxed">
               Join thousands of people finding harmony in their homes.
             </p>
             <Link
               href="/signup"
-              className="inline-flex items-center justify-center bg-white text-teal-700 font-bold px-10 py-4 rounded-2xl hover:bg-teal-50 transition-colors shadow-lg text-base"
+              className="inline-flex items-center justify-center bg-white text-primary-700 font-bold px-10 py-4 rounded-2xl hover:bg-primary-50 transition-colors shadow-lg text-base"
             >
               Create your free account →
             </Link>
@@ -274,13 +274,13 @@ export default function HomePage() {
       <footer className="bg-white border-t border-stone-100 px-5 md:px-10 py-8">
         <div className="max-w-6xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4">
           <span className="font-extrabold text-gray-900 text-lg">
-            harmony<span className="text-teal-600">.</span>living
+            harmony<span className="text-primary-600">.</span>living
           </span>
           <p className="text-sm text-stone-400">
             © {new Date().getFullYear()} Harmony Living · Calgary, AB ·{' '}
-            <Link href="/login" className="hover:text-teal-600 transition-colors">Log in</Link>
+            <Link href="/login" className="hover:text-primary-600 transition-colors">Log in</Link>
             {' / '}
-            <Link href="/signup" className="hover:text-teal-600 transition-colors">Sign up</Link>
+            <Link href="/signup" className="hover:text-primary-600 transition-colors">Sign up</Link>
           </p>
         </div>
       </footer>

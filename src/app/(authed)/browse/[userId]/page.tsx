@@ -117,7 +117,7 @@ export default async function BrowseProfilePage({
               )}
               <div>
                 <h1 className="text-3xl font-bold text-gray-900">Hi, I'm {profile.firstName}</h1>
-                <span className="inline-block mt-1 bg-teal-50 text-teal-700 text-xs font-semibold px-3 py-1 rounded-full border border-teal-100">
+                <span className="inline-block mt-1 bg-primary-50 text-primary-700 text-xs font-semibold px-3 py-1 rounded-full border border-primary-100">
                   Looking for a place
                 </span>
                 <p className="text-sm text-gray-500 mt-2">
@@ -231,7 +231,7 @@ export default async function BrowseProfilePage({
               existingMatch.conversationId ? (
                 <Link
                   href={`/messages/${existingMatch.conversationId}`}
-                  className="block w-full py-4 rounded-2xl font-bold text-white bg-teal-600 hover:bg-teal-700 text-center transition-colors"
+                  className="block w-full py-4 rounded-2xl font-bold text-white bg-primary-600 hover:bg-primary-700 text-center transition-colors"
                 >
                   Message →
                 </Link>
@@ -241,7 +241,7 @@ export default async function BrowseProfilePage({
                 </div>
               )
             ) : existingSwipe?.direction === 'CONNECT' ? (
-              <div className="w-full py-4 rounded-2xl bg-teal-50 text-teal-700 border border-teal-200 text-center font-semibold">
+              <div className="w-full py-4 rounded-2xl bg-primary-50 text-primary-700 border border-primary-200 text-center font-semibold">
                 Request sent ✓
               </div>
             ) : existingSwipe?.direction === 'PASS' ? (

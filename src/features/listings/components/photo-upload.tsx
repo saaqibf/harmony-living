@@ -51,7 +51,7 @@ export function PhotoUpload({
         <img
           src={preview}
           alt="Preview"
-          className="w-32 h-32 rounded-full object-cover border border-[--color-border]"
+          className="w-32 h-32 rounded-full object-cover border border-stone-200"
         />
       )}
       <input

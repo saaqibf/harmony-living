@@ -22,7 +22,7 @@ export default async function BrowsePage({
           <Link
             href="?tab=rooms"
             className={`px-4 py-2 rounded-full text-sm font-semibold transition-colors ${
-              isRooms ? 'bg-teal-600 text-white' : 'bg-stone-100 text-gray-600 hover:bg-stone-200'
+              isRooms ? 'bg-primary-600 text-white' : 'bg-stone-100 text-gray-600 hover:bg-stone-200'
             }`}
           >
             Rooms
@@ -30,7 +30,7 @@ export default async function BrowsePage({
           <Link
             href="?tab=roommates"
             className={`px-4 py-2 rounded-full text-sm font-semibold transition-colors ${
-              !isRooms ? 'bg-teal-600 text-white' : 'bg-stone-100 text-gray-600 hover:bg-stone-200'
+              !isRooms ? 'bg-primary-600 text-white' : 'bg-stone-100 text-gray-600 hover:bg-stone-200'
             }`}
           >
             Roommates
@@ -54,7 +54,7 @@ async function RoomsTab() {
         <p className="text-gray-500 text-lg mb-4">No rooms available right now.</p>
         <Link
           href="/discover"
-          className="inline-block px-6 py-3 bg-teal-600 text-white font-semibold rounded-2xl hover:bg-teal-700 transition-colors"
+          className="inline-block px-6 py-3 bg-primary-600 text-white font-semibold rounded-2xl hover:bg-primary-700 transition-colors"
         >
           Try Discover instead
         </Link>
@@ -104,7 +104,7 @@ async function RoommatesTab() {
         <p className="text-gray-500 text-lg mb-4">No one is looking right now.</p>
         <Link
           href="/discover"
-          className="inline-block px-6 py-3 bg-teal-600 text-white font-semibold rounded-2xl hover:bg-teal-700 transition-colors"
+          className="inline-block px-6 py-3 bg-primary-600 text-white font-semibold rounded-2xl hover:bg-primary-700 transition-colors"
         >
           Try Discover
         </Link>
@@ -130,7 +130,7 @@ async function RoommatesTab() {
               href={`/browse/${profile.userId}`}
               className="bg-white rounded-2xl shadow-sm hover:shadow-md transition-shadow overflow-hidden"
             >
-              <div className="h-40 bg-teal-50 flex items-start justify-center">
+              <div className="h-40 bg-primary-50 flex items-start justify-center">
                 {showPhoto ? (
                   <img
                     src={showPhoto}
@@ -151,7 +151,7 @@ async function RoommatesTab() {
                   <span className="truncate">{profile.city}</span>
                 </p>
                 {profile.isVerified && (
-                  <span className="inline-block mt-1 text-xs bg-teal-50 text-teal-700 border border-teal-200 rounded-full px-2 py-0.5 font-semibold">
+                  <span className="inline-block mt-1 text-xs bg-primary-50 text-primary-700 border border-primary-200 rounded-full px-2 py-0.5 font-semibold">
                     ✓ Verified
                   </span>
                 )}
