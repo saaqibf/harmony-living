@@ -4,18 +4,19 @@ import { PutObjectCommand, DeleteObjectCommand } from '@aws-sdk/client-s3';
 import sharp from 'sharp';
 import { s3, S3_BUCKET } from './client';
 import { env } from '@/lib/env';
+import { AppError } from '@/lib/errors';
 
 const MAX_FILE_SIZE = 10 * 1024 * 1024; // 10 MB
 const ALLOWED_IMAGE_TYPES = ['image/jpeg', 'image/png', 'image/webp'];
 const ALLOWED_AUDIO_TYPES = ['audio/mpeg', 'audio/mp4', 'audio/webm', 'audio/ogg'];
 const ALLOWED_VIDEO_TYPES = ['video/mp4', 'video/webm'];
 
-export class UploadError extends Error {
+export class UploadError extends AppError {
   constructor(
     public readonly code: 'TOO_LARGE' | 'INVALID_TYPE' | 'UPLOAD_FAILED',
     message: string,
   ) {
-    super(message);
+    super(code, message);
     this.name = 'UploadError';
   }
 }

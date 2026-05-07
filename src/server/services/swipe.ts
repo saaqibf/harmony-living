@@ -3,13 +3,14 @@ import 'server-only';
 import type { SwipeDirection } from '@generated/prisma/client';
 import { prisma } from '@/lib/db/prisma';
 import { log } from '@/lib/log';
+import { AppError } from '@/lib/errors';
 
-export class SwipeError extends Error {
+export class SwipeError extends AppError {
   constructor(
     public readonly code: 'QUOTA_EXCEEDED' | 'SELF_SWIPE' | 'USER_NOT_FOUND',
     message: string,
   ) {
-    super(message);
+    super(code, message);
     this.name = 'SwipeError';
   }
 }

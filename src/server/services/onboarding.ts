@@ -1,6 +1,7 @@
 import 'server-only';
 
 import type { Gender, Preferences, PrivacyMode, Profile } from '@generated/prisma/client';
+import { AppError } from '@/lib/errors';
 import { prisma } from '@/lib/db/prisma';
 import { dobToStoredDate, isAtLeast18 } from '@/lib/dates';
 import { log } from '@/lib/log';
@@ -29,12 +30,12 @@ export type OnboardingErrorCode =
   | 'GENDER_MISMATCH_FOR_FEMALE_ONLY'
   | 'UNKNOWN';
 
-export class OnboardingError extends Error {
+export class OnboardingError extends AppError {
   constructor(
     public readonly code: OnboardingErrorCode,
     message?: string,
   ) {
-    super(message ?? code);
+    super(code, message);
     this.name = 'OnboardingError';
   }
 }

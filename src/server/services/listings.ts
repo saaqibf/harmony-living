@@ -2,13 +2,14 @@ import 'server-only';
 
 import type { ListingStatus, GenderPreference } from '@generated/prisma/client';
 import { prisma } from '@/lib/db/prisma';
+import { AppError } from '@/lib/errors';
 
-export class ListingError extends Error {
+export class ListingError extends AppError {
   constructor(
     public readonly code: 'NOT_FOUND' | 'FORBIDDEN' | 'NOT_PUBLISHABLE',
     message: string,
   ) {
-    super(message);
+    super(code, message);
     this.name = 'ListingError';
   }
 }

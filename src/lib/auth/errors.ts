@@ -1,3 +1,5 @@
+import { AppError } from '@/lib/errors';
+
 export const AuthErrorCode = {
   USER_ALREADY_EXISTS: 'USER_ALREADY_EXISTS',
   INVALID_CREDENTIALS: 'INVALID_CREDENTIALS',
@@ -14,12 +16,12 @@ export const AuthErrorCode = {
 
 export type AuthErrorCode = (typeof AuthErrorCode)[keyof typeof AuthErrorCode];
 
-export class AuthError extends Error {
+export class AuthError extends AppError {
   constructor(
     public readonly code: AuthErrorCode,
     message?: string,
   ) {
-    super(message ?? code);
+    super(code, message);
     this.name = 'AuthError';
   }
 }

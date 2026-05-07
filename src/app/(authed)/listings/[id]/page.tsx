@@ -1,8 +1,7 @@
 import { notFound } from 'next/navigation';
 import Link from 'next/link';
 import { Suspense } from 'react';
-import { requireUser } from '@/lib/auth/session';
-import { prisma } from '@/lib/db/prisma';
+import { requireDbUser } from '@/lib/auth/session';
 import { getActiveListing } from '@/server/services/listings';
 import { ListingMap } from '@/features/listings/components/listing-map';
 import { Button } from '@/components/ui/button';
@@ -14,19 +13,12 @@ export default async function ListingDetailPage({
   params: Promise<{ id: string }>;
 }) {
   const { id } = await params;
-  const auth = await requireUser();
+  const { userId } = await requireDbUser();
 
-  const [listing, user] = await Promise.all([
-    getActiveListing(id),
-    prisma.user.findUnique({
-      where: { cognitoSub: auth.cognitoSub },
-      select: { id: true },
-    }),
-  ]);
-
+  const listing = await getActiveListing(id);
   if (!listing) notFound();
 
-  const isOwner = user?.id === listing.ownerId;
+  const isOwner = userId === listing.ownerId;
   const available = new Intl.DateTimeFormat('en-CA', {
     month: 'long',
     day: 'numeric',

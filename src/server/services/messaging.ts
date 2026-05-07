@@ -3,13 +3,14 @@ import 'server-only';
 import { prisma } from '@/lib/db/prisma';
 import { pusherServer, conversationChannel, PUSHER_EVENTS } from '@/lib/realtime/pusher-server';
 import { log } from '@/lib/log';
+import { AppError } from '@/lib/errors';
 
-export class MessagingError extends Error {
+export class MessagingError extends AppError {
   constructor(
     public readonly code: 'NOT_PARTICIPANT' | 'CONVERSATION_NOT_FOUND' | 'EMPTY_MESSAGE',
     message: string,
   ) {
-    super(message);
+    super(code, message);
     this.name = 'MessagingError';
   }
 }

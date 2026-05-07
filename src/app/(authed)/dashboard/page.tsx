@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { requireUser } from '@/lib/auth/session';
+import { requireDbUser } from '@/lib/auth/session';
 import { prisma } from '@/lib/db/prisma';
 import { calcAge } from '@/lib/dates';
 import LogoutButton from './_components/logout-button';
@@ -12,10 +12,10 @@ function greeting() {
 }
 
 export default async function DashboardPage() {
-  const auth = await requireUser();
+  const { userId } = await requireDbUser();
 
   const user = await prisma.user.findUnique({
-    where: { cognitoSub: auth.cognitoSub },
+    where: { id: userId },
     select: {
       id: true,
       emailVerified: true,
@@ -29,7 +29,7 @@ export default async function DashboardPage() {
     },
   });
 
-  const firstName = user?.profile?.firstName ?? auth.email?.split('@')[0] ?? 'there';
+  const firstName = user?.profile?.firstName ?? 'there';
   const matchCount = (user?._count.matchesAsA ?? 0) + (user?._count.matchesAsB ?? 0);
 
   const unreadCount = user
