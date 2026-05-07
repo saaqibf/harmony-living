@@ -32,16 +32,16 @@ export function ConnectButton({ targetId }: { targetId: string }) {
     return (
       <Link
         href={`/messages/${state.conversationId}`}
-        className="block w-full py-4 rounded-2xl font-bold text-white bg-primary-600 hover:bg-primary-700 text-center transition-colors"
+        className="block w-full py-4 rounded-2xl font-semibold text-white bg-[#1c1916] hover:bg-[#2e2b28] text-center text-sm transition-colors"
       >
-        It's a match! Say hello 👋
+        It&apos;s a match! Say hello →
       </Link>
     );
   }
 
   if (state.kind === 'sent') {
     return (
-      <div className="w-full py-4 rounded-2xl bg-primary-50 text-primary-700 border border-primary-200 text-center font-semibold">
+      <div className="w-full py-4 rounded-2xl bg-[#f7f3f1] text-[#c96d4d] border border-[#cfc5bd] text-center text-sm font-semibold">
         Request sent ✓
       </div>
     );
@@ -52,11 +52,11 @@ export function ConnectButton({ targetId }: { targetId: string }) {
       <div className="space-y-2">
         <button
           onClick={handleConnect}
-          className="w-full py-4 rounded-2xl font-bold text-white bg-primary-600 hover:bg-primary-700 transition-colors"
+          className="w-full py-4 rounded-2xl font-semibold text-white bg-[#1c1916] hover:bg-[#2e2b28] transition-colors text-sm"
         >
           Connect
         </button>
-        <p className="text-sm text-red-500 text-center">{state.message}</p>
+        <p className="text-xs text-red-500 text-center">{state.message}</p>
       </div>
     );
   }
@@ -65,9 +65,9 @@ export function ConnectButton({ targetId }: { targetId: string }) {
     <button
       onClick={handleConnect}
       disabled={state.kind === 'loading'}
-      className="w-full py-4 rounded-2xl font-bold text-white bg-primary-600 hover:bg-primary-700 disabled:opacity-60 disabled:cursor-not-allowed transition-colors"
+      className="w-full py-4 rounded-2xl font-semibold text-white bg-[#1c1916] hover:bg-[#2e2b28] disabled:opacity-60 disabled:cursor-not-allowed transition-colors text-sm"
     >
-      {state.kind === 'loading' ? 'Connecting...' : 'Connect'}
+      {state.kind === 'loading' ? 'Connecting…' : 'Connect'}
     </button>
   );
 }

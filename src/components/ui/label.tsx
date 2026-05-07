@@ -10,7 +10,7 @@ export function Label({ className, ref, ...props }: LabelProps) {
     <label
       ref={ref}
       className={cn(
-        'text-sm font-medium text-slate-700 leading-none',
+        'text-sm font-medium text-[#1c1b1b] leading-none',
         className,
       )}
       {...props}

@@ -19,7 +19,7 @@ type ListingCardProps = {
 
 const STATUS_LABELS: Record<string, { label: string; color: string }> = {
   DRAFT: { label: 'Draft', color: 'bg-amber-50 text-amber-700 border border-amber-200' },
-  INACTIVE: { label: 'Inactive', color: 'bg-stone-100 text-gray-500 border border-stone-200' },
+  INACTIVE: { label: 'Inactive', color: 'bg-[#f1edec] text-[#7d766f] border border-[#cfc5bd]' },
   PENDING: { label: 'Pending review', color: 'bg-blue-50 text-blue-700 border border-blue-200' },
 };
 
@@ -44,17 +44,17 @@ export function ListingCard({
     year: 'numeric',
   }).format(new Date(availableFrom));
 
-  const statusInfo = status && status !== 'ACTIVE' ? (STATUS_LABELS[status] ?? { label: status, color: 'bg-stone-100 text-gray-500 border border-stone-200' }) : null;
+  const statusInfo = status && status !== 'ACTIVE' ? (STATUS_LABELS[status] ?? { label: status, color: 'bg-[#f1edec] text-[#7d766f] border border-[#cfc5bd]' }) : null;
 
   return (
     <Link
       href={`/listings/${id}`}
       className={cn(
-        'group block rounded-2xl border border-stone-200 bg-white overflow-hidden hover:shadow-md hover:border-primary-100 active:scale-[0.99] transition-all',
+        'group block rounded-2xl border border-[#cfc5bd] bg-white overflow-hidden hover:shadow-md hover:border-[#c96d4d]/30 active:scale-[0.99] transition-all',
         className,
       )}
     >
-      <div className="aspect-[4/3] bg-stone-100 overflow-hidden relative">
+      <div className="aspect-[4/3] bg-[#f1edec] overflow-hidden relative">
         {coverImageUrl ? (
           <img
             src={coverImageUrl}
@@ -62,7 +62,7 @@ export function ListingCard({
             className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
           />
         ) : (
-          <div className="w-full h-full flex flex-col items-center justify-center text-stone-400">
+          <div className="w-full h-full flex flex-col items-center justify-center text-[#7d766f]">
             <span className="text-3xl mb-1">🏠</span>
             <span className="text-xs font-medium">No photo yet</span>
           </div>
@@ -74,29 +74,29 @@ export function ListingCard({
         )}
       </div>
       <div className="p-4 space-y-2">
-        <p className="font-semibold text-gray-900 line-clamp-1 leading-snug">{title}</p>
-        <p className="text-xs text-gray-500 flex items-center gap-1">
+        <p className="font-semibold text-[#1c1b1b] line-clamp-1 leading-snug">{title}</p>
+        <p className="text-xs text-[#7d766f] flex items-center gap-1">
           <svg className="w-3 h-3 shrink-0" fill="currentColor" viewBox="0 0 20 20">
             <path fillRule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clipRule="evenodd"/>
           </svg>
           {neighborhood ? `${neighborhood}, ${city}` : city}
         </p>
         <div className="flex items-center justify-between pt-0.5">
-          <span className="font-bold text-primary-700 text-base">
-            {currency} {rentAmount.toLocaleString()}<span className="text-xs font-medium text-gray-400">/mo</span>
+          <span className="font-bold text-[#1c1b1b] text-base">
+            {currency} {rentAmount.toLocaleString()}<span className="text-xs font-medium text-[#7d766f]">/mo</span>
           </span>
           <div className="flex items-center gap-1.5 flex-wrap justify-end">
-            <span className="text-[11px] text-gray-500 bg-stone-100 px-2 py-0.5 rounded-full">
+            <span className="text-[11px] text-[#7d766f] bg-[#f1edec] px-2 py-0.5 rounded-full">
               {bedroomsTotal}bd · {bathroomsTotal}ba
             </span>
             {furnished && (
-              <span className="text-[11px] text-primary-700 bg-primary-50 border border-primary-100 px-2 py-0.5 rounded-full">
+              <span className="text-[11px] text-[#b05e3d] bg-[#f7f3f1] border border-[#cfc5bd] px-2 py-0.5 rounded-full">
                 Furnished
               </span>
             )}
           </div>
         </div>
-        <p className="text-[11px] text-gray-400">Available {available}</p>
+        <p className="text-[11px] text-[#7d766f]">Available {available}</p>
       </div>
     </Link>
   );

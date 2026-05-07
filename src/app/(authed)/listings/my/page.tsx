@@ -1,33 +1,32 @@
 import Link from 'next/link';
-import { requireUser } from '@/lib/auth/session';
+import { requireDbUser } from '@/lib/auth/session';
 import { prisma } from '@/lib/db/prisma';
 import { getMyListings } from '@/server/services/listings';
 import { ListingCard } from '@/features/listings/components/listing-card';
-export default async function MyListingsPage() {
-  const auth = await requireUser();
-  const user = await prisma.user.findUnique({
-    where: { cognitoSub: auth.cognitoSub },
-    select: { id: true, roles: true },
-  });
-  if (!user) return null;
 
-  const listings = await getMyListings(user.id);
-  const canCreate = user.roles.includes('LISTER') || user.roles.includes('ADMIN');
+export default async function MyListingsPage() {
+  const { userId } = await requireDbUser();
+  const [user, listings] = await Promise.all([
+    prisma.user.findUnique({ where: { id: userId }, select: { roles: true } }),
+    getMyListings(userId),
+  ]);
+
+  const canCreate = user?.roles.includes('LISTER') || user?.roles.includes('ADMIN');
 
   return (
-    <div className="min-h-screen bg-stone-50">
-      <div className="bg-white border-b border-stone-100 px-4 pt-10 pb-5">
+    <div className="min-h-screen bg-[#fdf8f7]">
+      <div className="bg-white border-b border-[#cfc5bd] px-6 pt-8 pb-5">
         <div className="max-w-5xl mx-auto flex items-center justify-between">
           <div>
-            <h1 className="text-2xl font-bold text-gray-900">My listings</h1>
+            <h1 className="text-2xl font-serif font-semibold text-[#1c1b1b]">My listings</h1>
             {listings.length > 0 && (
-              <p className="text-sm text-gray-400 mt-0.5">{listings.length} listing{listings.length !== 1 ? 's' : ''}</p>
+              <p className="text-sm text-[#7d766f] mt-0.5">{listings.length} listing{listings.length !== 1 ? 's' : ''}</p>
             )}
           </div>
           {canCreate && (
             <Link
               href="/listings/new"
-              className="bg-primary-600 text-white text-sm font-bold px-5 py-2.5 rounded-2xl hover:bg-primary-700 active:scale-95 transition-all shadow-md shadow-primary-600/20"
+              className="bg-[#1c1916] text-white text-sm font-semibold px-5 py-2.5 rounded-xl hover:bg-[#2e2b28] active:scale-95 transition-all"
             >
               + New listing
             </Link>
@@ -35,27 +34,27 @@ export default async function MyListingsPage() {
         </div>
       </div>
 
-      <div className="max-w-5xl mx-auto px-4 py-6 pb-12">
+      <div className="max-w-5xl mx-auto px-6 py-6 pb-24">
         {listings.length === 0 ? (
           <div className="flex flex-col items-center justify-center py-24 text-center">
-            <div className="w-24 h-24 rounded-full bg-primary-50 flex items-center justify-center mb-6 border-4 border-primary-100">
+            <div className="w-20 h-20 rounded-full bg-[#f7f3f1] flex items-center justify-center mb-5">
               <span className="text-4xl">🏠</span>
             </div>
-            <h2 className="text-xl font-bold text-gray-900 mb-2">No listings yet</h2>
-            <p className="text-sm text-gray-400 mb-8 max-w-xs leading-relaxed">
+            <h2 className="text-xl font-serif font-semibold text-[#1c1b1b] mb-2">No listings yet</h2>
+            <p className="text-sm text-[#7d766f] mb-8 max-w-xs leading-relaxed">
               Post a room and connect with compatible roommates in your area.
             </p>
             {canCreate && (
               <Link
                 href="/listings/new"
-                className="bg-primary-600 text-white font-bold px-8 py-3.5 rounded-2xl hover:bg-primary-700 active:scale-95 transition-all shadow-lg shadow-primary-600/20"
+                className="bg-[#1c1916] text-white font-semibold px-8 py-3.5 rounded-xl hover:bg-[#2e2b28] active:scale-95 transition-all"
               >
                 Create your first listing →
               </Link>
             )}
           </div>
         ) : (
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
             {listings.map((l) => (
               <ListingCard
                 key={l.id}
@@ -79,4 +78,3 @@ export default async function MyListingsPage() {
     </div>
   );
 }
-

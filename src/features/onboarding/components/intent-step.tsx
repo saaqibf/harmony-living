@@ -23,8 +23,8 @@ export function IntentStep({ initialIntent }: { initialIntent: string | null }) 
   return (
     <div className="space-y-6">
       <div className="text-center space-y-2">
-        <h1 className="text-2xl font-bold text-gray-900">What brings you here?</h1>
-        <p className="text-gray-500 text-sm">We'll tailor your experience from the start.</p>
+        <h1 className="text-2xl font-serif font-semibold text-[#1c1b1b]">What brings you here?</h1>
+        <p className="text-[#7d766f] text-sm">We&apos;ll tailor your experience from the start.</p>
       </div>
 
       <div className="space-y-3">
@@ -35,12 +35,12 @@ export function IntentStep({ initialIntent }: { initialIntent: string | null }) 
             onClick={() => setSelected(opt.value)}
             className={`w-full flex items-center gap-4 p-4 rounded-2xl border-2 text-left transition-all ${
               selected === opt.value
-                ? 'border-primary-500 bg-primary-50'
-                : 'border-gray-200 bg-white hover:border-gray-300'
+                ? 'border-[#2d4a3e] bg-[#edf4f1]'
+                : 'border-[#cfc5bd] bg-white hover:border-[#2d4a3e]/50'
             }`}
           >
             <span className="text-2xl">{opt.emoji}</span>
-            <span className={`font-medium text-sm ${selected === opt.value ? 'text-primary-700' : 'text-gray-700'}`}>
+            <span className={`font-medium text-sm ${selected === opt.value ? 'text-[#2d4a3e]' : 'text-[#4c4640]'}`}>
               {opt.label}
             </span>
           </button>
@@ -51,7 +51,7 @@ export function IntentStep({ initialIntent }: { initialIntent: string | null }) 
         type="button"
         onClick={handleSubmit}
         disabled={!selected || pending}
-        className="w-full py-3 rounded-2xl bg-primary-600 text-white font-semibold text-sm disabled:opacity-50 transition-opacity"
+        className="w-full py-3 rounded-xl bg-[#1c1916] text-white font-semibold text-sm disabled:opacity-50 transition-opacity hover:bg-[#2e2b28]"
       >
         {pending ? 'Saving…' : 'Continue →'}
       </button>

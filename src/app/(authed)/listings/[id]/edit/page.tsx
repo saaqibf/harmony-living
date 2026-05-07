@@ -1,6 +1,6 @@
 import { notFound, redirect } from 'next/navigation';
 import Link from 'next/link';
-import { requireUser } from '@/lib/auth/session';
+import { requireDbUser } from '@/lib/auth/session';
 import { prisma } from '@/lib/db/prisma';
 import { ListingForm } from '@/features/listings/components/listing-form';
 import { PhotoUpload } from '@/features/listings/components/photo-upload';
@@ -13,50 +13,42 @@ export default async function EditListingPage({
   params: Promise<{ id: string }>;
 }) {
   const { id } = await params;
-  const auth = await requireUser();
-
-  const user = await prisma.user.findUnique({
-    where: { cognitoSub: auth.cognitoSub },
-    select: { id: true },
-  });
-  if (!user) redirect('/login');
+  const { userId } = await requireDbUser();
 
   const listing = await prisma.listing.findUnique({
     where: { id, deletedAt: null },
     include: { images: { orderBy: { orderIdx: 'asc' } } },
   });
 
-  if (!listing || listing.ownerId !== user.id) notFound();
+  if (!listing || listing.ownerId !== userId) notFound();
 
   return (
-    <div className="min-h-screen bg-stone-50 pb-12">
-      {/* Header */}
-      <div className="bg-white border-b border-stone-100 px-4 py-4 sticky top-0 z-10">
+    <div className="min-h-screen bg-[#fdf8f7] pb-12">
+      <div className="bg-white border-b border-[#cfc5bd] px-6 py-4 sticky top-0 z-10">
         <div className="max-w-3xl mx-auto flex items-center justify-between">
-          <h1 className="text-xl font-bold text-gray-900">Edit listing</h1>
+          <h1 className="text-lg font-serif font-semibold text-[#1c1b1b]">Edit listing</h1>
           <div className="flex gap-2">
             <Link
               href={`/listings/${id}`}
-              className="text-sm font-semibold text-gray-600 bg-stone-100 hover:bg-stone-200 px-4 py-2 rounded-xl transition-colors"
+              className="text-sm font-semibold text-[#4c4640] bg-[#f1edec] hover:bg-[#cfc5bd] px-4 py-2 rounded-xl transition-colors"
             >
               View
             </Link>
             {listing.status === 'DRAFT' && (
               <form action={publishListingAction.bind(null, id)}>
-                <Button type="submit">Publish</Button>
+                <Button type="submit" size="sm">Publish</Button>
               </form>
             )}
             <form action={deleteListingAction.bind(null, id)}>
-              <Button type="submit" variant="secondary">Delete</Button>
+              <Button type="submit" variant="secondary" size="sm">Delete</Button>
             </form>
           </div>
         </div>
       </div>
 
-      <div className="max-w-3xl mx-auto px-4 pt-6 space-y-8">
-        {/* Photos section */}
-        <div className="bg-white rounded-2xl border border-stone-100 p-5 space-y-4">
-          <h2 className="font-bold text-gray-900">Photos</h2>
+      <div className="max-w-3xl mx-auto px-6 pt-6 space-y-6">
+        <div className="bg-white rounded-2xl border border-[#cfc5bd] p-5 space-y-4">
+          <h2 className="font-semibold text-[#1c1b1b]">Photos</h2>
           {listing.images.length > 0 && (
             <div className="flex flex-wrap gap-3">
               {listing.images.map((img) => (
@@ -64,7 +56,7 @@ export default async function EditListingPage({
                   key={img.id}
                   src={img.url}
                   alt={img.caption ?? 'Listing photo'}
-                  className="w-24 h-24 object-cover rounded-xl border border-stone-200"
+                  className="w-24 h-24 object-cover rounded-xl border border-[#cfc5bd]"
                 />
               ))}
             </div>
@@ -76,9 +68,8 @@ export default async function EditListingPage({
           />
         </div>
 
-        {/* Details section */}
-        <div className="bg-white rounded-2xl border border-stone-100 p-5">
-          <h2 className="font-bold text-gray-900 mb-6">Details</h2>
+        <div className="bg-white rounded-2xl border border-[#cfc5bd] p-5">
+          <h2 className="font-semibold text-[#1c1b1b] mb-6">Details</h2>
           <ListingForm
             listingId={id}
             initial={{

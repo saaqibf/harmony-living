@@ -25,7 +25,6 @@ function ConfirmForm() {
     defaultValues: { email: emailFromUrl, code: '' },
   });
 
-  // Keep the hidden email field in sync if the URL changes.
   useEffect(() => {
     if (emailFromUrl) setValue('email', emailFromUrl);
   }, [emailFromUrl, setValue]);
@@ -68,26 +67,31 @@ function ConfirmForm() {
   }
 
   return (
-    <div className="rounded-2xl bg-white p-8 shadow-sm ring-1 ring-gray-200">
-      <h1 className="mb-1 text-2xl font-semibold text-gray-900">Check your email</h1>
-      <p className="mb-6 text-sm text-gray-500">
+    <div className="rounded-2xl bg-white border border-[#cfc5bd] px-8 py-8">
+      <div className="w-12 h-12 rounded-full bg-[#f7f3f1] flex items-center justify-center mb-5">
+        <svg className="w-6 h-6 text-[#c96d4d]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
+          <path strokeLinecap="round" strokeLinejoin="round" d="M21.75 6.75v10.5a2.25 2.25 0 01-2.25 2.25h-15a2.25 2.25 0 01-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25m19.5 0v.243a2.25 2.25 0 01-1.07 1.916l-7.5 4.615a2.25 2.25 0 01-2.36 0L3.32 8.91a2.25 2.25 0 01-1.07-1.916V6.75" />
+        </svg>
+      </div>
+
+      <h1 className="mb-1 text-xl font-serif font-semibold text-[#1c1b1b]">Check your email</h1>
+      <p className="mb-6 text-sm text-[#7d766f]">
         We sent a 6-digit code to{' '}
-        <span className="font-medium text-gray-700">{emailFromUrl || 'your email'}</span>.
+        <span className="font-medium text-[#1c1b1b]">{emailFromUrl || 'your email'}</span>.
         Enter it below to verify your account.
       </p>
 
       <form onSubmit={handleSubmit(onSubmit)} noValidate className="space-y-4">
         {serverError && (
-          <div className="rounded-lg bg-red-50 px-4 py-3 text-sm text-red-700 ring-1 ring-red-200">
+          <div className="rounded-xl bg-red-50 px-4 py-3 text-sm text-red-600 border border-red-100">
             {serverError}
           </div>
         )}
 
-        {/* Hidden email field — included so schema validation passes */}
         <input type="hidden" {...register('email')} />
 
         <div>
-          <label htmlFor="code" className="mb-1.5 block text-sm font-medium text-gray-700">
+          <label htmlFor="code" className="mb-1.5 block text-sm font-medium text-[#1c1b1b]">
             Confirmation code
           </label>
           <input
@@ -97,29 +101,29 @@ function ConfirmForm() {
             maxLength={6}
             autoComplete="one-time-code"
             {...register('code')}
-            className="block w-full rounded-xl border border-gray-300 px-4 py-3 text-center text-lg font-mono tracking-widest text-gray-900 outline-none transition focus:border-primary-500 focus:ring-2 focus:ring-primary-500/20"
+            className="block w-full rounded-xl border border-[#cfc5bd] px-4 py-3 text-center text-lg font-mono tracking-widest text-[#1c1b1b] outline-none transition focus:border-[#2d4a3e] focus:ring-2 focus:ring-[#2d4a3e]/20"
             placeholder="000000"
           />
           {errors.code && (
-            <p className="mt-1.5 text-xs text-red-600">{errors.code.message}</p>
+            <p className="mt-1.5 text-xs text-red-500">{errors.code.message}</p>
           )}
         </div>
 
         <button
           type="submit"
           disabled={isSubmitting}
-          className="mt-2 w-full rounded-xl bg-primary-600 py-3 text-sm font-semibold text-white transition hover:bg-primary-700 active:scale-95 disabled:opacity-60"
+          className="mt-2 w-full rounded-xl bg-[#1c1916] py-3 text-sm font-semibold text-white transition hover:bg-[#2e2b28] active:scale-95 disabled:opacity-60"
         >
           {isSubmitting ? 'Verifying…' : 'Verify email'}
         </button>
       </form>
 
-      <div className="mt-4 text-center text-sm text-gray-500">
+      <div className="mt-5 text-center text-sm text-[#7d766f]">
         Didn&apos;t receive a code?{' '}
         <button
           onClick={handleResend}
           disabled={resendStatus !== 'idle'}
-          className="font-medium text-primary-600 hover:underline disabled:opacity-50"
+          className="font-medium text-[#c96d4d] hover:underline disabled:opacity-50"
         >
           {resendStatus === 'idle' && 'Resend code'}
           {resendStatus === 'sending' && 'Sending…'}
@@ -127,9 +131,9 @@ function ConfirmForm() {
         </button>
       </div>
 
-      <p className="mt-4 text-center text-sm text-gray-500">
+      <p className="mt-3 text-center text-sm text-[#7d766f]">
         Wrong email?{' '}
-        <Link href="/signup" className="font-medium text-primary-600 hover:underline">
+        <Link href="/signup" className="font-medium text-[#c96d4d] hover:underline">
           Start over
         </Link>
       </p>

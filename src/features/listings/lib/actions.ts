@@ -2,14 +2,14 @@
 
 import { redirect } from 'next/navigation';
 import { z } from 'zod';
-import { requireUser } from '@/lib/auth/session';
-import { prisma } from '@/lib/db/prisma';
+import { requireDbUser } from '@/lib/auth/session';
 import { log } from '@/lib/log';
 import {
   createListing,
   updateListing,
   publishListing,
   deleteListing,
+  ListingError,
 } from '@/server/services/listings';
 
 const listingSchema = z.object({
@@ -38,18 +38,8 @@ const listingSchema = z.object({
   amenities: z.array(z.string()).default([]),
 });
 
-async function requireDbUserId(cognitoSub: string) {
-  const row = await prisma.user.findUnique({
-    where: { cognitoSub },
-    select: { id: true },
-  });
-  if (!row) throw new Error('User not found');
-  return row.id;
-}
-
 export async function createListingAction(input: unknown) {
-  const auth = await requireUser();
-  const userId = await requireDbUserId(auth.cognitoSub);
+  const { userId } = await requireDbUser();
   const data = listingSchema.parse(input);
   let listing;
   try {
@@ -62,8 +52,7 @@ export async function createListingAction(input: unknown) {
 }
 
 export async function updateListingAction(listingId: string, input: unknown) {
-  const auth = await requireUser();
-  const userId = await requireDbUserId(auth.cognitoSub);
+  const { userId } = await requireDbUser();
   const data = listingSchema.partial().parse(input);
   try {
     await updateListing(listingId, userId, data);
@@ -74,8 +63,7 @@ export async function updateListingAction(listingId: string, input: unknown) {
 }
 
 export async function publishListingAction(listingId: string) {
-  const auth = await requireUser();
-  const userId = await requireDbUserId(auth.cognitoSub);
+  const { userId } = await requireDbUser();
   try {
     await publishListing(listingId, userId);
   } catch (err) {
@@ -86,8 +74,7 @@ export async function publishListingAction(listingId: string) {
 }
 
 export async function deleteListingAction(listingId: string) {
-  const auth = await requireUser();
-  const userId = await requireDbUserId(auth.cognitoSub);
+  const { userId } = await requireDbUser();
   try {
     await deleteListing(listingId, userId);
   } catch (err) {

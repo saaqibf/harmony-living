@@ -1,5 +1,5 @@
 import type { Metadata } from 'next';
-import { Inter, Newsreader } from 'next/font/google';
+import { Inter, Newsreader, JetBrains_Mono } from 'next/font/google';
 import './globals.css';
 
 const inter = Inter({
@@ -16,6 +16,13 @@ const newsreader = Newsreader({
   weight: ['400', '500', '600'],
 });
 
+const jetbrains = JetBrains_Mono({
+  subsets: ['latin'],
+  variable: '--font-jetbrains',
+  display: 'swap',
+  weight: ['400', '500'],
+});
+
 export const metadata: Metadata = {
   title: 'Harmony Living — Find a home. Find a roommate. Find harmony.',
   description:
@@ -28,7 +35,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${inter.variable} ${newsreader.variable} h-full antialiased`} suppressHydrationWarning>
+    <html lang="en" className={`${inter.variable} ${newsreader.variable} ${jetbrains.variable} h-full antialiased`} suppressHydrationWarning>
       <body className="flex min-h-full flex-col">{children}</body>
     </html>
   );

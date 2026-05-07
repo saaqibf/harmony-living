@@ -9,6 +9,7 @@ import type {
 } from '@generated/prisma/client';
 import { prisma } from '@/lib/db/prisma';
 import crypto from 'node:crypto';
+import { calcAge } from '@/lib/dates';
 
 export type ScoringProfile = {
   gender: Gender;
@@ -38,12 +39,6 @@ const SCHEDULE_COMPAT: Record<ScheduleType, Record<ScheduleType, number>> = {
   SHIFT_WORKER: { SHIFT_WORKER: 1.0, FLEXIBLE: 0.7, EARLY_BIRD: 0.5, NIGHT_OWL: 0.5 },
 };
 
-function ageYears(dob: Date): number {
-  const today = new Date();
-  const age = today.getFullYear() - dob.getFullYear();
-  const m = today.getMonth() - dob.getMonth();
-  return m < 0 || (m === 0 && today.getDate() < dob.getDate()) ? age - 1 : age;
-}
 
 function genderPassesPref(gender: Gender, pref: GenderPreference): boolean {
   if (pref === 'ANY' || pref === 'NON_BINARY_INCLUSIVE') return true;
@@ -65,8 +60,8 @@ export function scoreUsers(a: ScoringUser, b: ScoringUser): ScoreResult {
   const breakdown: Record<string, number> = {};
 
   // ── Hard filters ─────────────────────────────────────────────────────────
-  const aAge = ageYears(a.profile.dateOfBirth);
-  const bAge = ageYears(b.profile.dateOfBirth);
+  const aAge = calcAge(a.profile.dateOfBirth);
+  const bAge = calcAge(b.profile.dateOfBirth);
 
   if (a.femaleOnlyMode && b.profile.gender !== 'FEMALE') {
     return { score: 0, breakdown, passesHardFilters: false, hardFilterReason: 'femaleOnlyMode' };
@@ -161,8 +156,11 @@ export function scoreUsers(a: ScoringUser, b: ScoringUser): ScoreResult {
   return { score, breakdown, passesHardFilters: true };
 }
 
+/** Bump when scoring weights or logic change to invalidate all cached scores. */
+export const SCORING_VERSION = 1;
+
 function prefsHash(a: Preferences, b: Preferences): string {
-  const key = JSON.stringify([a.updatedAt, b.updatedAt, a.id, b.id].sort());
+  const key = JSON.stringify([`v${SCORING_VERSION}`, a.updatedAt, b.updatedAt, a.id, b.id].sort());
   return crypto.createHash('sha1').update(key).digest('hex').slice(0, 16);
 }
 

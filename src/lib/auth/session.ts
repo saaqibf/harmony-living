@@ -1,9 +1,11 @@
 import 'server-only';
+import { cache } from 'react';
 import { cookies } from 'next/headers';
 import { redirect } from 'next/navigation';
 import { auth } from './index';
 import type { AuthTokens, AuthUser } from './types';
 import { HL_ONBOARDED_COOKIE } from '@/lib/auth/cookie-names';
+import { prisma } from '@/lib/db/prisma';
 
 const COOKIE_ID_TOKEN = 'hl_id_token';
 const COOKIE_ACCESS_TOKEN = 'hl_access_token';
@@ -117,4 +119,21 @@ export async function requireUser(): Promise<AuthUser> {
     redirect('/login');
   }
   return user;
+}
+
+const _lookupDbUserId = cache(async (cognitoSub: string): Promise<string> => {
+  const row = await prisma.user.findUnique({ where: { cognitoSub }, select: { id: true } });
+  if (!row) redirect('/login');
+  return row.id;
+});
+
+/**
+ * Returns the authenticated Cognito user plus the corresponding DB `userId`.
+ * The DB lookup is deduplicated per request via React `cache()`.
+ * Redirects to /login if not authenticated or if no DB row exists.
+ */
+export async function requireDbUser(): Promise<AuthUser & { userId: string }> {
+  const auth = await requireUser();
+  const userId = await _lookupDbUserId(auth.cognitoSub);
+  return { ...auth, userId };
 }

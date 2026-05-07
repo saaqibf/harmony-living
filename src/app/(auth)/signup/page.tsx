@@ -46,19 +46,19 @@ export default function SignUpPage() {
   }
 
   return (
-    <div className="rounded-2xl bg-white px-8 py-8 shadow-sm ring-1 ring-gray-200">
-      <h1 className="mb-1 text-xl font-semibold text-gray-900">Create your account</h1>
-      <p className="mb-6 text-sm text-gray-500">Find your perfect living situation.</p>
+    <div className="rounded-2xl bg-white border border-[#cfc5bd] px-8 py-8">
+      <h1 className="mb-1 text-xl font-serif font-semibold text-[#1c1b1b]">Create your account</h1>
+      <p className="mb-6 text-sm text-[#7d766f]">Find your perfect living situation.</p>
 
       {serverError && (
-        <div className="mb-4 rounded-xl bg-red-50 px-4 py-3 text-sm text-red-600 ring-1 ring-red-200">
+        <div className="mb-4 rounded-xl bg-red-50 px-4 py-3 text-sm text-red-600 border border-red-100">
           {serverError}
         </div>
       )}
 
       <form onSubmit={handleSubmit(onSubmit)} noValidate className="space-y-4">
         <div>
-          <label htmlFor="email" className="mb-1.5 block text-sm font-medium text-gray-700">
+          <label htmlFor="email" className="mb-1.5 block text-sm font-medium text-[#1c1b1b]">
             Email
           </label>
           <input
@@ -67,13 +67,13 @@ export default function SignUpPage() {
             autoComplete="email"
             {...register('email')}
             placeholder="you@example.com"
-            className="block w-full rounded-xl border border-gray-300 px-4 py-3 text-sm text-gray-900 placeholder-gray-400 outline-none transition focus:border-primary-500 focus:ring-2 focus:ring-primary-500/20"
+            className="block w-full rounded-xl border border-[#cfc5bd] px-4 py-3 text-sm text-[#1c1b1b] placeholder-[#7d766f] outline-none transition focus:border-[#2d4a3e] focus:ring-2 focus:ring-[#2d4a3e]/20"
           />
           {errors.email && <p className="mt-1 text-xs text-red-500">{errors.email.message}</p>}
         </div>
 
         <div>
-          <label htmlFor="password" className="mb-1.5 block text-sm font-medium text-gray-700">
+          <label htmlFor="password" className="mb-1.5 block text-sm font-medium text-[#1c1b1b]">
             Password
           </label>
           <input
@@ -82,13 +82,13 @@ export default function SignUpPage() {
             autoComplete="new-password"
             {...register('password')}
             placeholder="At least 10 characters"
-            className="block w-full rounded-xl border border-gray-300 px-4 py-3 text-sm text-gray-900 placeholder-gray-400 outline-none transition focus:border-primary-500 focus:ring-2 focus:ring-primary-500/20"
+            className="block w-full rounded-xl border border-[#cfc5bd] px-4 py-3 text-sm text-[#1c1b1b] placeholder-[#7d766f] outline-none transition focus:border-[#2d4a3e] focus:ring-2 focus:ring-[#2d4a3e]/20"
           />
           {errors.password && <p className="mt-1 text-xs text-red-500">{errors.password.message}</p>}
         </div>
 
         <div>
-          <label htmlFor="confirmPassword" className="mb-1.5 block text-sm font-medium text-gray-700">
+          <label htmlFor="confirmPassword" className="mb-1.5 block text-sm font-medium text-[#1c1b1b]">
             Confirm password
           </label>
           <input
@@ -97,7 +97,7 @@ export default function SignUpPage() {
             autoComplete="new-password"
             {...register('confirmPassword')}
             placeholder="Repeat your password"
-            className="block w-full rounded-xl border border-gray-300 px-4 py-3 text-sm text-gray-900 placeholder-gray-400 outline-none transition focus:border-primary-500 focus:ring-2 focus:ring-primary-500/20"
+            className="block w-full rounded-xl border border-[#cfc5bd] px-4 py-3 text-sm text-[#1c1b1b] placeholder-[#7d766f] outline-none transition focus:border-[#2d4a3e] focus:ring-2 focus:ring-[#2d4a3e]/20"
           />
           {errors.confirmPassword && <p className="mt-1 text-xs text-red-500">{errors.confirmPassword.message}</p>}
         </div>
@@ -107,15 +107,15 @@ export default function SignUpPage() {
             id="terms"
             type="checkbox"
             {...register('terms')}
-            className="mt-0.5 h-4 w-4 shrink-0 rounded border-gray-300 accent-primary-600"
+            className="mt-0.5 h-4 w-4 shrink-0 rounded border-[#cfc5bd] accent-[#1c1916]"
           />
-          <label htmlFor="terms" className="text-sm text-gray-600">
+          <label htmlFor="terms" className="text-sm text-[#4c4640]">
             I agree to the{' '}
-            <Link href="/terms" className="text-primary-600 underline-offset-2 hover:underline">
+            <Link href="/terms" className="text-[#c96d4d] underline-offset-2 hover:underline">
               Terms of Service
             </Link>{' '}
             and{' '}
-            <Link href="/privacy" className="text-primary-600 underline-offset-2 hover:underline">
+            <Link href="/privacy" className="text-[#c96d4d] underline-offset-2 hover:underline">
               Privacy Policy
             </Link>
           </label>
@@ -125,36 +125,36 @@ export default function SignUpPage() {
         <button
           type="submit"
           disabled={isSubmitting}
-          className="w-full rounded-xl bg-primary-600 py-3 text-sm font-semibold text-white transition hover:bg-primary-700 active:scale-95 disabled:opacity-60"
+          className="w-full rounded-xl bg-[#1c1916] py-3 text-sm font-semibold text-white transition hover:bg-[#2e2b28] active:scale-95 disabled:opacity-60"
         >
           {isSubmitting ? 'Creating account…' : 'Create account'}
         </button>
       </form>
 
       <div className="my-5 flex items-center gap-3">
-        <span className="h-px flex-1 bg-gray-200" />
-        <span className="text-xs text-gray-400">or continue with</span>
-        <span className="h-px flex-1 bg-gray-200" />
+        <span className="h-px flex-1 bg-[#cfc5bd]" />
+        <span className="text-xs text-[#7d766f]">or continue with</span>
+        <span className="h-px flex-1 bg-[#cfc5bd]" />
       </div>
 
       <div className="grid grid-cols-2 gap-3">
         <a
           href="/api/auth/oauth-start?provider=Google"
-          className="flex items-center justify-center gap-2 rounded-xl border border-gray-200 px-3 py-2.5 text-sm font-medium text-gray-700 transition hover:bg-gray-50 active:scale-95"
+          className="flex items-center justify-center gap-2 rounded-xl border border-[#cfc5bd] px-3 py-2.5 text-sm font-medium text-[#4c4640] transition hover:bg-[#fdf8f7] active:scale-95"
         >
           <GoogleIcon /> Google
         </a>
         <a
           href="/api/auth/oauth-start?provider=Apple"
-          className="flex items-center justify-center gap-2 rounded-xl border border-gray-200 px-3 py-2.5 text-sm font-medium text-gray-700 transition hover:bg-gray-50 active:scale-95"
+          className="flex items-center justify-center gap-2 rounded-xl border border-[#cfc5bd] px-3 py-2.5 text-sm font-medium text-[#4c4640] transition hover:bg-[#fdf8f7] active:scale-95"
         >
           <AppleIcon /> Apple
         </a>
       </div>
 
-      <p className="mt-6 text-center text-sm text-gray-500">
+      <p className="mt-6 text-center text-sm text-[#7d766f]">
         Already have an account?{' '}
-        <Link href="/login" className="font-semibold text-primary-600 hover:underline">Log in</Link>
+        <Link href="/login" className="font-semibold text-[#c96d4d] hover:underline">Log in</Link>
       </p>
     </div>
   );

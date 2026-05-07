@@ -10,6 +10,7 @@ import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
 import { Select } from '@/components/ui/select';
 import { Checkbox } from '@/components/ui/checkbox';
+import { AddressAutocomplete, type AddressResult } from '@/features/listings/components/address-autocomplete';
 import { createListingAction, updateListingAction } from '@/features/listings/lib/actions';
 
 const schema = z.object({
@@ -50,6 +51,7 @@ export function ListingForm({ listingId, initial }: Props) {
   const {
     register,
     handleSubmit,
+    setValue,
     formState: { errors },
   } = useForm<FormValues>({
     resolver: zodResolver(schema),
@@ -69,6 +71,15 @@ export function ListingForm({ listingId, initial }: Props) {
       ...initial,
     },
   });
+
+  function handleAddressSelect(result: AddressResult) {
+    setValue('addressLine', result.addressLine, { shouldValidate: true });
+    setValue('city', result.city, { shouldValidate: true });
+    setValue('postalCode', result.postalCode, { shouldValidate: true });
+    setValue('neighborhood', result.neighborhood || undefined);
+    setValue('latitude', result.latitude, { shouldValidate: true });
+    setValue('longitude', result.longitude, { shouldValidate: true });
+  }
 
   const onSubmit = (data: FormValues) => {
     setError(null);
@@ -109,43 +120,14 @@ export function ListingForm({ listingId, initial }: Props) {
         {errors.description && <p className="text-sm text-red-500">{errors.description.message}</p>}
       </div>
 
-      <div className="grid grid-cols-2 gap-4">
-        <div className="space-y-2">
-          <Label htmlFor="addressLine">Address</Label>
-          <Input id="addressLine" placeholder="123 Main St" {...register('addressLine')} />
-          {errors.addressLine && <p className="text-sm text-red-500">{errors.addressLine.message}</p>}
-        </div>
-        <div className="space-y-2">
-          <Label htmlFor="postalCode">Postal code</Label>
-          <Input id="postalCode" placeholder="T2P 1J9" {...register('postalCode')} />
-        </div>
+      <div className="space-y-2">
+        <Label>Address</Label>
+        <AddressAutocomplete
+          onSelect={handleAddressSelect}
+          defaultValue={initial?.addressLine ?? ''}
+          error={errors.addressLine?.message ?? errors.latitude?.message ?? errors.city?.message}
+        />
       </div>
-
-      <div className="grid grid-cols-2 gap-4">
-        <div className="space-y-2">
-          <Label htmlFor="city">City</Label>
-          <Input id="city" placeholder="Calgary" {...register('city')} />
-        </div>
-        <div className="space-y-2">
-          <Label htmlFor="neighborhood">Neighbourhood (optional)</Label>
-          <Input id="neighborhood" placeholder="Beltline" {...register('neighborhood')} />
-        </div>
-      </div>
-
-      <div className="grid grid-cols-2 gap-4">
-        <div className="space-y-2">
-          <Label htmlFor="latitude">Latitude</Label>
-          <Input id="latitude" type="number" step="0.0001" {...register('latitude', { valueAsNumber: true })} />
-        </div>
-        <div className="space-y-2">
-          <Label htmlFor="longitude">Longitude</Label>
-          <Input id="longitude" type="number" step="0.0001" {...register('longitude', { valueAsNumber: true })} />
-        </div>
-      </div>
-      <p className="text-xs text-gray-400">
-        Find coordinates at maps.google.com → right-click your address → copy lat/lng.
-        The map shows an approximate location to protect your privacy.
-      </p>
 
       <div className="grid grid-cols-3 gap-4">
         <div className="space-y-2">

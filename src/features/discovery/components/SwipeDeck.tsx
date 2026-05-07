@@ -2,7 +2,6 @@
 
 import { useState, useTransition, useEffect, useCallback } from 'react';
 import Link from 'next/link';
-import { ProfileCard } from './ProfileCard';
 import { swipeAction, type SwipeActionResult } from '@/features/discovery/lib/actions';
 import type { DiscoveryProfile } from '@/server/services/discovery';
 
@@ -11,12 +10,15 @@ type Props = {
   swipesRemaining: number;
 };
 
+const FILTER_CHIPS = ['Distance', 'Budget', 'Lifestyle', 'Pets', 'Gender'];
+
 export function SwipeDeck({ initialProfiles, swipesRemaining }: Props) {
   const [profiles, setProfiles] = useState(initialProfiles);
   const [remaining, setRemaining] = useState(swipesRemaining);
   const [matchBanner, setMatchBanner] = useState<{ firstName: string; conversationId?: string } | null>(null);
   const [isPending, startTransition] = useTransition();
   const [error, setError] = useState<string | null>(null);
+  const [activeFilter, setActiveFilter] = useState<string | null>(null);
 
   const current = profiles[0];
 
@@ -57,26 +59,28 @@ export function SwipeDeck({ initialProfiles, swipesRemaining }: Props) {
 
   if (matchBanner) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-primary-500 via-primary-600 to-primary-800 flex flex-col items-center justify-center px-6 text-center">
-        <div className="w-28 h-28 rounded-full bg-white/20 flex items-center justify-center mb-6 shadow-2xl">
-          <span className="text-6xl">🎉</span>
+      <div className="min-h-screen bg-[#c96d4d] flex flex-col items-center justify-center px-6 text-center">
+        <div className="w-24 h-24 rounded-full bg-white/20 flex items-center justify-center mb-6">
+          <svg className="w-12 h-12 text-white" fill="currentColor" viewBox="0 0 24 24">
+            <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" />
+          </svg>
         </div>
-        <h2 className="text-4xl font-bold text-white mb-3 tracking-tight">It&apos;s a match!</h2>
-        <p className="text-primary-100 text-lg mb-10 max-w-xs leading-relaxed">
+        <h2 className="text-3xl font-serif font-semibold text-white mb-2">It&apos;s a match!</h2>
+        <p className="text-white/80 text-sm mb-8 max-w-xs leading-relaxed">
           You and <strong className="text-white">{matchBanner.firstName}</strong> both connected. Time to say hello!
         </p>
         <div className="flex flex-col gap-3 w-full max-w-xs">
           {matchBanner.conversationId && (
             <Link
               href={`/messages/${matchBanner.conversationId}`}
-              className="bg-white text-primary-700 font-bold py-4 rounded-2xl text-center hover:bg-primary-50 transition-colors shadow-xl text-base"
+              className="bg-white text-[#c96d4d] font-semibold py-3.5 rounded-xl text-center hover:bg-[#fdf8f7] transition-colors text-sm"
             >
-              Say hello 👋
+              Send a message
             </Link>
           )}
           <button
             onClick={() => setMatchBanner(null)}
-            className="bg-white/15 text-white font-semibold py-4 rounded-2xl hover:bg-white/25 transition-colors border border-white/20 text-base"
+            className="bg-white/15 text-white font-semibold py-3.5 rounded-xl hover:bg-white/25 transition-colors border border-white/20 text-sm"
           >
             Keep discovering
           </button>
@@ -87,22 +91,21 @@ export function SwipeDeck({ initialProfiles, swipesRemaining }: Props) {
 
   if (remaining === 0) {
     return (
-      <div className="min-h-screen flex flex-col items-center justify-center px-6 text-center bg-gradient-to-b from-amber-50 via-stone-50 to-primary-50">
-        <div className="relative mb-8">
-          <div className="w-36 h-36 rounded-full bg-gradient-to-br from-amber-200 to-orange-300 flex items-center justify-center shadow-xl shadow-amber-200">
-            <span className="text-6xl">⏰</span>
-          </div>
-          <div className="absolute -bottom-2 -right-2 w-12 h-12 rounded-full bg-primary-500 flex items-center justify-center shadow-lg text-xl">✓</div>
+      <div className="min-h-screen bg-[#fdf8f7] flex flex-col items-center justify-center px-6 text-center">
+        <div className="w-20 h-20 rounded-full bg-[#f7f3f1] flex items-center justify-center mb-5">
+          <svg className="w-9 h-9 text-[#c96d4d]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
+            <path strokeLinecap="round" strokeLinejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z" />
+          </svg>
         </div>
-        <h2 className="text-2xl font-bold text-gray-900 mb-3">All done for today!</h2>
-        <p className="text-base text-gray-500 max-w-xs leading-relaxed mb-8">
-          You&apos;ve used all your swipes for today. Fresh faces will be here tomorrow. 🌱
+        <h2 className="text-xl font-serif font-semibold text-[#1c1b1b] mb-2">All done for today</h2>
+        <p className="text-sm text-[#7d766f] max-w-xs leading-relaxed mb-6">
+          You&apos;ve used all your daily connections. Fresh profiles will appear tomorrow.
         </p>
         <Link
           href="/matches"
-          className="bg-primary-600 text-white font-bold px-8 py-4 rounded-2xl hover:bg-primary-700 transition-colors shadow-lg shadow-primary-600/25 text-base"
+          className="bg-[#1c1916] text-white font-semibold px-6 py-3 rounded-xl hover:bg-[#2e2b28] transition-colors text-sm"
         >
-          View my matches →
+          View my matches
         </Link>
       </div>
     );
@@ -110,92 +113,168 @@ export function SwipeDeck({ initialProfiles, swipesRemaining }: Props) {
 
   if (!current) {
     return (
-      <div className="min-h-screen flex flex-col items-center justify-center px-6 text-center bg-gradient-to-b from-primary-50 via-stone-50 to-amber-50">
-        <div className="relative mb-8">
-          <div className="w-36 h-36 rounded-full bg-gradient-to-br from-primary-200 to-primary-400 flex items-center justify-center shadow-xl shadow-primary-200">
-            <span className="text-6xl">🏠</span>
-          </div>
-          <div className="absolute -bottom-2 -right-2 w-12 h-12 rounded-full bg-amber-400 flex items-center justify-center shadow-lg text-xl">✨</div>
+      <div className="min-h-screen bg-[#fdf8f7] flex flex-col items-center justify-center px-6 text-center">
+        <div className="w-20 h-20 rounded-full bg-[#f7f3f1] flex items-center justify-center mb-5">
+          <svg className="w-9 h-9 text-[#c96d4d]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
+            <path strokeLinecap="round" strokeLinejoin="round" d="M15 19l-7-7 7-7" />
+          </svg>
         </div>
-        <h2 className="text-2xl font-bold text-gray-900 mb-3">You&apos;ve seen everyone!</h2>
-        <p className="text-base text-gray-500 max-w-xs leading-relaxed mb-8">
-          New people join every day. In the meantime, why not say hello to one of your matches?
+        <h2 className="text-xl font-serif font-semibold text-[#1c1b1b] mb-2">You&apos;ve seen everyone!</h2>
+        <p className="text-sm text-[#7d766f] max-w-xs leading-relaxed mb-6">
+          New people join every day. Say hello to one of your matches in the meantime.
         </p>
         <Link
           href="/matches"
-          className="bg-primary-600 text-white font-bold px-8 py-4 rounded-2xl hover:bg-primary-700 transition-colors shadow-lg shadow-primary-600/25 text-base"
+          className="bg-[#1c1916] text-white font-semibold px-6 py-3 rounded-xl hover:bg-[#2e2b28] transition-colors text-sm"
         >
-          View my matches →
+          View my matches
         </Link>
       </div>
     );
   }
 
+  const scorePercent = Math.round(current.score * 100);
+  const showPhoto = current.photoVisibility === 'ALWAYS' && current.photoUrl;
+
   return (
-    <div className="min-h-screen bg-stone-50 flex flex-col items-center py-6 px-4">
+    <div className="min-h-screen bg-[#fdf8f7]">
       {/* Top bar */}
-      <div className="w-full max-w-sm flex items-center justify-between mb-6">
-        <h1 className="text-2xl font-bold text-gray-900">Discover</h1>
-        <div className="flex items-center gap-2 bg-white border border-stone-200 rounded-full px-4 py-2 shadow-sm">
-          <span className="w-2 h-2 rounded-full bg-primary-500" />
-          <span className="text-xs font-bold text-gray-700">{remaining} left today</span>
+      <div className="px-6 pt-6 pb-4 flex items-center justify-between">
+        <h1 className="text-2xl font-serif font-semibold text-[#1c1b1b]">Discover</h1>
+        <div className="flex items-center gap-1.5 bg-white border border-[#cfc5bd] rounded-full px-3.5 py-1.5 text-xs font-semibold text-[#4c4640]">
+          <span className="w-1.5 h-1.5 rounded-full bg-[#c96d4d]" />
+          {remaining} left today
         </div>
       </div>
 
-      {/* Card stack */}
-      <div className="relative w-full max-w-sm" style={{ height: 540 }}>
-        {/* Third card (deepest) */}
-        {profiles[2] && (
-          <div
-            className="absolute inset-x-6 rounded-3xl bg-stone-200"
-            style={{ top: 14, bottom: 0, transform: 'scale(0.88)', transformOrigin: 'bottom center' }}
-          />
-        )}
-        {/* Second card */}
-        {profiles[1] && (
-          <div
-            className="absolute inset-x-3 rounded-3xl bg-stone-100 shadow-sm"
-            style={{ top: 7, bottom: 0, transform: 'scale(0.94)', transformOrigin: 'bottom center' }}
-          />
-        )}
-        {/* Top card */}
-        <div className="absolute inset-0">
-          <ProfileCard profile={current} hasMatch={false} />
+      {/* Filter chips */}
+      <div className="px-6 pb-4 flex gap-2 overflow-x-auto no-scrollbar">
+        {FILTER_CHIPS.map((chip) => (
+          <button
+            key={chip}
+            onClick={() => setActiveFilter(activeFilter === chip ? null : chip)}
+            className={`shrink-0 text-xs font-medium px-4 py-1.5 rounded-full border transition-colors ${
+              activeFilter === chip
+                ? 'bg-[#1c1b1b] text-white border-[#1c1b1b]'
+                : 'bg-white text-[#4c4640] border-[#cfc5bd] hover:border-[#c96d4d]'
+            }`}
+          >
+            {chip}
+          </button>
+        ))}
+      </div>
+
+      {/* Main card */}
+      <div className="px-6 pb-6">
+        <div className="bg-white rounded-[14px] border border-[#cfc5bd] overflow-hidden shadow-sm">
+          {/* Photo */}
+          <div className="relative h-80 bg-[#f1edec]">
+            {showPhoto ? (
+              <img
+                src={current.photoUrl!}
+                alt={current.firstName}
+                className="w-full h-full object-cover"
+              />
+            ) : (
+              <div className="w-full h-full flex items-center justify-center">
+                <span className="text-7xl">👤</span>
+              </div>
+            )}
+
+            {/* Verified badge */}
+            <div className="absolute top-3 right-3 flex items-center gap-1 bg-white/90 backdrop-blur-sm rounded-full px-2.5 py-1">
+              <svg className="w-3 h-3 text-[#2d4a3e]" fill="currentColor" viewBox="0 0 20 20">
+                <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+              </svg>
+              <span className="text-[10px] font-semibold text-[#2d4a3e] uppercase tracking-wide">Verified</span>
+            </div>
+
+            {/* Name overlay at bottom */}
+            <div className="absolute bottom-0 inset-x-0 bg-gradient-to-t from-black/60 to-transparent px-5 pt-10 pb-4">
+              <p className="text-white font-serif font-semibold text-xl leading-tight">
+                {current.firstName}, {current.ageYears}
+              </p>
+              {current.occupation && (
+                <p className="text-white/80 text-xs mt-0.5">{current.occupation}</p>
+              )}
+              <p className="text-white/70 text-xs flex items-center gap-1 mt-0.5">
+                <svg className="w-3 h-3 shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                  <path fillRule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clipRule="evenodd"/>
+                </svg>
+                {current.city}
+              </p>
+            </div>
+          </div>
+
+          {/* Card body */}
+          <div className="p-5 space-y-4">
+            {/* Compatibility score */}
+            <div>
+              <div className="flex items-center justify-between mb-1.5">
+                <span className="text-xs font-semibold text-[#4c4640]">Compatibility</span>
+                <span className="font-mono text-xs font-bold text-[#c96d4d]">{scorePercent}%</span>
+              </div>
+              <div className="h-1.5 bg-[#f1edec] rounded-full overflow-hidden">
+                <div
+                  className="h-full bg-[#c96d4d] rounded-full transition-all"
+                  style={{ width: `${scorePercent}%` }}
+                />
+              </div>
+            </div>
+
+            {/* Tags */}
+            <div className="flex flex-wrap gap-1.5">
+              {current.faith && (
+                <span className="text-xs px-2.5 py-1 rounded-full bg-[#f1edec] text-[#4c4640] border border-[#cfc5bd]">{current.faith}</span>
+              )}
+              {current.gender && (
+                <span className="text-xs px-2.5 py-1 rounded-full bg-[#f1edec] text-[#4c4640] border border-[#cfc5bd]">{current.gender}</span>
+              )}
+            </div>
+
+            {/* Bio */}
+            {current.bio && (
+              <div>
+                <p className="text-xs font-semibold text-[#1c1b1b] mb-1">About</p>
+                <p className="text-sm text-[#4c4640] leading-relaxed line-clamp-3">{current.bio}</p>
+              </div>
+            )}
+
+            {error && (
+              <p className="text-xs text-red-500 bg-red-50 border border-red-100 rounded-lg px-3 py-2">{error}</p>
+            )}
+
+            {/* Action buttons */}
+            <div className="flex items-center gap-3 pt-1">
+              <button
+                onClick={() => swipe('PASS')}
+                disabled={isPending}
+                aria-label="Pass"
+                className="flex-1 flex items-center justify-center gap-2 py-3 border border-[#cfc5bd] rounded-xl text-[#7d766f] hover:bg-[#fdf8f7] hover:border-[#c96d4d] hover:text-[#c96d4d] disabled:opacity-40 transition-all text-sm font-medium"
+              >
+                <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
+                </svg>
+                Pass
+              </button>
+              <button
+                onClick={() => swipe('CONNECT')}
+                disabled={isPending}
+                aria-label="Connect"
+                className="flex-1 flex items-center justify-center gap-2 py-3 bg-[#1c1916] rounded-xl text-white hover:bg-[#2e2b28] disabled:opacity-40 transition-all text-sm font-semibold"
+              >
+                <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" />
+                </svg>
+                Connect
+              </button>
+            </div>
+          </div>
         </div>
+
+        {/* Keyboard hint */}
+        <p className="text-center text-xs text-[#7d766f] mt-3">← Pass · Connect →</p>
       </div>
-
-      {error && (
-        <p className="text-sm text-red-500 mt-3 bg-red-50 px-4 py-2 rounded-xl border border-red-100">
-          {error}
-        </p>
-      )}
-
-      {/* Action buttons */}
-      <div className="flex items-center gap-10 mt-6 mb-1">
-        <button
-          onClick={() => swipe('PASS')}
-          disabled={isPending}
-          aria-label="Pass"
-          className="w-[72px] h-[72px] rounded-full bg-white border-2 border-red-200 shadow-lg flex items-center justify-center hover:bg-red-50 hover:border-red-300 hover:shadow-xl active:scale-90 disabled:opacity-40 transition-all"
-        >
-          <svg className="w-7 h-7 text-red-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
-            <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
-          </svg>
-        </button>
-
-        <button
-          onClick={() => swipe('CONNECT')}
-          disabled={isPending}
-          aria-label="Connect"
-          className="w-[72px] h-[72px] rounded-full bg-primary-600 shadow-lg shadow-primary-500/30 flex items-center justify-center hover:bg-primary-700 hover:shadow-xl active:scale-90 disabled:opacity-40 transition-all"
-        >
-          <svg className="w-8 h-8 text-white" fill="currentColor" viewBox="0 0 24 24">
-            <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" />
-          </svg>
-        </button>
-      </div>
-
-      <p className="text-[11px] text-stone-400 pb-2 font-medium">← Pass · Connect →</p>
     </div>
   );
 }

@@ -44,8 +44,8 @@ export default async function ConversationPage({
   return (
     <div className="flex flex-col h-full">
       {/* Chat header */}
-      <div className="flex items-center gap-3 px-6 py-4 bg-white border-b border-[#E5E0D8] shrink-0">
-        <div className="w-9 h-9 rounded-full overflow-hidden bg-[#F2EFE9] shrink-0">
+      <div className="flex items-center gap-3 px-6 py-4 bg-white border-b border-[#cfc5bd] shrink-0">
+        <div className="w-9 h-9 rounded-full overflow-hidden bg-[#f1edec] shrink-0">
           {otherPhotoUrl ? (
             <img src={otherPhotoUrl} alt={otherFirstName} className="w-full h-full object-cover" />
           ) : (
@@ -53,20 +53,20 @@ export default async function ConversationPage({
           )}
         </div>
         <div className="flex-1 min-w-0">
-          <p className="font-semibold text-[#1A1D1E] text-sm">{otherFirstName}</p>
+          <p className="font-semibold text-[#1c1b1b] text-sm">{otherFirstName}</p>
           <div className="flex items-center gap-1.5">
-            <span className="w-1.5 h-1.5 rounded-full bg-[#476458]" />
-            <span className="text-xs text-[#476458] font-medium">Online</span>
+            <span className="w-1.5 h-1.5 rounded-full bg-[#2d4a3e]" />
+            <span className="text-xs text-[#2d4a3e] font-medium">Online</span>
           </div>
         </div>
         {/* Action icons */}
         <div className="flex items-center gap-1">
-          <button className="p-2 rounded-lg hover:bg-[#F2EFE9] transition-colors text-[#85736a]">
+          <button className="p-2 rounded-lg hover:bg-[#f1edec] transition-colors text-[#7d766f]">
             <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
               <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 10.5l4.72-4.72a.75.75 0 011.28.53v11.38a.75.75 0 01-1.28.53l-4.72-4.72M4.5 18.75h9a2.25 2.25 0 002.25-2.25v-9a2.25 2.25 0 00-2.25-2.25h-9A2.25 2.25 0 002.25 7.5v9a2.25 2.25 0 002.25 2.25z" />
             </svg>
           </button>
-          <button className="p-2 rounded-lg hover:bg-[#F2EFE9] transition-colors text-[#85736a]">
+          <button className="p-2 rounded-lg hover:bg-[#f1edec] transition-colors text-[#7d766f]">
             <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
               <path strokeLinecap="round" strokeLinejoin="round" d="M2.25 6.75c0 8.284 6.716 15 15 15h2.25a2.25 2.25 0 002.25-2.25v-1.372c0-.516-.351-.966-.852-1.091l-4.423-1.106c-.44-.11-.902.055-1.173.417l-.97 1.293c-.282.376-.769.542-1.21.38a12.035 12.035 0 01-7.143-7.143c-.162-.441.004-.928.38-1.21l1.293-.97c.363-.271.527-.734.417-1.173L6.963 3.102a1.125 1.125 0 00-1.091-.852H4.5A2.25 2.25 0 002.25 4.5v2.25z" />
             </svg>

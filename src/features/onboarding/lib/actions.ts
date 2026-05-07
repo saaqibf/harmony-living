@@ -3,9 +3,8 @@
 import { redirect } from 'next/navigation';
 import { z } from 'zod';
 import type { Gender } from '@generated/prisma/client';
-import { requireUser } from '@/lib/auth/session';
+import { requireDbUser } from '@/lib/auth/session';
 import { setOnboardedCookie } from '@/lib/auth/onboarding-cookie';
-import { prisma } from '@/lib/db/prisma';
 import { log } from '@/lib/log';
 import {
   basicsSchema,
@@ -17,20 +16,8 @@ import {
 } from '@/lib/onboarding/step-schemas';
 import { onboardingService, OnboardingError } from '@/server/services/onboarding';
 
-async function requireDbUserId(cognitoSub: string): Promise<string> {
-  const row = await prisma.user.findUnique({
-    where: { cognitoSub },
-    select: { id: true },
-  });
-  if (!row) {
-    throw new OnboardingError('NOT_FOUND', 'User row missing — sign in again.');
-  }
-  return row.id;
-}
-
 export async function saveIntentAction(input: unknown) {
-  const user = await requireUser();
-  const userId = await requireDbUserId(user.cognitoSub);
+  const { userId } = await requireDbUser();
   const data = intentSchema.parse(input);
   try {
     await onboardingService.saveIntent(userId, data);
@@ -44,8 +31,8 @@ export async function saveIntentAction(input: unknown) {
 }
 
 export async function saveBasicsAction(input: unknown) {
-  const user = await requireUser();
-  const userId = await requireDbUserId(user.cognitoSub);
+
+  const { userId } = await requireDbUser();
   const data = basicsSchema.parse(input);
   try {
     await onboardingService.saveBasics(userId, {
@@ -77,8 +64,8 @@ const vibeSchema = z.object({
 });
 
 export async function saveVibeAction(input: unknown) {
-  const user = await requireUser();
-  const userId = await requireDbUserId(user.cognitoSub);
+
+  const { userId } = await requireDbUser();
   const data = vibeSchema.parse(input);
   try {
     await onboardingService.saveLifestyle(userId, {
@@ -126,8 +113,8 @@ const wrapupSchema = z.object({
 });
 
 export async function saveWrapupAction(input: unknown) {
-  const user = await requireUser();
-  const userId = await requireDbUserId(user.cognitoSub);
+
+  const { userId } = await requireDbUser();
   const data = wrapupSchema.parse(input);
   try {
     await onboardingService.saveHousingPrefs(userId, {
@@ -158,8 +145,8 @@ export async function saveWrapupAction(input: unknown) {
 
 // Kept for backwards-compat (settings profile page still uses these)
 export async function saveHousingPrefsAction(input: unknown) {
-  const user = await requireUser();
-  const userId = await requireDbUserId(user.cognitoSub);
+
+  const { userId } = await requireDbUser();
   const data = housingPrefsSchema.parse(input);
   try {
     await onboardingService.saveHousingPrefs(userId, data);
@@ -171,8 +158,8 @@ export async function saveHousingPrefsAction(input: unknown) {
 }
 
 export async function saveLifestyleAction(input: unknown) {
-  const user = await requireUser();
-  const userId = await requireDbUserId(user.cognitoSub);
+
+  const { userId } = await requireDbUser();
   const data = lifestyleSchema.parse(input);
   try {
     await onboardingService.saveLifestyle(userId, data);
@@ -184,8 +171,8 @@ export async function saveLifestyleAction(input: unknown) {
 }
 
 export async function saveValuesAction(input: unknown) {
-  const user = await requireUser();
-  const userId = await requireDbUserId(user.cognitoSub);
+
+  const { userId } = await requireDbUser();
   const data = valuesSchema.parse(input);
   try {
     await onboardingService.saveValues(userId, data);
@@ -197,8 +184,8 @@ export async function saveValuesAction(input: unknown) {
 }
 
 export async function saveProfileFinishAction(input: unknown) {
-  const user = await requireUser();
-  const userId = await requireDbUserId(user.cognitoSub);
+
+  const { userId } = await requireDbUser();
   const data = profileFinishSchema.parse(input);
   try {
     await onboardingService.finishOnboarding(userId, {

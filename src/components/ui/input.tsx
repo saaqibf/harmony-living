@@ -11,10 +11,10 @@ export function Input({ className, type, ref, ...props }: InputProps) {
       ref={ref}
       type={type ?? 'text'}
       className={cn(
-        'flex min-h-11 w-full rounded-[var(--radius-button)] border border-slate-300 bg-surface px-4 py-2 text-base text-slate-900 placeholder:text-slate-400 transition-colors',
-        'focus-visible:border-primary-500 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-500/30',
-        'disabled:cursor-not-allowed disabled:bg-slate-50 disabled:text-slate-500',
-        'aria-invalid:border-red-500 aria-invalid:focus-visible:border-red-500 aria-invalid:focus-visible:ring-red-500/30',
+        'flex min-h-11 w-full rounded-lg border border-[#cfc5bd] bg-[#f7f3f1] px-4 py-2 text-sm text-[#1c1b1b] placeholder:text-[#7d766f] transition-colors',
+        'focus-visible:border-[#2d4a3e] focus-visible:bg-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#2d4a3e]/15',
+        'disabled:cursor-not-allowed disabled:bg-[#f1edec] disabled:text-[#7d766f]',
+        'aria-invalid:border-red-400 aria-invalid:focus-visible:border-red-400 aria-invalid:focus-visible:ring-red-400/20',
         className,
       )}
       {...props}

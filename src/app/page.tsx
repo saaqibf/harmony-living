@@ -2,285 +2,229 @@ import Link from 'next/link';
 
 const HOW_IT_WORKS = [
   {
-    num: '01',
-    icon: '✍️',
+    step: '01',
     title: 'Tell us about yourself',
     body: 'A few quick questions about your lifestyle, schedule, and what you need in a home.',
-    color: 'bg-amber-50 border-amber-100 text-amber-600',
   },
   {
-    num: '02',
-    icon: '✨',
+    step: '02',
     title: 'Discover your matches',
-    body: 'We surface compatible roommates every day — swipe to connect with people who fit your world.',
-    color: 'bg-primary-50 border-primary-100 text-primary-600',
+    body: 'We surface compatible roommates every day — connect with people who fit your world.',
   },
   {
-    num: '03',
-    icon: '🏡',
+    step: '03',
     title: 'Move in together',
     body: 'Chat, meet up, and find your perfect living situation. It really is that simple.',
-    color: 'bg-rose-50 border-rose-100 text-rose-500',
   },
 ];
 
-const VALUES = [
+const TESTIMONIALS = [
   {
-    emoji: '🔍',
-    title: 'Compatibility first',
-    body: 'Lifestyle, schedule, cleanliness, and values — matched thoughtfully, not randomly.',
+    quote: "Found my perfect roommate in under a week. Harmony actually gets what matters to me.",
+    name: 'Jordan M.',
+    city: 'Calgary, AB',
   },
   {
-    emoji: '🛡️',
-    title: 'Safe and trusted',
-    body: 'ID verification and clear reporting keep our community kind and trustworthy.',
-  },
-  {
-    emoji: '🌍',
-    title: 'Everyone belongs',
-    body: 'Every background, faith, and identity is welcome here. No exceptions, ever.',
+    quote: "The compatibility matching is unlike anything I've seen. My roommate and I are genuinely great friends now.",
+    name: 'Priya K.',
+    city: 'Calgary, AB',
   },
 ];
 
 export default function HomePage() {
   return (
-    <div className="min-h-screen bg-stone-50">
-      {/* ── NAV ── */}
-      <nav className="bg-white/80 backdrop-blur-sm border-b border-stone-100 sticky top-0 z-20">
-        <div className="max-w-6xl mx-auto px-5 md:px-10 flex items-center justify-between h-16">
-          <span className="text-xl font-extrabold text-gray-900 tracking-tight">
-            harmony<span className="text-primary-600">.</span>living
+    <div className="min-h-screen bg-[#fdf8f7]">
+      {/* Nav */}
+      <nav className="bg-white/90 backdrop-blur-sm border-b border-[#cfc5bd] sticky top-0 z-20">
+        <div className="max-w-6xl mx-auto px-6 md:px-10 flex items-center justify-between h-16">
+          <span className="font-serif font-semibold text-xl text-[#1c1b1b]">
+            Harmony<span className="text-[#c96d4d]">.</span>Living
           </span>
           <div className="flex items-center gap-2">
             <Link
               href="/login"
-              className="text-sm font-semibold text-stone-500 hover:text-gray-900 px-4 py-2 rounded-xl hover:bg-stone-100 transition-colors"
+              className="text-sm font-medium text-[#4c4640] hover:text-[#1c1b1b] px-4 py-2 rounded-lg hover:bg-[#f1edec] transition-colors"
             >
               Log in
             </Link>
             <Link
               href="/signup"
-              className="text-sm font-bold bg-primary-600 text-white px-5 py-2.5 rounded-2xl hover:bg-primary-700 active:scale-95 transition-all shadow-md shadow-primary-600/20"
+              className="text-sm font-semibold bg-[#1c1916] text-white px-5 py-2.5 rounded-lg hover:bg-[#2e2b28] transition-colors"
             >
-              Join free →
+              Get started
             </Link>
           </div>
         </div>
       </nav>
 
-      {/* ── HERO ── */}
-      <section className="relative overflow-hidden bg-gradient-to-br from-amber-50 via-stone-50 to-primary-50">
-        {/* Warm decorative blobs */}
-        <div className="absolute top-0 right-0 w-[700px] h-[700px] rounded-full bg-primary-100 opacity-40 translate-x-1/3 -translate-y-1/3 pointer-events-none" />
-        <div className="absolute bottom-0 left-0 w-[500px] h-[500px] rounded-full bg-amber-100 opacity-50 -translate-x-1/3 translate-y-1/3 pointer-events-none" />
+      {/* Hero */}
+      <section className="max-w-6xl mx-auto px-6 md:px-10 pt-20 pb-24 md:pt-28 md:pb-32">
+        <div className="grid md:grid-cols-2 gap-16 items-center">
+          {/* Copy */}
+          <div>
+            <div className="inline-flex items-center gap-2 bg-[#f7f3f1] text-[#b05e3d] text-xs font-semibold px-4 py-2 rounded-full border border-[#cfc5bd] mb-8">
+              <span className="w-1.5 h-1.5 rounded-full bg-[#c96d4d]" />
+              Now live in Calgary, AB
+            </div>
 
-        <div className="relative max-w-6xl mx-auto px-5 md:px-10 pt-16 pb-20 md:pt-24 md:pb-28">
-          <div className="grid md:grid-cols-5 gap-12 items-center">
-            {/* Copy */}
-            <div className="md:col-span-3">
-              <div className="inline-flex items-center gap-2 bg-primary-50 text-primary-700 text-xs font-bold px-4 py-2 rounded-full border border-primary-100 mb-7">
-                <span className="w-2 h-2 rounded-full bg-primary-500 animate-pulse" />
-                Now live · Calgary, AB
-              </div>
+            <h1 className="font-serif font-semibold text-[#1c1b1b] text-5xl md:text-[56px] leading-[1.1] mb-6">
+              Find a home<br />
+              where you truly<br />
+              <em className="text-[#c96d4d] not-italic">belong.</em>
+            </h1>
 
-              <h1 className="text-5xl md:text-[60px] font-extrabold text-gray-900 leading-[1.06] tracking-tight mb-6">
-                Your next home.<br />
-                <span className="text-primary-600">Your kind of people.</span>
-              </h1>
+            <p className="text-[#4c4640] text-lg leading-relaxed mb-8 max-w-md">
+              Harmony matches you with roommates based on how you actually live — not just what you can afford. Welcoming to absolutely everyone.
+            </p>
 
-              <p className="text-[17px] text-stone-500 leading-relaxed mb-9 max-w-lg">
-                Harmony matches you with roommates based on how you actually live —
-                not just what you can afford. Welcoming to absolutely everyone.
-              </p>
+            <div className="flex flex-col sm:flex-row gap-3 mb-8">
+              <Link
+                href="/signup"
+                className="inline-flex items-center justify-center bg-[#1c1916] text-white font-semibold px-7 py-3.5 rounded-xl hover:bg-[#2e2b28] transition-colors text-sm"
+              >
+                Find your match — it&apos;s free
+              </Link>
+              <Link
+                href="/listings"
+                className="inline-flex items-center justify-center bg-white text-[#1c1b1b] font-medium px-7 py-3.5 rounded-xl border border-[#cfc5bd] hover:bg-[#f1edec] transition-colors text-sm"
+              >
+                Browse rooms
+              </Link>
+            </div>
 
-              <div className="flex flex-col sm:flex-row gap-3 mb-6">
-                <Link
-                  href="/signup"
-                  className="inline-flex items-center justify-center bg-primary-600 text-white font-bold px-8 py-4 rounded-2xl hover:bg-primary-700 active:scale-[0.98] transition-all shadow-lg shadow-primary-600/25 text-base"
-                >
-                  Get started — it&apos;s free
-                </Link>
-                <Link
-                  href="/listings"
-                  className="inline-flex items-center justify-center bg-white text-gray-700 font-semibold px-8 py-4 rounded-2xl hover:bg-stone-50 border border-stone-200 transition-colors text-base shadow-sm"
-                >
-                  Browse rooms
-                </Link>
-              </div>
+            <p className="text-xs text-[#7d766f]">No credit card required · Takes 3 minutes</p>
+          </div>
 
-              <div className="flex items-center gap-5">
-                <p className="text-xs text-stone-400">No credit card required · Takes 3 minutes</p>
-                <div className="flex -space-x-2">
-                  {['from-amber-300 to-orange-400', 'from-primary-400 to-primary-600', 'from-violet-400 to-purple-600'].map((g, i) => (
-                    <div key={i} className={`w-7 h-7 rounded-full bg-gradient-to-br ${g} border-2 border-white`} />
-                  ))}
-                  <div className="w-7 h-7 rounded-full bg-stone-100 border-2 border-white flex items-center justify-center">
-                    <span className="text-[9px] font-bold text-stone-500">+2k</span>
-                  </div>
+          {/* Illustration grid */}
+          <div className="hidden md:grid grid-cols-2 gap-3 h-[440px]">
+            <div className="bg-[#cfc5bd] rounded-2xl col-span-1 row-span-2 overflow-hidden relative flex flex-col justify-end p-5">
+              <div className="absolute inset-0 bg-gradient-to-br from-[#c96d4d]/20 to-[#2d4a3e]/30" />
+              <div className="relative">
+                <p className="text-white font-serif font-semibold text-lg">Amara, 29</p>
+                <p className="text-white/70 text-xs">Nurse · Calgary NW</p>
+                <div className="flex gap-1.5 mt-2 flex-wrap">
+                  <span className="text-[10px] bg-white/20 text-white px-2 py-0.5 rounded-full backdrop-blur-sm">Cat lover</span>
+                  <span className="text-[10px] bg-white/20 text-white px-2 py-0.5 rounded-full backdrop-blur-sm">Early riser</span>
                 </div>
               </div>
             </div>
-
-            {/* Card collage */}
-            <div className="md:col-span-2 hidden md:flex items-center justify-center">
-              <div className="relative w-full h-[420px]">
-                {/* Card — back left */}
-                <div className="absolute left-0 top-8 w-40 h-56 rounded-3xl bg-gradient-to-br from-amber-200 via-orange-300 to-rose-300 shadow-xl rotate-[-7deg] overflow-hidden flex flex-col justify-end p-4">
-                  <div className="flex gap-1.5 mb-2 flex-wrap">
-                    <span className="bg-white/30 text-white text-[9px] font-bold px-2 py-0.5 rounded-full backdrop-blur-sm">Nurse</span>
-                    <span className="bg-white/30 text-white text-[9px] font-bold px-2 py-0.5 rounded-full backdrop-blur-sm">Cat lover</span>
-                  </div>
-                  <p className="text-white font-bold text-sm leading-none">Amara, 29</p>
-                  <p className="text-white/60 text-[10px] mt-0.5">📍 Calgary NW</p>
-                </div>
-
-                {/* Card — front center (teal) */}
-                <div
-                  className="absolute left-1/2 top-4 -translate-x-1/2 z-10 w-48 rounded-3xl bg-gradient-to-br from-primary-400 via-primary-500 to-primary-700 shadow-2xl rotate-[2deg] overflow-hidden flex flex-col justify-end p-5"
-                  style={{ height: 280 }}
-                >
-                  <div className="absolute top-4 left-4 bg-emerald-400 rounded-full px-2.5 py-0.5 flex items-center gap-1 shadow-sm">
-                    <span className="w-1.5 h-1.5 rounded-full bg-white" />
-                    <span className="text-white text-[10px] font-bold">Active</span>
-                  </div>
-                  <div className="absolute top-4 right-4 w-8 h-8 bg-white/20 rounded-full flex items-center justify-center">
-                    <span className="text-white text-sm">♥</span>
-                  </div>
-                  <div className="flex flex-wrap gap-1.5 mb-2.5">
-                    <span className="bg-white/25 text-white text-[10px] font-semibold px-2.5 py-1 rounded-full">Engineer</span>
-                    <span className="bg-white/25 text-white text-[10px] font-semibold px-2.5 py-1 rounded-full">Early bird</span>
-                  </div>
-                  <p className="text-white font-extrabold text-xl leading-tight">Sarah, 26</p>
-                  <p className="text-white/70 text-xs mt-1">📍 Calgary, AB</p>
-                </div>
-
-                {/* Card — back right */}
-                <div
-                  className="absolute right-0 top-14 rounded-3xl bg-gradient-to-br from-violet-300 via-purple-400 to-indigo-500 shadow-xl rotate-[9deg] overflow-hidden flex flex-col justify-end p-4"
-                  style={{ width: 152, height: 212 }}
-                >
-                  <div className="flex gap-1.5 mb-2">
-                    <span className="bg-white/30 text-white text-[9px] font-bold px-2 py-0.5 rounded-full">Student</span>
-                    <span className="bg-white/30 text-white text-[9px] font-bold px-2 py-0.5 rounded-full">Yoga</span>
-                  </div>
-                  <p className="text-white font-bold text-sm leading-none">Priya, 23</p>
-                  <p className="text-white/60 text-[10px] mt-0.5">📍 Calgary</p>
-                </div>
-
-                {/* Match banner */}
-                <div className="absolute bottom-0 left-1/2 -translate-x-1/2 z-20 bg-white rounded-2xl shadow-xl px-5 py-3 flex items-center gap-3 border border-stone-100 whitespace-nowrap">
-                  <span className="text-2xl">🎉</span>
-                  <div>
-                    <p className="text-sm font-bold text-gray-900">It&apos;s a match!</p>
-                    <p className="text-xs text-stone-400">94% compatible</p>
-                  </div>
-                </div>
+            <div className="bg-[#2d4a3e] rounded-2xl overflow-hidden relative flex flex-col justify-end p-4">
+              <div className="relative">
+                <p className="text-white font-serif text-base font-semibold">Sarah, 26</p>
+                <p className="text-white/70 text-xs">Engineer · Calgary</p>
               </div>
+            </div>
+            <div className="bg-[#f7f3f1] rounded-2xl flex flex-col items-center justify-center p-4 border border-[#cfc5bd]">
+              <div className="w-10 h-10 rounded-full bg-[#c96d4d] flex items-center justify-center mb-2">
+                <svg className="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" />
+                </svg>
+              </div>
+              <p className="text-xs font-semibold text-[#1c1b1b]">It&apos;s a match!</p>
+              <p className="text-[10px] text-[#7d766f]">94% compatible</p>
             </div>
           </div>
         </div>
       </section>
 
-      {/* ── HOW IT WORKS ── */}
-      <section className="bg-white border-y border-stone-100 py-16 px-5 md:px-10">
+      {/* How it works */}
+      <section className="bg-white border-y border-[#cfc5bd] py-20 px-6 md:px-10">
         <div className="max-w-6xl mx-auto">
           <div className="text-center mb-14">
-            <p className="text-primary-600 text-sm font-bold uppercase tracking-widest mb-3">How it works</p>
-            <h2 className="text-3xl md:text-4xl font-extrabold text-gray-900 mb-3">Finding harmony is easy</h2>
-            <p className="text-stone-500 text-lg">Three steps to your perfect living match.</p>
+            <p className="text-[#c96d4d] text-xs font-semibold uppercase tracking-widest mb-3">How it works</p>
+            <h2 className="font-serif font-semibold text-[#1c1b1b] text-3xl md:text-4xl">Finding harmony is simple</h2>
           </div>
           <div className="grid md:grid-cols-3 gap-8">
             {HOW_IT_WORKS.map((s) => (
-              <div key={s.num} className="relative">
-                <div className={`inline-flex items-center justify-center w-14 h-14 rounded-2xl border text-2xl mb-5 ${s.color}`}>
-                  {s.icon}
+              <div key={s.step} className="relative">
+                <span className="text-8xl font-bold text-[#f1edec] leading-none select-none absolute -top-4 -left-2">{s.step}</span>
+                <div className="relative pt-8">
+                  <h3 className="font-serif font-semibold text-[#1c1b1b] text-lg mb-2">{s.title}</h3>
+                  <p className="text-sm text-[#4c4640] leading-relaxed">{s.body}</p>
                 </div>
-                <span className="absolute top-0 right-0 text-7xl font-black text-stone-100 leading-none select-none">
-                  {s.num}
-                </span>
-                <h3 className="font-bold text-gray-900 text-lg mb-2">{s.title}</h3>
-                <p className="text-stone-500 text-sm leading-relaxed">{s.body}</p>
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* ── VALUES ── */}
-      <section className="py-16 px-5 md:px-10 bg-gradient-to-b from-stone-50 to-amber-50/40">
+      {/* Values */}
+      <section className="py-20 px-6 md:px-10">
         <div className="max-w-6xl mx-auto">
           <div className="text-center mb-12">
-            <p className="text-primary-600 text-sm font-bold uppercase tracking-widest mb-3">Our promise</p>
-            <h2 className="text-3xl md:text-4xl font-extrabold text-gray-900 mb-3">Built for real life</h2>
-            <p className="text-stone-500 text-lg">Finding a roommate should feel good, not stressful.</p>
+            <p className="text-[#c96d4d] text-xs font-semibold uppercase tracking-widest mb-3">Our promise</p>
+            <h2 className="font-serif font-semibold text-[#1c1b1b] text-3xl md:text-4xl">Built for real life</h2>
           </div>
           <div className="grid md:grid-cols-3 gap-5">
-            {VALUES.map((v) => (
-              <div
-                key={v.title}
-                className="bg-white rounded-3xl p-7 border border-stone-100 shadow-sm hover:shadow-md hover:border-primary-100 transition-all group cursor-default"
-              >
-                <div className="w-14 h-14 rounded-2xl bg-stone-50 flex items-center justify-center text-3xl mb-5 group-hover:bg-primary-50 transition-colors">
-                  {v.emoji}
-                </div>
-                <h3 className="font-bold text-gray-900 text-[17px] mb-2">{v.title}</h3>
-                <p className="text-stone-500 text-sm leading-relaxed">{v.body}</p>
+            {[
+              { icon: '🔍', title: 'Compatibility first', body: 'Lifestyle, schedule, cleanliness, and values — matched thoughtfully, not randomly.' },
+              { icon: '🛡️', title: 'Safe and trusted', body: 'ID verification and clear reporting keep our community kind and trustworthy.' },
+              { icon: '🌍', title: 'Everyone belongs', body: 'Every background, faith, and identity is welcome here. No exceptions, ever.' },
+            ].map((v) => (
+              <div key={v.title} className="bg-white rounded-2xl p-7 border border-[#cfc5bd]">
+                <div className="w-12 h-12 rounded-xl bg-[#f1edec] flex items-center justify-center text-2xl mb-5">{v.icon}</div>
+                <h3 className="font-serif font-semibold text-[#1c1b1b] text-lg mb-2">{v.title}</h3>
+                <p className="text-sm text-[#4c4640] leading-relaxed">{v.body}</p>
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* ── SOCIAL PROOF ── */}
-      <section className="bg-white border-y border-stone-100 py-12 px-5 md:px-10">
-        <div className="max-w-4xl mx-auto text-center">
-          <div className="flex items-center justify-center gap-2 mb-3">
-            {[1, 2, 3, 4, 5].map((s) => (
-              <svg key={s} className="w-5 h-5 text-amber-400" fill="currentColor" viewBox="0 0 20 20">
-                <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/>
-              </svg>
+      {/* Testimonials */}
+      <section className="bg-white border-y border-[#cfc5bd] py-20 px-6 md:px-10">
+        <div className="max-w-4xl mx-auto">
+          <div className="text-center mb-12">
+            <p className="text-[#c96d4d] text-xs font-semibold uppercase tracking-widest mb-3">Stories</p>
+            <h2 className="font-serif font-semibold text-[#1c1b1b] text-3xl md:text-4xl">Real people, real harmony</h2>
+          </div>
+          <div className="grid md:grid-cols-2 gap-5">
+            {TESTIMONIALS.map((t) => (
+              <div key={t.name} className="bg-[#fdf8f7] rounded-2xl p-7 border border-[#cfc5bd]">
+                <div className="flex gap-1 mb-4">
+                  {[1,2,3,4,5].map((s) => (
+                    <svg key={s} className="w-4 h-4 text-[#c96d4d]" fill="currentColor" viewBox="0 0 20 20">
+                      <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/>
+                    </svg>
+                  ))}
+                </div>
+                <p className="font-serif text-[#1c1b1b] text-lg leading-relaxed mb-4">&ldquo;{t.quote}&rdquo;</p>
+                <p className="text-sm text-[#7d766f]">— {t.name}, {t.city}</p>
+              </div>
             ))}
           </div>
-          <p className="text-gray-900 text-xl font-semibold mb-3 max-w-xl mx-auto leading-snug">
-            &ldquo;Found my perfect roommate in under a week. Harmony actually gets what matters to me.&rdquo;
-          </p>
-          <p className="text-stone-400 text-sm font-medium">— Jordan M., Calgary</p>
         </div>
       </section>
 
-      {/* ── CTA BANNER ── */}
-      <section className="px-5 md:px-10 py-16">
-        <div className="max-w-2xl mx-auto bg-gradient-to-br from-primary-600 to-primary-800 rounded-3xl px-8 py-14 text-center shadow-xl shadow-primary-600/25 relative overflow-hidden">
-          <div className="absolute inset-0 opacity-10">
-            <div className="absolute top-0 right-0 w-64 h-64 rounded-full bg-white translate-x-1/3 -translate-y-1/3" />
-            <div className="absolute bottom-0 left-0 w-48 h-48 rounded-full bg-white -translate-x-1/3 translate-y-1/3" />
-          </div>
+      {/* CTA */}
+      <section className="px-6 md:px-10 py-20">
+        <div className="max-w-2xl mx-auto bg-[#1c1916] rounded-2xl px-8 py-16 text-center relative overflow-hidden">
+          <div className="absolute top-0 right-0 w-64 h-64 rounded-full bg-white/10 translate-x-1/3 -translate-y-1/3" />
+          <div className="absolute bottom-0 left-0 w-48 h-48 rounded-full bg-white/10 -translate-x-1/3 translate-y-1/3" />
           <div className="relative">
-            <h2 className="text-3xl font-extrabold text-white mb-3">Ready to find your person?</h2>
-            <p className="text-primary-100 text-lg mb-8 leading-relaxed">
-              Join thousands of people finding harmony in their homes.
-            </p>
+            <h2 className="font-serif font-semibold text-white text-3xl md:text-4xl mb-3">Ready to find your person?</h2>
+            <p className="text-white/80 text-sm mb-8 leading-relaxed">Join thousands finding harmony in their homes.</p>
             <Link
               href="/signup"
-              className="inline-flex items-center justify-center bg-white text-primary-700 font-bold px-10 py-4 rounded-2xl hover:bg-primary-50 transition-colors shadow-lg text-base"
+              className="inline-flex items-center justify-center bg-white text-[#1c1916] font-semibold px-8 py-3.5 rounded-xl hover:bg-[#fdf8f7] transition-colors text-sm"
             >
-              Create your free account →
+              Create your free account
             </Link>
           </div>
         </div>
       </section>
 
-      {/* ── FOOTER ── */}
-      <footer className="bg-white border-t border-stone-100 px-5 md:px-10 py-8">
+      {/* Footer */}
+      <footer className="bg-white border-t border-[#cfc5bd] px-6 md:px-10 py-8">
         <div className="max-w-6xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4">
-          <span className="font-extrabold text-gray-900 text-lg">
-            harmony<span className="text-primary-600">.</span>living
+          <span className="font-serif font-semibold text-[#1c1b1b] text-lg">
+            Harmony<span className="text-[#c96d4d]">.</span>Living
           </span>
-          <p className="text-sm text-stone-400">
+          <p className="text-sm text-[#7d766f]">
             © {new Date().getFullYear()} Harmony Living · Calgary, AB ·{' '}
-            <Link href="/login" className="hover:text-primary-600 transition-colors">Log in</Link>
+            <Link href="/login" className="hover:text-[#c96d4d] transition-colors">Log in</Link>
             {' / '}
-            <Link href="/signup" className="hover:text-primary-600 transition-colors">Sign up</Link>
+            <Link href="/signup" className="hover:text-[#c96d4d] transition-colors">Sign up</Link>
           </p>
         </div>
       </footer>

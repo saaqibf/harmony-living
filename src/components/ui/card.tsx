@@ -10,7 +10,7 @@ export function Card({ className, ref, ...props }: DivProps) {
     <div
       ref={ref}
       className={cn(
-        'rounded-[var(--radius-card)] border border-slate-200 bg-surface shadow-sm',
+        'rounded-2xl border border-[#cfc5bd] bg-white',
         className,
       )}
       {...props}
@@ -37,7 +37,7 @@ export function CardTitle({ className, ref, ...props }: HeadingProps) {
     <h3
       ref={ref}
       className={cn(
-        'text-lg font-semibold leading-tight text-slate-900',
+        'text-base font-semibold leading-tight text-[#1c1b1b]',
         className,
       )}
       {...props}
@@ -49,7 +49,7 @@ export function CardContent({ className, ref, ...props }: DivProps) {
   return (
     <div
       ref={ref}
-      className={cn('p-6 pt-0 text-slate-600', className)}
+      className={cn('p-6 pt-0 text-[#4c4640]', className)}
       {...props}
     />
   );
@@ -59,7 +59,7 @@ export function CardFooter({ className, ref, ...props }: DivProps) {
   return (
     <div
       ref={ref}
-      className={cn('flex items-center p-6 pt-4', className)}
+      className={cn('flex items-center p-6 pt-4 border-t border-[#cfc5bd]', className)}
       {...props}
     />
   );

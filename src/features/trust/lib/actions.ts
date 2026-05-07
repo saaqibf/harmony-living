@@ -1,25 +1,17 @@
 'use server';
 
-import { requireUser } from '@/lib/auth/session';
-import { prisma } from '@/lib/db/prisma';
+import { requireDbUser } from '@/lib/auth/session';
 import { reportUser, blockUser } from '@/server/services/trust';
 import { log } from '@/lib/log';
 import type { ReportReason } from '@generated/prisma/client';
 import { redirect } from 'next/navigation';
-
-async function requireDbUserId(cognitoSub: string) {
-  const row = await prisma.user.findUnique({ where: { cognitoSub }, select: { id: true } });
-  if (!row) throw new Error('User not found');
-  return row.id;
-}
 
 export async function reportUserAction(
   reportedUserId: string,
   reason: ReportReason,
   context?: string,
 ): Promise<{ ok: boolean; error?: string }> {
-  const auth = await requireUser();
-  const userId = await requireDbUserId(auth.cognitoSub);
+  const { userId } = await requireDbUser();
 
   if (userId === reportedUserId) return { ok: false, error: 'Cannot report yourself' };
 
@@ -33,8 +25,7 @@ export async function reportUserAction(
 }
 
 export async function blockUserAction(blockedUserId: string): Promise<void> {
-  const auth = await requireUser();
-  const userId = await requireDbUserId(auth.cognitoSub);
+  const { userId } = await requireDbUser();
   await blockUser(userId, blockedUserId);
   redirect('/matches');
 }

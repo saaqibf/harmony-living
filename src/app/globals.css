@@ -1,58 +1,62 @@
 @import "tailwindcss";
 
 @theme {
-  /* Primary — Terracotta (Stitch #C07A50) */
-  --color-primary-50:  #fdf3ec;
-  --color-primary-100: #fce4d0;
-  --color-primary-200: #f9c9a3;
-  --color-primary-300: #f2a870;
-  --color-primary-400: #e8895a;
-  --color-primary-500: #C07A50;
-  --color-primary-600: #a6643c;
-  --color-primary-700: #8b4f29;
-  --color-primary-800: #6f3813;
-  --color-primary-900: #321200;
+  /* ── Stitch design system: Harmony Living ── */
 
-  /* Secondary — Forest green */
-  --color-forest-50:  #eef4f1;
-  --color-forest-100: #d5e6de;
-  --color-forest-500: #476458;
-  --color-forest-600: #3D5A4E;
-  --color-forest-700: #2e4a3e;
-
-  /* Accent — Amber */
-  --color-accent-400: #fbbf24;
-  --color-accent-500: #f59e0b;
-  --color-accent-600: #d97706;
-
-  /* Semantic aliases */
-  --color-primary:      var(--color-primary-500);
-  --color-primary-dark: var(--color-primary-600);
-
-  /* Override stone scale to warm linen (aligns with Stitch palette) */
-  --color-stone-50:  #F9F7F2;
-  --color-stone-100: #E5E0D8;
-
-  /* Surfaces & backgrounds */
-  --color-bg:         #F9F7F2;
-  --color-background: #F9F7F2;
-  --color-surface:    #ffffff;
-  --color-muted:      #F2EFE9;
+  /* Surfaces */
+  --color-surface:                  #fdf8f7;
+  --color-surface-dim:              #ddd9d8;
+  --color-surface-container-lowest: #ffffff;
+  --color-surface-container-low:    #f7f3f1;
+  --color-surface-container:        #f1edec;
+  --color-surface-container-high:   #ece7e6;
+  --color-surface-container-highest:#e6e1e0;
 
   /* Text */
-  --color-fg:        #1A1D1E;
-  --color-muted-fg:  #53443c;
+  --color-on-surface:         #1c1b1b;
+  --color-on-surface-variant: #4c4640;
 
-  /* Borders */
-  --color-border:    #E5E0D8;
+  /* Primary — Ink (near-black charcoal) */
+  --color-ink:        #1c1916;
+  --color-ink-light:  #2e2b28;
+
+  /* Secondary — Forest Green */
+  --color-forest:         #2d4a3e;
+  --color-forest-light:   #476558;
+  --color-forest-surface: #c9ead9;
+
+  /* Tertiary — Soft Terracotta (accent only, not primary CTA) */
+  --color-terra:        #c96d4d;
+  --color-terra-dark:   #b05e3d;
+  --color-terra-light:  #ffdbd0;
+
+  /* Outline / borders */
+  --color-outline:         #7d766f;
+  --color-outline-variant: #cfc5bd;
+
+  /* Semantic shorthands used throughout */
+  --color-bg:      var(--color-surface);
+  --color-border:  var(--color-outline-variant);
+  --color-fg:      var(--color-on-surface);
+  --color-muted-fg:var(--color-on-surface-variant);
+
+  /* Error */
+  --color-error:   #ba1a1a;
 
   /* Fonts */
   --font-sans:  var(--font-inter), system-ui, -apple-system, sans-serif;
   --font-serif: var(--font-newsreader), Georgia, serif;
+  --font-mono:  var(--font-jetbrains), 'JetBrains Mono', monospace;
 
-  /* Radii */
-  --radius-card:   0.875rem;
+  /* Radii (Stitch rounded-8 scale) */
+  --radius-sm:     0.25rem;
+  --radius:        0.5rem;
+  --radius-md:     0.75rem;
+  --radius-lg:     1rem;
+  --radius-xl:     1.5rem;
+  --radius-card:   1rem;
   --radius-button: 0.5rem;
+  --radius-full:   9999px;
 }
 
 html,

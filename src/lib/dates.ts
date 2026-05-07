@@ -16,6 +16,14 @@ export function ageFromDob(dob: Date, now: Date = new Date()): number {
   return Math.floor(ageMs / (365.2425 * 24 * 60 * 60 * 1000));
 }
 
+/** Precise age in whole years — birthday-aware, use for display. */
+export function calcAge(dob: Date): number {
+  const today = new Date();
+  const age = today.getFullYear() - dob.getFullYear();
+  const m = today.getMonth() - dob.getMonth();
+  return m < 0 || (m === 0 && today.getDate() < dob.getDate()) ? age - 1 : age;
+}
+
 export function isAtLeast18(dob: Date, now: Date = new Date()): boolean {
   return ageFromDob(dob, now) >= 18;
 }

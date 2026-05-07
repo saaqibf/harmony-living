@@ -17,7 +17,7 @@ export function BottomNav() {
   if (pathname.match(/^\/messages\/.+/)) return null;
 
   return (
-    <nav className="fixed bottom-0 left-0 right-0 z-40 border-t border-stone-100 bg-white/95 backdrop-blur-sm">
+    <nav className="fixed bottom-0 left-0 right-0 z-40 border-t border-[#cfc5bd] bg-white/95 backdrop-blur-sm">
       <div className="mx-auto flex h-16 max-w-lg items-center justify-around px-2">
         {NAV.map((item) => {
           const active = pathname === item.href || pathname.startsWith(item.href + '/');
@@ -26,13 +26,13 @@ export function BottomNav() {
               key={item.href}
               href={item.href}
               className={`flex flex-col items-center gap-0.5 px-3 py-2 rounded-xl transition-colors text-xs ${
-                active ? 'text-primary-600' : 'text-gray-400 hover:text-gray-600'
+                active ? 'text-[#1c1916]' : 'text-[#7d766f] hover:text-[#4c4640]'
               }`}
             >
               <span className={`text-xl leading-none transition-transform ${active ? 'scale-110' : ''}`}>
                 {item.icon}
               </span>
-              <span className={`font-medium ${active ? 'text-primary-600' : ''}`}>{item.label}</span>
+              <span className={`font-medium ${active ? 'text-[#1c1916]' : ''}`}>{item.label}</span>
             </Link>
           );
         })}

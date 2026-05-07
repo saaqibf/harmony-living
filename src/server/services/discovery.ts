@@ -3,6 +3,7 @@ import 'server-only';
 import type { PhotoVisibility } from '@generated/prisma/client';
 import { prisma } from '@/lib/db/prisma';
 import { scoreUsers, type ScoringUser } from './compatibility';
+import { calcAge } from '@/lib/dates';
 
 export type DiscoveryProfile = {
   userId: string;
@@ -23,21 +24,16 @@ export type DiscoveryProfile = {
   breakdown: Record<string, number>;
 };
 
-function calcAge(dob: Date): number {
-  const today = new Date();
-  const age = today.getFullYear() - dob.getFullYear();
-  const m = today.getMonth() - dob.getMonth();
-  return m < 0 || (m === 0 && today.getDate() < dob.getDate()) ? age - 1 : age;
-}
+const WITH_SCORING_FIELDS = {
+  profile: true,
+  preferences: true,
+  verifications: { where: { status: 'APPROVED' as const }, select: { id: true } },
+} as const;
 
 async function loadUser(userId: string) {
   return prisma.user.findUnique({
     where: { id: userId },
-    include: {
-      profile: true,
-      preferences: true,
-      verifications: { where: { status: 'APPROVED' }, select: { id: true } },
-    },
+    include: WITH_SCORING_FIELDS,
   });
 }
 
@@ -79,11 +75,7 @@ export async function getDiscoveryQueue(
       preferences: { isNot: null },
       profile: { isNot: null },
     },
-    include: {
-      profile: true,
-      preferences: true,
-      verifications: { where: { status: 'APPROVED' }, select: { id: true } },
-    },
+    include: WITH_SCORING_FIELDS,
     take: 300,
   });
 
@@ -208,11 +200,7 @@ export async function getBrowseProfiles(viewerId: string, limit = 100): Promise<
       deletedAt: null,
       profile: { isNot: null },
     },
-    include: {
-      profile: true,
-      preferences: true,
-      verifications: { where: { status: 'APPROVED' }, select: { id: true } },
-    },
+    include: WITH_SCORING_FIELDS,
     take: limit,
   });
 
@@ -296,11 +284,7 @@ export async function getBrowseProfileById(
 
   const user = await prisma.user.findUnique({
     where: { id: targetUserId },
-    include: {
-      profile: true,
-      preferences: true,
-      verifications: { where: { status: 'APPROVED' }, select: { id: true } },
-    },
+    include: WITH_SCORING_FIELDS,
   });
 
   if (!user || !user.profile) return null;

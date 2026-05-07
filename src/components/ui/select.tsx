@@ -13,8 +13,8 @@ export function Select({ className, ref, children, ...props }: SelectProps) {
       <select
         ref={ref}
         className={cn(
-          'flex min-h-11 w-full appearance-none rounded-[var(--radius-button)] border border-slate-300 bg-surface px-4 py-2 pr-10 text-base text-slate-900 transition-colors',
-          'focus-visible:border-primary-500 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-500/30',
+          'flex min-h-11 w-full appearance-none rounded-[var(--radius-button)] border border-[#cfc5bd] bg-surface px-4 py-2 pr-10 text-base text-[#1c1b1b] transition-colors',
+          'focus-visible:border-[#2d4a3e] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#2d4a3e]/20',
           'disabled:cursor-not-allowed disabled:bg-slate-50 disabled:text-slate-500',
           'aria-invalid:border-red-500 aria-invalid:focus-visible:border-red-500 aria-invalid:focus-visible:ring-red-500/30',
           className,
@@ -24,7 +24,7 @@ export function Select({ className, ref, children, ...props }: SelectProps) {
         {children}
       </select>
       <span
-        className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 text-slate-500"
+        className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 text-[#7d766f]"
         aria-hidden
       >
         <svg width="16" height="16" viewBox="0 0 20 20" fill="none">

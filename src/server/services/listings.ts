@@ -3,6 +3,23 @@ import 'server-only';
 import type { ListingStatus, GenderPreference } from '@generated/prisma/client';
 import { prisma } from '@/lib/db/prisma';
 
+export class ListingError extends Error {
+  constructor(
+    public readonly code: 'NOT_FOUND' | 'FORBIDDEN' | 'NOT_PUBLISHABLE',
+    message: string,
+  ) {
+    super(message);
+    this.name = 'ListingError';
+  }
+}
+
+async function assertOwner(listingId: string, ownerId: string) {
+  const listing = await prisma.listing.findUnique({ where: { id: listingId } });
+  if (!listing) throw new ListingError('NOT_FOUND', 'Listing not found');
+  if (listing.ownerId !== ownerId) throw new ListingError('FORBIDDEN', 'Not your listing');
+  return listing;
+}
+
 export type CreateListingInput = {
   type: 'PRIVATE_ROOM' | 'SHARED_ROOM' | 'WHOLE_UNIT';
   title: string;
@@ -83,10 +100,7 @@ export async function updateListing(
   ownerId: string,
   input: UpdateListingInput,
 ) {
-  const existing = await prisma.listing.findUnique({ where: { id: listingId } });
-  if (!existing || existing.ownerId !== ownerId) {
-    throw new Error('Listing not found or not yours');
-  }
+  await assertOwner(listingId, ownerId);
 
   const coordUpdate =
     input.latitude !== undefined && input.longitude !== undefined
@@ -104,10 +118,13 @@ export async function updateListing(
 }
 
 export async function publishListing(listingId: string, ownerId: string) {
-  const existing = await prisma.listing.findUnique({ where: { id: listingId } });
-  if (!existing || existing.ownerId !== ownerId) {
-    throw new Error('Listing not found or not yours');
+  await assertOwner(listingId, ownerId);
+
+  const imageCount = await prisma.listingImage.count({ where: { listingId } });
+  if (imageCount === 0) {
+    throw new ListingError('NOT_PUBLISHABLE', 'Add at least one photo before publishing');
   }
+
   return prisma.listing.update({
     where: { id: listingId },
     data: { status: 'ACTIVE' },
@@ -115,10 +132,7 @@ export async function publishListing(listingId: string, ownerId: string) {
 }
 
 export async function deleteListing(listingId: string, ownerId: string) {
-  const existing = await prisma.listing.findUnique({ where: { id: listingId } });
-  if (!existing || existing.ownerId !== ownerId) {
-    throw new Error('Listing not found or not yours');
-  }
+  await assertOwner(listingId, ownerId);
   return prisma.listing.update({
     where: { id: listingId },
     data: { deletedAt: new Date(), status: 'ARCHIVED' as ListingStatus },

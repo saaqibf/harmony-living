@@ -18,10 +18,10 @@ export default async function OnboardingLayout({
   }
 
   return (
-    <div className="min-h-screen bg-stone-50 px-4 py-10">
+    <div className="min-h-screen bg-[#fdf8f7] px-4 py-10">
       <div className="mx-auto w-full max-w-lg">
-        <p className="mb-6 text-center text-lg font-semibold tracking-tight text-slate-900">
-          harmony<span className="text-primary-600">.</span>living
+        <p className="mb-6 text-center font-serif text-lg font-semibold text-[#1c1b1b]">
+          Harmony<span className="text-[#c96d4d]">.</span>Living
         </p>
         <OnboardingProgress />
         {children}

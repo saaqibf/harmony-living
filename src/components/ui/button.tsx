@@ -11,22 +11,22 @@ export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
 }
 
 const baseClasses =
-  'inline-flex items-center justify-center gap-2 rounded-[var(--radius-button)] font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-500 focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--color-background)] disabled:cursor-not-allowed disabled:opacity-50';
+  'inline-flex items-center justify-center gap-2 rounded-lg font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#1c1916]/30 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50';
 
 const variantClasses: Record<ButtonVariant, string> = {
   primary:
-    'bg-primary-600 text-white hover:bg-primary-700 active:bg-primary-800',
+    'bg-[#1c1916] text-white hover:bg-[#2e2b28] active:bg-[#3d3a37]',
   secondary:
-    'bg-surface text-primary-700 border border-primary-200 hover:bg-primary-50 active:bg-primary-100',
+    'bg-white text-[#4c4640] border border-[#cfc5bd] hover:bg-[#f7f3f1] active:bg-[#f1edec]',
   ghost:
-    'bg-transparent text-slate-700 hover:bg-slate-100 active:bg-slate-200',
+    'bg-transparent text-[#4c4640] hover:bg-[#f1edec] active:bg-[#e6e1e0]',
   destructive:
-    'bg-red-600 text-white hover:bg-red-700 active:bg-red-800',
+    'bg-red-500 text-white hover:bg-red-600 active:bg-red-700',
 };
 
 const sizeClasses: Record<ButtonSize, string> = {
-  sm: 'min-h-11 px-4 text-sm',
-  md: 'min-h-11 px-5 text-base',
+  sm: 'min-h-9 px-4 text-sm',
+  md: 'min-h-11 px-5 text-sm',
   lg: 'min-h-12 px-7 text-base',
 };
 

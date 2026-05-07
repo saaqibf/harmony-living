@@ -1,15 +1,8 @@
 'use server';
 
-import { requireUser } from '@/lib/auth/session';
-import { prisma } from '@/lib/db/prisma';
+import { requireDbUser } from '@/lib/auth/session';
 import { recordSwipe, SwipeError } from '@/server/services/swipe';
 import { log } from '@/lib/log';
-
-async function requireDbUserId(cognitoSub: string) {
-  const row = await prisma.user.findUnique({ where: { cognitoSub }, select: { id: true } });
-  if (!row) throw new Error('User not found');
-  return row.id;
-}
 
 export type SwipeActionResult =
   | { ok: true; matched: boolean; matchId?: string; conversationId?: string }
@@ -19,8 +12,7 @@ export async function swipeAction(
   targetId: string,
   direction: 'CONNECT' | 'PASS',
 ): Promise<SwipeActionResult> {
-  const auth = await requireUser();
-  const userId = await requireDbUserId(auth.cognitoSub);
+  const { userId } = await requireDbUser();
 
   try {
     const result = await recordSwipe(userId, targetId, direction);

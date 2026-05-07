@@ -18,7 +18,7 @@ export function ProfileCard({ profile, hasMatch }: Props) {
     (profile.photoVisibility === 'UNTIL_MATCH' && hasMatch);
   const photoSrc = showPhoto
     ? profile.photoUrl
-    : profile.photoVisibility === 'PRIVATE'
+    : profile.photoVisibility === 'HIDDEN'
       ? null
       : profile.photoUrlBlurred;
 
@@ -45,23 +45,19 @@ export function ProfileCard({ profile, hasMatch }: Props) {
             style={!showPhoto ? { filter: 'blur(12px)', transform: 'scale(1.05)' } : undefined}
           />
         ) : (
-          <div className="w-full h-full bg-gradient-to-br from-primary-100 via-primary-200 to-primary-400 flex items-center justify-center">
+          <div className="w-full h-full bg-[#f1edec] flex items-center justify-center">
             <span className="text-8xl opacity-40">👤</span>
           </div>
         )}
 
-        {/* Deep gradient for text legibility */}
         <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
 
-        {/* Active badge — top left */}
-        <div className="absolute top-4 left-4 flex items-center gap-1.5 bg-emerald-500 rounded-full px-3 py-1 shadow-lg">
+        <div className="absolute top-4 left-4 flex items-center gap-1.5 bg-[#2d4a3e] rounded-full px-3 py-1 shadow-lg">
           <span className="w-1.5 h-1.5 rounded-full bg-white" />
           <span className="text-white text-xs font-bold tracking-wide">Active</span>
         </div>
 
-        {/* Bottom overlay: chips + name + city */}
         <div className="absolute bottom-0 left-0 right-0 px-5 pb-5 pt-10">
-          {/* Interest chips overlaid on photo */}
           {chips.length > 0 && (
             <div className="flex flex-wrap gap-1.5 mb-3">
               {chips.map((c) => (
@@ -74,7 +70,7 @@ export function ProfileCard({ profile, hasMatch }: Props) {
               ))}
             </div>
           )}
-          <h2 className="text-[28px] font-bold text-white leading-tight drop-shadow-lg">
+          <h2 className="text-[28px] font-serif font-semibold text-white leading-tight drop-shadow-lg">
             {profile.firstName}, {profile.ageYears}
           </h2>
           {profile.city && (
@@ -87,8 +83,7 @@ export function ProfileCard({ profile, hasMatch }: Props) {
           )}
         </div>
 
-        {/* Private photo overlay */}
-        {profile.photoVisibility === 'PRIVATE' && (
+        {profile.photoVisibility === 'HIDDEN' && (
           <div className="absolute inset-0 flex items-center justify-center bg-black/50 backdrop-blur-sm">
             <div className="text-center">
               <span className="text-5xl">🔒</span>
@@ -102,11 +97,11 @@ export function ProfileCard({ profile, hasMatch }: Props) {
       {/* Bottom info — 35% */}
       <div className="px-5 py-4 flex flex-col justify-center" style={{ height: '35%' }}>
         {profile.bio ? (
-          <p className="text-sm text-gray-500 leading-relaxed line-clamp-3">{profile.bio}</p>
+          <p className="text-sm text-[#4c4640] leading-relaxed line-clamp-3">{profile.bio}</p>
         ) : (
           <div className="flex flex-col gap-2">
-            <div className="h-3 bg-stone-100 rounded-full w-4/5" />
-            <div className="h-3 bg-stone-100 rounded-full w-3/5" />
+            <div className="h-3 bg-[#f1edec] rounded-full w-4/5" />
+            <div className="h-3 bg-[#f1edec] rounded-full w-3/5" />
           </div>
         )}
       </div>

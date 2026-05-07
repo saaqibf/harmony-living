@@ -1,15 +1,8 @@
 'use server';
 
-import { requireUser } from '@/lib/auth/session';
-import { prisma } from '@/lib/db/prisma';
+import { requireDbUser } from '@/lib/auth/session';
 import { sendMessage, markRead, MessagingError } from '@/server/services/messaging';
 import { log } from '@/lib/log';
-
-async function requireDbUserId(cognitoSub: string) {
-  const row = await prisma.user.findUnique({ where: { cognitoSub }, select: { id: true } });
-  if (!row) throw new Error('User not found');
-  return row.id;
-}
 
 export type SendMessageResult =
   | { ok: true; messageId: string }
@@ -19,8 +12,7 @@ export async function sendMessageAction(
   conversationId: string,
   body: string,
 ): Promise<SendMessageResult> {
-  const auth = await requireUser();
-  const userId = await requireDbUserId(auth.cognitoSub);
+  const { userId } = await requireDbUser();
 
   try {
     const message = await sendMessage(userId, conversationId, body);
@@ -35,7 +27,6 @@ export async function sendMessageAction(
 }
 
 export async function markReadAction(conversationId: string): Promise<void> {
-  const auth = await requireUser();
-  const userId = await requireDbUserId(auth.cognitoSub);
+  const { userId } = await requireDbUser();
   await markRead(userId, conversationId);
 }

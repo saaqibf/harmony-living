@@ -63,8 +63,8 @@ export function WrapupStep({ initialCity }: { initialCity?: string }) {
   return (
     <div className="space-y-6">
       <div className="text-center space-y-2">
-        <h1 className="text-2xl font-bold text-gray-900">Almost done!</h1>
-        <p className="text-gray-500 text-sm">Tell us your budget and where you want to live.</p>
+        <h1 className="text-2xl font-serif font-semibold text-[#1c1b1b]">Almost done!</h1>
+        <p className="text-[#7d766f] text-sm">Tell us your budget and where you want to live.</p>
       </div>
 
       <form
@@ -84,7 +84,6 @@ export function WrapupStep({ initialCity }: { initialCity?: string }) {
           });
         })}
       >
-        {/* Budget */}
         <Controller
           name="budgetMin"
           control={form.control}
@@ -108,7 +107,6 @@ export function WrapupStep({ initialCity }: { initialCity?: string }) {
           <p className="text-xs text-red-500">Budget range is invalid</p>
         )}
 
-        {/* Move-in date */}
         <Controller
           name="moveInDate"
           control={form.control}
@@ -123,22 +121,20 @@ export function WrapupStep({ initialCity }: { initialCity?: string }) {
           )}
         />
 
-        {/* City */}
         <div className="space-y-1.5">
-          <label className="text-sm font-medium text-gray-700">Preferred city</label>
+          <label className="text-sm font-medium text-[#1c1b1b]">Preferred city</label>
           <input
             {...form.register('city')}
             placeholder="e.g. Calgary"
-            className="w-full rounded-xl border border-gray-200 bg-white px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-primary-500"
+            className="w-full rounded-xl border border-[#cfc5bd] bg-white px-4 py-3 text-sm text-[#1c1b1b] placeholder-[#7d766f] focus:outline-none focus:ring-2 focus:ring-[#2d4a3e]/20 focus:border-[#2d4a3e]"
           />
           {form.formState.errors.city && (
             <p className="text-xs text-red-500">{form.formState.errors.city.message}</p>
           )}
         </div>
 
-        {/* Proximity */}
         <div className="space-y-3">
-          <p className="text-sm font-medium text-gray-700">What matters to you about location? <span className="text-gray-400 font-normal">(optional)</span></p>
+          <p className="text-sm font-medium text-[#1c1b1b]">What matters to you about location? <span className="text-[#7d766f] font-normal">(optional)</span></p>
           <div className="flex flex-wrap gap-2">
             {PROXIMITY_OPTIONS.map((opt) => {
               const active = proximity.includes(opt.value);
@@ -149,8 +145,8 @@ export function WrapupStep({ initialCity }: { initialCity?: string }) {
                   onClick={() => toggleProximity(opt.value)}
                   className={`px-3 py-2 rounded-xl border text-sm font-medium transition-all ${
                     active
-                      ? 'border-primary-500 bg-primary-50 text-primary-700'
-                      : 'border-gray-200 text-gray-600 hover:border-gray-300'
+                      ? 'border-[#2d4a3e] bg-[#edf4f1] text-[#2d4a3e]'
+                      : 'border-[#cfc5bd] text-[#4c4640] hover:border-[#2d4a3e]/50'
                   }`}
                 >
                   {opt.label}
@@ -163,29 +159,27 @@ export function WrapupStep({ initialCity }: { initialCity?: string }) {
               value={nearUniversity}
               onChange={(e) => setNearUniversity(e.target.value)}
               placeholder="Which university? e.g. University of Calgary"
-              className="w-full rounded-xl border border-gray-200 bg-white px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-primary-500"
+              className="w-full rounded-xl border border-[#cfc5bd] bg-white px-4 py-3 text-sm text-[#1c1b1b] placeholder-[#7d766f] focus:outline-none focus:ring-2 focus:ring-[#2d4a3e]/20 focus:border-[#2d4a3e]"
             />
           )}
         </div>
 
-        {/* Bio */}
         <div className="space-y-1.5">
-          <label className="text-sm font-medium text-gray-700">
-            Bio <span className="text-gray-400 font-normal">(optional)</span>
+          <label className="text-sm font-medium text-[#1c1b1b]">
+            Bio <span className="text-[#7d766f] font-normal">(optional)</span>
           </label>
           <textarea
             {...form.register('bio')}
             rows={3}
             maxLength={500}
             placeholder="A little about yourself — hobbies, lifestyle, what you're looking for…"
-            className="w-full rounded-xl border border-gray-200 bg-white px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-primary-500 resize-none"
+            className="w-full rounded-xl border border-[#cfc5bd] bg-white px-4 py-3 text-sm text-[#1c1b1b] placeholder-[#7d766f] focus:outline-none focus:ring-2 focus:ring-[#2d4a3e]/20 focus:border-[#2d4a3e] resize-none"
           />
-          <p className="text-right text-xs text-gray-400">{(bio ?? '').length}/500</p>
+          <p className="text-right text-xs text-[#7d766f]">{(bio ?? '').length}/500</p>
         </div>
 
-        {/* Privacy */}
         <div className="space-y-2">
-          <p className="text-sm font-medium text-gray-700">Who can see your profile?</p>
+          <p className="text-sm font-medium text-[#1c1b1b]">Who can see your profile?</p>
           <div className="space-y-2">
             {PRIVACY_OPTIONS.map((opt) => {
               const active = privacyMode === opt.value;
@@ -196,12 +190,12 @@ export function WrapupStep({ initialCity }: { initialCity?: string }) {
                   onClick={() => form.setValue('privacyMode', opt.value)}
                   className={`w-full flex items-center justify-between px-4 py-3 rounded-xl border text-left transition-all ${
                     active
-                      ? 'border-primary-500 bg-primary-50'
-                      : 'border-gray-200 hover:border-gray-300'
+                      ? 'border-[#2d4a3e] bg-[#edf4f1]'
+                      : 'border-[#cfc5bd] hover:border-[#2d4a3e]/50'
                   }`}
                 >
-                  <span className={`text-sm font-medium ${active ? 'text-primary-700' : 'text-gray-700'}`}>{opt.label}</span>
-                  <span className="text-xs text-gray-400">{opt.desc}</span>
+                  <span className={`text-sm font-medium ${active ? 'text-[#2d4a3e]' : 'text-[#4c4640]'}`}>{opt.label}</span>
+                  <span className="text-xs text-[#7d766f]">{opt.desc}</span>
                 </button>
               );
             })}
@@ -211,7 +205,7 @@ export function WrapupStep({ initialCity }: { initialCity?: string }) {
         <button
           type="submit"
           disabled={pending}
-          className="w-full py-3 rounded-2xl bg-primary-600 text-white font-semibold text-sm disabled:opacity-50 transition-opacity"
+          className="w-full py-3 rounded-xl bg-[#1c1916] text-white font-semibold text-sm disabled:opacity-50 hover:bg-[#2e2b28] transition-colors"
         >
           {pending ? 'Creating your profile…' : '🎉 Complete setup'}
         </button>

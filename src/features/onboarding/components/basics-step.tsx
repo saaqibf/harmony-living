@@ -40,8 +40,8 @@ export function BasicsStep({
   return (
     <div className="space-y-6">
       <div className="text-center space-y-2">
-        <h1 className="text-2xl font-bold text-gray-900">About you</h1>
-        <p className="text-gray-500 text-sm">Just the basics — takes 60 seconds.</p>
+        <h1 className="text-2xl font-serif font-semibold text-[#1c1b1b]">About you</h1>
+        <p className="text-[#7d766f] text-sm">Just the basics — takes 60 seconds.</p>
       </div>
 
       <form
@@ -58,11 +58,11 @@ export function BasicsStep({
         })}
       >
         <div className="space-y-1.5">
-          <label className="text-sm font-medium text-gray-700">First name</label>
+          <label className="text-sm font-medium text-[#1c1b1b]">First name</label>
           <input
             {...form.register('firstName')}
             placeholder="Your first name"
-            className="w-full rounded-xl border border-gray-200 bg-white px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-primary-500"
+            className="w-full rounded-xl border border-[#cfc5bd] bg-white px-4 py-3 text-sm text-[#1c1b1b] placeholder-[#7d766f] focus:outline-none focus:ring-2 focus:ring-[#2d4a3e]/20 focus:border-[#2d4a3e] transition-colors"
           />
           {form.formState.errors.firstName && (
             <p className="text-xs text-red-500">{form.formState.errors.firstName.message}</p>
@@ -83,7 +83,7 @@ export function BasicsStep({
         />
 
         <div className="space-y-2">
-          <label className="text-sm font-medium text-gray-700">Gender</label>
+          <label className="text-sm font-medium text-[#1c1b1b]">Gender</label>
           <div className="grid grid-cols-2 gap-2">
             {GENDER_OPTIONS.map((opt) => {
               const selected = form.watch('gender') === opt.value;
@@ -94,8 +94,8 @@ export function BasicsStep({
                   onClick={() => form.setValue('gender', opt.value)}
                   className={`py-2.5 rounded-xl border text-sm font-medium transition-all ${
                     selected
-                      ? 'border-primary-500 bg-primary-50 text-primary-700'
-                      : 'border-gray-200 text-gray-600 hover:border-gray-300'
+                      ? 'border-[#2d4a3e] bg-[#edf4f1] text-[#2d4a3e]'
+                      : 'border-[#cfc5bd] text-[#4c4640] hover:border-[#2d4a3e]/50'
                   }`}
                 >
                   {opt.label}
@@ -106,11 +106,11 @@ export function BasicsStep({
         </div>
 
         <div className="space-y-1.5">
-          <label className="text-sm font-medium text-gray-700">City you're looking in</label>
+          <label className="text-sm font-medium text-[#1c1b1b]">City you&apos;re looking in</label>
           <input
             {...form.register('city')}
             placeholder="e.g. Calgary"
-            className="w-full rounded-xl border border-gray-200 bg-white px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-primary-500"
+            className="w-full rounded-xl border border-[#cfc5bd] bg-white px-4 py-3 text-sm text-[#1c1b1b] placeholder-[#7d766f] focus:outline-none focus:ring-2 focus:ring-[#2d4a3e]/20 focus:border-[#2d4a3e] transition-colors"
           />
           {form.formState.errors.city && (
             <p className="text-xs text-red-500">{form.formState.errors.city.message}</p>
@@ -120,7 +120,7 @@ export function BasicsStep({
         <button
           type="submit"
           disabled={pending}
-          className="w-full py-3 rounded-2xl bg-primary-600 text-white font-semibold text-sm disabled:opacity-50 transition-opacity"
+          className="w-full py-3 rounded-xl bg-[#1c1916] text-white font-semibold text-sm disabled:opacity-50 hover:bg-[#2e2b28] transition-colors"
         >
           {pending ? 'Saving…' : 'Continue →'}
         </button>
