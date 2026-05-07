@@ -18,7 +18,7 @@ export function ProfileCard({ profile, hasMatch }: Props) {
     (profile.photoVisibility === 'UNTIL_MATCH' && hasMatch);
   const photoSrc = showPhoto
     ? profile.photoUrl
-    : profile.photoVisibility === 'HIDDEN'
+    : profile.photoVisibility === 'PRIVATE'
       ? null
       : profile.photoUrlBlurred;
 
@@ -83,7 +83,7 @@ export function ProfileCard({ profile, hasMatch }: Props) {
           )}
         </div>
 
-        {profile.photoVisibility === 'HIDDEN' && (
+        {profile.photoVisibility === 'PRIVATE' && (
           <div className="absolute inset-0 flex items-center justify-center bg-black/50 backdrop-blur-sm">
             <div className="text-center">
               <span className="text-5xl">🔒</span>

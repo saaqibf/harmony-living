@@ -14,7 +14,7 @@ const profileSchema = z.object({
 });
 
 const privacySchema = z.object({
-  photoVisibility: z.enum(['PUBLIC', 'UNTIL_MATCH', 'HIDDEN']),
+  photoVisibility: z.enum(['ALWAYS', 'UNTIL_MATCH', 'PRIVATE']),
 });
 
 const prefsSchema = z.object({

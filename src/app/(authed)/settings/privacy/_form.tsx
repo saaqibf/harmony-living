@@ -4,9 +4,9 @@ import { useState, useTransition } from 'react';
 import { updatePrivacyAction } from '@/features/settings/lib/actions';
 
 const OPTIONS = [
-  { value: 'PUBLIC', label: 'Public', desc: 'Anyone can see your photo' },
+  { value: 'ALWAYS', label: 'Always visible', desc: 'Anyone can see your photo' },
   { value: 'UNTIL_MATCH', label: 'Until match', desc: 'Only mutual matches see your real photo' },
-  { value: 'HIDDEN', label: 'Hidden', desc: 'Blurred photo until you choose to reveal' },
+  { value: 'PRIVATE', label: 'Private', desc: 'Blurred photo until you choose to reveal' },
 ] as const;
 
 export function PrivacyForm({ initial }: { initial: string }) {
