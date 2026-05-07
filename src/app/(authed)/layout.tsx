@@ -15,7 +15,7 @@ export default async function AuthedLayout({ children }: { children: React.React
         firstName={user?.profile?.firstName}
         photoUrl={user?.profile?.photoUrl}
       />
-      <main className="flex-1 ml-[220px] min-h-screen overflow-x-hidden">
+      <main className="flex-1 ml-[220px]">
         {children}
       </main>
     </div>

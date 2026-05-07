@@ -1,5 +1,4 @@
 import { notFound } from 'next/navigation';
-import Link from 'next/link';
 import { requireUser } from '@/lib/auth/session';
 import { prisma } from '@/lib/db/prisma';
 import { getMessages } from '@/server/services/messaging';
@@ -35,7 +34,6 @@ export default async function ConversationPage({
   const otherPhotoUrl = otherParticipant?.user.profile?.photoUrl ?? null;
 
   const messages = await getMessages(user.id, conversationId, 50);
-
   const serialized = messages.map((m) => ({
     id: m.id,
     senderId: m.senderId,
@@ -44,41 +42,42 @@ export default async function ConversationPage({
   }));
 
   return (
-    <div className="flex flex-col h-screen bg-gray-50">
-      {/* Header */}
-      <div className="flex items-center gap-3 px-4 py-3 bg-white border-b border-gray-100 shadow-sm shrink-0">
-        <Link
-          href="/messages"
-          className="w-9 h-9 rounded-full flex items-center justify-center hover:bg-gray-100 active:bg-gray-200 transition-colors"
-          aria-label="Back to messages"
-        >
-          <svg className="w-5 h-5 text-gray-700" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-            <path strokeLinecap="round" strokeLinejoin="round" d="M15 19l-7-7 7-7" />
-          </svg>
-        </Link>
-
-        <div className="w-10 h-10 rounded-full overflow-hidden bg-gray-100 shrink-0 ring-2 ring-primary-100">
+    <div className="flex flex-col h-full">
+      {/* Chat header */}
+      <div className="flex items-center gap-3 px-6 py-4 bg-white border-b border-[#E5E0D8] shrink-0">
+        <div className="w-9 h-9 rounded-full overflow-hidden bg-[#F2EFE9] shrink-0">
           {otherPhotoUrl ? (
             <img src={otherPhotoUrl} alt={otherFirstName} className="w-full h-full object-cover" />
           ) : (
-            <div className="w-full h-full flex items-center justify-center text-base select-none">👤</div>
+            <div className="w-full h-full flex items-center justify-center text-base">👤</div>
           )}
         </div>
-
         <div className="flex-1 min-w-0">
-          <p className="font-semibold text-gray-900 text-[15px] truncate">{otherFirstName}</p>
+          <p className="font-semibold text-[#1A1D1E] text-sm">{otherFirstName}</p>
           <div className="flex items-center gap-1.5">
-            <span className="w-2 h-2 rounded-full bg-primary-500" />
-            <span className="text-xs text-primary-600 font-medium">Active now</span>
+            <span className="w-1.5 h-1.5 rounded-full bg-[#476458]" />
+            <span className="text-xs text-[#476458] font-medium">Online</span>
           </div>
         </div>
-
-        {otherUserId && (
-          <ReportBlockMenu targetUserId={otherUserId} targetName={otherFirstName} />
-        )}
+        {/* Action icons */}
+        <div className="flex items-center gap-1">
+          <button className="p-2 rounded-lg hover:bg-[#F2EFE9] transition-colors text-[#85736a]">
+            <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
+              <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 10.5l4.72-4.72a.75.75 0 011.28.53v11.38a.75.75 0 01-1.28.53l-4.72-4.72M4.5 18.75h9a2.25 2.25 0 002.25-2.25v-9a2.25 2.25 0 00-2.25-2.25h-9A2.25 2.25 0 002.25 7.5v9a2.25 2.25 0 002.25 2.25z" />
+            </svg>
+          </button>
+          <button className="p-2 rounded-lg hover:bg-[#F2EFE9] transition-colors text-[#85736a]">
+            <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
+              <path strokeLinecap="round" strokeLinejoin="round" d="M2.25 6.75c0 8.284 6.716 15 15 15h2.25a2.25 2.25 0 002.25-2.25v-1.372c0-.516-.351-.966-.852-1.091l-4.423-1.106c-.44-.11-.902.055-1.173.417l-.97 1.293c-.282.376-.769.542-1.21.38a12.035 12.035 0 01-7.143-7.143c-.162-.441.004-.928.38-1.21l1.293-.97c.363-.271.527-.734.417-1.173L6.963 3.102a1.125 1.125 0 00-1.091-.852H4.5A2.25 2.25 0 002.25 4.5v2.25z" />
+            </svg>
+          </button>
+          {otherUserId && (
+            <ReportBlockMenu targetUserId={otherUserId} targetName={otherFirstName} />
+          )}
+        </div>
       </div>
 
-      {/* Chat */}
+      {/* Chat messages */}
       <div className="flex-1 overflow-hidden">
         <ChatView
           conversationId={conversationId}
