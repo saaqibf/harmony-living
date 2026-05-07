@@ -31,6 +31,16 @@ export interface SignInInput {
   password: string;
 }
 
+export interface ForgotPasswordInput {
+  email: string;
+}
+
+export interface ResetPasswordInput {
+  email: string;
+  code: string;
+  newPassword: string;
+}
+
 export interface AuthProvider {
   signUp(input: SignUpInput): Promise<SignUpResult>;
   confirmSignUp(input: ConfirmSignUpInput): Promise<void>;
@@ -56,4 +66,6 @@ export interface AuthProvider {
     code: string,
     redirectUri: string,
   ): Promise<AuthTokens>;
+  forgotPassword(email: string): Promise<void>;
+  resetPassword(input: ResetPasswordInput): Promise<void>;
 }

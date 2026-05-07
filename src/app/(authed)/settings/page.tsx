@@ -49,6 +49,42 @@ export default async function SettingsPage() {
           </svg>
         </Link>
 
+        <Link
+          href="/settings/preferences"
+          className="bg-white rounded-2xl border border-[#cfc5bd] px-5 py-4 flex items-center justify-between hover:border-[#c96d4d]/40 hover:shadow-sm active:scale-[0.99] transition-all group"
+        >
+          <div className="flex items-center gap-4">
+            <div className="w-10 h-10 rounded-xl bg-[#f7f3f1] flex items-center justify-center text-xl">
+              🏡
+            </div>
+            <div>
+              <p className="font-semibold text-[#1c1b1b] text-sm">Housing preferences</p>
+              <p className="text-xs text-[#7d766f] mt-0.5">Budget, lifestyle, roommate rules</p>
+            </div>
+          </div>
+          <svg className="w-4 h-4 text-[#7d766f] group-hover:text-[#c96d4d] transition-colors" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
+            <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
+          </svg>
+        </Link>
+
+        <Link
+          href="/settings/privacy"
+          className="bg-white rounded-2xl border border-[#cfc5bd] px-5 py-4 flex items-center justify-between hover:border-[#c96d4d]/40 hover:shadow-sm active:scale-[0.99] transition-all group"
+        >
+          <div className="flex items-center gap-4">
+            <div className="w-10 h-10 rounded-xl bg-[#f7f3f1] flex items-center justify-center text-xl">
+              🔒
+            </div>
+            <div>
+              <p className="font-semibold text-[#1c1b1b] text-sm">Privacy</p>
+              <p className="text-xs text-[#7d766f] mt-0.5">Photo visibility, discoverability</p>
+            </div>
+          </div>
+          <svg className="w-4 h-4 text-[#7d766f] group-hover:text-[#c96d4d] transition-colors" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
+            <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
+          </svg>
+        </Link>
+
         <p className="text-xs font-semibold text-[#7d766f] uppercase tracking-widest px-1 mt-3 mb-1">Listings</p>
 
         <Link

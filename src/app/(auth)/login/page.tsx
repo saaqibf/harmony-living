@@ -10,6 +10,7 @@ import { signInSchema, type SignInInput } from '@/lib/auth/schemas';
 const BANNER_MESSAGES: Record<string, string> = {
   confirmed: 'Your email is confirmed — log in below.',
   logout: "You've been logged out.",
+  reset: 'Password reset! Log in with your new password.',
 };
 
 function LoginForm() {
@@ -19,6 +20,8 @@ function LoginForm() {
     ? BANNER_MESSAGES.confirmed
     : searchParams.get('logout') === '1'
     ? BANNER_MESSAGES.logout
+    : searchParams.get('reset') === '1'
+    ? BANNER_MESSAGES.reset
     : null;
   const from = searchParams.get('from');
   const [serverError, setServerError] = useState<string | null>(null);

@@ -6,6 +6,8 @@ import {
   ResendConfirmationCodeCommand,
   InitiateAuthCommand,
   GlobalSignOutCommand,
+  ForgotPasswordCommand,
+  ConfirmForgotPasswordCommand,
   type AuthFlowType,
 } from '@aws-sdk/client-cognito-identity-provider';
 import { CognitoJwtVerifier } from 'aws-jwt-verify';
@@ -16,6 +18,7 @@ import type {
   AuthTokens,
   AuthUser,
   ConfirmSignUpInput,
+  ResetPasswordInput,
   SignInInput,
   SignUpInput,
   SignUpResult,
@@ -162,6 +165,38 @@ export class CognitoAuthProvider implements AuthProvider {
       };
     } catch (err) {
       if (err instanceof AuthError) throw err;
+      throw mapCognitoError(err);
+    }
+  }
+
+  async forgotPassword(email: string): Promise<void> {
+    try {
+      await this.client.send(
+        new ForgotPasswordCommand({
+          ClientId: env.COGNITO_CLIENT_ID,
+          SecretHash: computeSecretHash(email),
+          Username: email,
+        }),
+      );
+    } catch (err) {
+      // Privacy: swallow UserNotFoundException so callers always return 200
+      if ((err as { name?: string }).name === 'UserNotFoundException') return;
+      throw mapCognitoError(err);
+    }
+  }
+
+  async resetPassword(input: ResetPasswordInput): Promise<void> {
+    try {
+      await this.client.send(
+        new ConfirmForgotPasswordCommand({
+          ClientId: env.COGNITO_CLIENT_ID,
+          SecretHash: computeSecretHash(input.email),
+          Username: input.email,
+          ConfirmationCode: input.code,
+          Password: input.newPassword,
+        }),
+      );
+    } catch (err) {
       throw mapCognitoError(err);
     }
   }
