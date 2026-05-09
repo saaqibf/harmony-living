@@ -18,10 +18,10 @@ export default async function OnboardingLayout({
   }
 
   return (
-    <div className="min-h-screen bg-[#fdf8f7] px-4 py-10">
+    <div className="min-h-screen bg-gradient-to-br from-[#fdf4f9] via-[#fdfbfc] to-[#f7f3f1] px-4 py-10 animate-fade-in">
       <div className="mx-auto w-full max-w-lg">
         <p className="mb-6 text-center font-serif text-lg font-semibold text-[#1c1b1b]">
-          Harmony<span className="text-[#c96d4d]">.</span>Living
+          Harmony<span className="text-[#7B2D5C]">.</span>Living
         </p>
         <OnboardingProgress />
         {children}

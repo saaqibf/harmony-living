@@ -73,8 +73,8 @@ export function SidebarLinks() {
             href={href}
             className={`flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition-colors ${
               active
-                ? 'bg-[#1c1916] text-white'
-                : 'text-[#4c4640] hover:bg-[#e6e1e0]/60 hover:text-[#1c1b1b]'
+                ? 'bg-[#7B2D5C] text-white'
+                : 'text-[#c28aab] hover:bg-[#2A1020] hover:text-white'
             }`}
           >
             {icon}

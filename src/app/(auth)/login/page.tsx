@@ -13,6 +13,8 @@ const BANNER_MESSAGES: Record<string, string> = {
   reset: 'Password reset! Log in with your new password.',
 };
 
+const inputCls = 'block w-full rounded-xl border border-[#cfc5bd] bg-[#fdf4f9] px-4 py-3 text-sm text-[#1c1b1b] placeholder-[#7d766f] outline-none transition focus:border-[#7B2D5C] focus:ring-2 focus:ring-[#7B2D5C]/15';
+
 function LoginForm() {
   const router = useRouter();
   const searchParams = useSearchParams();
@@ -55,17 +57,17 @@ function LoginForm() {
   }
 
   return (
-    <div className="rounded-2xl bg-white border border-[#cfc5bd] px-8 py-8">
-      <h1 className="mb-1 text-xl font-serif font-semibold text-[#1c1b1b]">Welcome back</h1>
-      <p className="mb-6 text-sm text-[#7d766f]">Log in to your account.</p>
+    <div>
+      <h1 className="mb-1 text-3xl font-serif font-semibold text-[#1c1b1b]">Welcome back</h1>
+      <p className="mb-8 text-sm text-[#7d766f]">Log in to your account.</p>
 
       {banner && (
-        <div className="mb-4 rounded-xl bg-[#edf4f1] px-4 py-3 text-sm text-[#2d4a3e] border border-[#c1d9d1]">
+        <div className="mb-5 rounded-xl bg-[#fdf4f9] px-4 py-3 text-sm text-[#5A1F43] border border-[#e8cede]">
           {banner}
         </div>
       )}
       {serverError && (
-        <div className="mb-4 rounded-xl bg-red-50 px-4 py-3 text-sm text-red-600 border border-red-100">
+        <div className="mb-5 rounded-xl bg-red-50 px-4 py-3 text-sm text-red-600 border border-red-100">
           {serverError}
         </div>
       )}
@@ -81,7 +83,7 @@ function LoginForm() {
             autoComplete="email"
             {...register('email')}
             placeholder="you@example.com"
-            className="block w-full rounded-xl border border-[#cfc5bd] px-4 py-3 text-sm text-[#1c1b1b] placeholder-[#7d766f] outline-none transition focus:border-[#2d4a3e] focus:ring-2 focus:ring-[#2d4a3e]/20"
+            className={inputCls}
           />
           {errors.email && <p className="mt-1 text-xs text-red-500">{errors.email.message}</p>}
         </div>
@@ -89,7 +91,7 @@ function LoginForm() {
         <div>
           <div className="mb-1.5 flex items-center justify-between">
             <label htmlFor="password" className="text-sm font-medium text-[#1c1b1b]">Password</label>
-            <Link href="/forgot-password" className="text-xs text-[#c96d4d] hover:underline">Forgot password?</Link>
+            <Link href="/forgot-password" className="text-xs text-[#7B2D5C] hover:underline">Forgot password?</Link>
           </div>
           <input
             id="password"
@@ -97,7 +99,7 @@ function LoginForm() {
             autoComplete="current-password"
             {...register('password')}
             placeholder="Your password"
-            className="block w-full rounded-xl border border-[#cfc5bd] px-4 py-3 text-sm text-[#1c1b1b] placeholder-[#7d766f] outline-none transition focus:border-[#2d4a3e] focus:ring-2 focus:ring-[#2d4a3e]/20"
+            className={inputCls}
           />
           {errors.password && <p className="mt-1 text-xs text-red-500">{errors.password.message}</p>}
         </div>
@@ -105,28 +107,28 @@ function LoginForm() {
         <button
           type="submit"
           disabled={isSubmitting}
-          className="w-full rounded-xl bg-[#1c1916] py-3 text-sm font-semibold text-white transition hover:bg-[#2e2b28] active:scale-95 disabled:opacity-60"
+          className="w-full rounded-xl bg-[#7B2D5C] py-3 text-sm font-semibold text-white transition hover:bg-[#5A1F43] active:scale-95 disabled:opacity-60"
         >
           {isSubmitting ? 'Logging in…' : 'Log in'}
         </button>
       </form>
 
-      <div className="my-5 flex items-center gap-3">
-        <span className="h-px flex-1 bg-[#cfc5bd]" />
+      <div className="my-6 flex items-center gap-3">
+        <span className="h-px flex-1 bg-[#e8cede]" />
         <span className="text-xs text-[#7d766f]">or continue with</span>
-        <span className="h-px flex-1 bg-[#cfc5bd]" />
+        <span className="h-px flex-1 bg-[#e8cede]" />
       </div>
 
       <div className="grid grid-cols-2 gap-3">
         <a
           href="/api/auth/oauth-start?provider=Google"
-          className="flex items-center justify-center gap-2 rounded-xl border border-[#cfc5bd] px-3 py-2.5 text-sm font-medium text-[#4c4640] transition hover:bg-[#fdf8f7] active:scale-95"
+          className="flex items-center justify-center gap-2 rounded-xl border border-[#cfc5bd] px-3 py-2.5 text-sm font-medium text-[#4c4640] transition hover:bg-[#fdf4f9] hover:border-[#e8cede] active:scale-95"
         >
           <GoogleIcon /> Google
         </a>
         <a
           href="/api/auth/oauth-start?provider=Apple"
-          className="flex items-center justify-center gap-2 rounded-xl border border-[#cfc5bd] px-3 py-2.5 text-sm font-medium text-[#4c4640] transition hover:bg-[#fdf8f7] active:scale-95"
+          className="flex items-center justify-center gap-2 rounded-xl border border-[#cfc5bd] px-3 py-2.5 text-sm font-medium text-[#4c4640] transition hover:bg-[#fdf4f9] hover:border-[#e8cede] active:scale-95"
         >
           <AppleIcon /> Apple
         </a>
@@ -134,7 +136,7 @@ function LoginForm() {
 
       <p className="mt-6 text-center text-sm text-[#7d766f]">
         Don&apos;t have an account?{' '}
-        <Link href="/signup" className="font-semibold text-[#c96d4d] hover:underline">Sign up</Link>
+        <Link href="/signup" className="font-semibold text-[#7B2D5C] hover:underline">Sign up</Link>
       </p>
     </div>
   );

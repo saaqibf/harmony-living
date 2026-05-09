@@ -35,12 +35,12 @@ export function IntentStep({ initialIntent }: { initialIntent: string | null }) 
             onClick={() => setSelected(opt.value)}
             className={`w-full flex items-center gap-4 p-4 rounded-2xl border-2 text-left transition-all ${
               selected === opt.value
-                ? 'border-[#2d4a3e] bg-[#edf4f1]'
-                : 'border-[#cfc5bd] bg-white hover:border-[#2d4a3e]/50'
+                ? 'border-[#7B2D5C] bg-[#fdf4f9]'
+                : 'border-[#cfc5bd] bg-white hover:border-[#7B2D5C]/50'
             }`}
           >
             <span className="text-2xl">{opt.emoji}</span>
-            <span className={`font-medium text-sm ${selected === opt.value ? 'text-[#2d4a3e]' : 'text-[#4c4640]'}`}>
+            <span className={`font-medium text-sm ${selected === opt.value ? 'text-[#7B2D5C]' : 'text-[#4c4640]'}`}>
               {opt.label}
             </span>
           </button>
@@ -51,7 +51,7 @@ export function IntentStep({ initialIntent }: { initialIntent: string | null }) 
         type="button"
         onClick={handleSubmit}
         disabled={!selected || pending}
-        className="w-full py-3 rounded-xl bg-[#1c1916] text-white font-semibold text-sm disabled:opacity-50 transition-opacity hover:bg-[#2e2b28]"
+        className="w-full py-3 rounded-xl bg-[#7B2D5C] text-white font-semibold text-sm disabled:opacity-50 transition-opacity hover:bg-[#5A1F43]"
       >
         {pending ? 'Saving…' : 'Continue →'}
       </button>

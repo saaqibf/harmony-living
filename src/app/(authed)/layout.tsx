@@ -10,7 +10,7 @@ export default async function AuthedLayout({ children }: { children: React.React
   });
 
   return (
-    <div className="flex min-h-screen bg-[#fdf8f7]">
+    <div className="flex min-h-screen bg-[#fdfbfc]">
       <Sidebar
         firstName={user?.profile?.firstName}
         photoUrl={user?.profile?.photoUrl}

@@ -59,7 +59,7 @@ export function SwipeDeck({ initialProfiles, swipesRemaining }: Props) {
 
   if (matchBanner) {
     return (
-      <div className="min-h-screen bg-[#c96d4d] flex flex-col items-center justify-center px-6 text-center">
+      <div className="min-h-screen bg-gradient-to-br from-[#7B2D5C] to-[#1A0A14] flex flex-col items-center justify-center px-6 text-center">
         <div className="w-24 h-24 rounded-full bg-white/20 flex items-center justify-center mb-6">
           <svg className="w-12 h-12 text-white" fill="currentColor" viewBox="0 0 24 24">
             <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" />
@@ -73,7 +73,7 @@ export function SwipeDeck({ initialProfiles, swipesRemaining }: Props) {
           {matchBanner.conversationId && (
             <Link
               href={`/messages/${matchBanner.conversationId}`}
-              className="bg-white text-[#c96d4d] font-semibold py-3.5 rounded-xl text-center hover:bg-[#fdf8f7] transition-colors text-sm"
+              className="bg-white text-[#7B2D5C] font-semibold py-3.5 rounded-xl text-center hover:bg-[#fdf4f9] transition-colors text-sm"
             >
               Send a message
             </Link>
@@ -93,7 +93,7 @@ export function SwipeDeck({ initialProfiles, swipesRemaining }: Props) {
     return (
       <div className="min-h-screen bg-[#fdf8f7] flex flex-col items-center justify-center px-6 text-center">
         <div className="w-20 h-20 rounded-full bg-[#f7f3f1] flex items-center justify-center mb-5">
-          <svg className="w-9 h-9 text-[#c96d4d]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
+          <svg className="w-9 h-9 text-[#7B2D5C]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
             <path strokeLinecap="round" strokeLinejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z" />
           </svg>
         </div>
@@ -103,7 +103,7 @@ export function SwipeDeck({ initialProfiles, swipesRemaining }: Props) {
         </p>
         <Link
           href="/matches"
-          className="bg-[#1c1916] text-white font-semibold px-6 py-3 rounded-xl hover:bg-[#2e2b28] transition-colors text-sm"
+          className="bg-[#7B2D5C] text-white font-semibold px-6 py-3 rounded-xl hover:bg-[#5A1F43] transition-colors text-sm"
         >
           View my matches
         </Link>
@@ -115,7 +115,7 @@ export function SwipeDeck({ initialProfiles, swipesRemaining }: Props) {
     return (
       <div className="min-h-screen bg-[#fdf8f7] flex flex-col items-center justify-center px-6 text-center">
         <div className="w-20 h-20 rounded-full bg-[#f7f3f1] flex items-center justify-center mb-5">
-          <svg className="w-9 h-9 text-[#c96d4d]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
+          <svg className="w-9 h-9 text-[#7B2D5C]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
             <path strokeLinecap="round" strokeLinejoin="round" d="M15 19l-7-7 7-7" />
           </svg>
         </div>
@@ -125,7 +125,7 @@ export function SwipeDeck({ initialProfiles, swipesRemaining }: Props) {
         </p>
         <Link
           href="/matches"
-          className="bg-[#1c1916] text-white font-semibold px-6 py-3 rounded-xl hover:bg-[#2e2b28] transition-colors text-sm"
+          className="bg-[#7B2D5C] text-white font-semibold px-6 py-3 rounded-xl hover:bg-[#5A1F43] transition-colors text-sm"
         >
           View my matches
         </Link>
@@ -141,8 +141,8 @@ export function SwipeDeck({ initialProfiles, swipesRemaining }: Props) {
       {/* Top bar */}
       <div className="px-6 pt-6 pb-4 flex items-center justify-between">
         <h1 className="text-2xl font-serif font-semibold text-[#1c1b1b]">Discover</h1>
-        <div className="flex items-center gap-1.5 bg-white border border-[#cfc5bd] rounded-full px-3.5 py-1.5 text-xs font-semibold text-[#4c4640]">
-          <span className="w-1.5 h-1.5 rounded-full bg-[#c96d4d]" />
+        <div className="flex items-center gap-1.5 bg-[#fdf4f9] border border-[#e8cede] rounded-full px-3.5 py-1.5 text-xs font-semibold text-[#7B2D5C]">
+          <span className="w-1.5 h-1.5 rounded-full bg-[#7B2D5C]" />
           {remaining} left today
         </div>
       </div>
@@ -155,8 +155,8 @@ export function SwipeDeck({ initialProfiles, swipesRemaining }: Props) {
             onClick={() => setActiveFilter(activeFilter === chip ? null : chip)}
             className={`shrink-0 text-xs font-medium px-4 py-1.5 rounded-full border transition-colors ${
               activeFilter === chip
-                ? 'bg-[#1c1b1b] text-white border-[#1c1b1b]'
-                : 'bg-white text-[#4c4640] border-[#cfc5bd] hover:border-[#c96d4d]'
+                ? 'bg-[#7B2D5C] text-white border-[#7B2D5C]'
+                : 'bg-white text-[#4c4640] border-[#cfc5bd] hover:border-[#7B2D5C]'
             }`}
           >
             {chip}
@@ -212,11 +212,11 @@ export function SwipeDeck({ initialProfiles, swipesRemaining }: Props) {
             <div>
               <div className="flex items-center justify-between mb-1.5">
                 <span className="text-xs font-semibold text-[#4c4640]">Compatibility</span>
-                <span className="font-mono text-xs font-bold text-[#c96d4d]">{scorePercent}%</span>
+                <span className="font-mono text-xs font-bold text-[#7B2D5C]">{scorePercent}%</span>
               </div>
               <div className="h-1.5 bg-[#f1edec] rounded-full overflow-hidden">
                 <div
-                  className="h-full bg-[#c96d4d] rounded-full transition-all"
+                  className="h-full bg-[#7B2D5C] rounded-full transition-all"
                   style={{ width: `${scorePercent}%` }}
                 />
               </div>
@@ -225,10 +225,10 @@ export function SwipeDeck({ initialProfiles, swipesRemaining }: Props) {
             {/* Tags */}
             <div className="flex flex-wrap gap-1.5">
               {current.faith && (
-                <span className="text-xs px-2.5 py-1 rounded-full bg-[#f1edec] text-[#4c4640] border border-[#cfc5bd]">{current.faith}</span>
+                <span className="text-xs px-2.5 py-1 rounded-full bg-[#fdf4f9] text-[#7B2D5C] border border-[#e8cede]">{current.faith}</span>
               )}
               {current.gender && (
-                <span className="text-xs px-2.5 py-1 rounded-full bg-[#f1edec] text-[#4c4640] border border-[#cfc5bd]">{current.gender}</span>
+                <span className="text-xs px-2.5 py-1 rounded-full bg-[#fdf4f9] text-[#7B2D5C] border border-[#e8cede]">{current.gender}</span>
               )}
             </div>
 
@@ -250,7 +250,7 @@ export function SwipeDeck({ initialProfiles, swipesRemaining }: Props) {
                 onClick={() => swipe('PASS')}
                 disabled={isPending}
                 aria-label="Pass"
-                className="flex-1 flex items-center justify-center gap-2 py-3 border border-[#cfc5bd] rounded-xl text-[#7d766f] hover:bg-[#fdf8f7] hover:border-[#c96d4d] hover:text-[#c96d4d] disabled:opacity-40 transition-all text-sm font-medium"
+                className="flex-1 flex items-center justify-center gap-2 py-3 border border-[#cfc5bd] rounded-xl text-[#7d766f] hover:bg-[#fdf4f9] hover:border-[#7B2D5C] hover:text-[#7B2D5C] disabled:opacity-40 transition-all text-sm font-medium"
               >
                 <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
                   <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
@@ -261,7 +261,7 @@ export function SwipeDeck({ initialProfiles, swipesRemaining }: Props) {
                 onClick={() => swipe('CONNECT')}
                 disabled={isPending}
                 aria-label="Connect"
-                className="flex-1 flex items-center justify-center gap-2 py-3 bg-[#1c1916] rounded-xl text-white hover:bg-[#2e2b28] disabled:opacity-40 transition-all text-sm font-semibold"
+                className="flex-1 flex items-center justify-center gap-2 py-3 bg-[#7B2D5C] rounded-xl text-white hover:bg-[#5A1F43] disabled:opacity-40 transition-all text-sm font-semibold"
               >
                 <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
                   <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" />

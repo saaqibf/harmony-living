@@ -3,7 +3,7 @@
 import { useState, useTransition } from 'react';
 import { updateProfileAction } from '@/features/settings/lib/actions';
 
-const inputCls = 'block w-full rounded-xl border border-[#cfc5bd] bg-[#f7f3f1] px-4 py-3 text-sm text-[#1c1b1b] placeholder-[#7d766f] outline-none transition focus:border-[#2d4a3e] focus:ring-2 focus:ring-[#2d4a3e]/15';
+const inputCls = 'block w-full rounded-xl border border-[#cfc5bd] bg-[#f7f3f1] px-4 py-3 text-sm text-[#1c1b1b] placeholder-[#7d766f] outline-none transition focus:border-[#7B2D5C] focus:ring-2 focus:ring-[#7B2D5C]/15';
 const labelCls = 'block text-sm font-medium text-[#1c1b1b] mb-1.5';
 
 type Props = {
@@ -42,7 +42,7 @@ export function ProfileInfoForm({ initial }: Props) {
   return (
     <form onSubmit={handleSubmit} className="space-y-4">
       {saved && (
-        <div className="rounded-xl bg-[#edf4f1] border border-[#c1d9d1] px-4 py-3 text-sm text-[#2d4a3e]">
+        <div className="rounded-xl bg-[#fdf4f9] border border-[#e8cede] px-4 py-3 text-sm text-[#5A1F43]">
           Profile saved.
         </div>
       )}
@@ -75,11 +75,11 @@ export function ProfileInfoForm({ initial }: Props) {
         <label className={labelCls}>Bio <span className="text-[#7d766f] font-normal">({form.bio.length}/500)</span></label>
         <textarea value={form.bio} onChange={set('bio')} placeholder="Tell potential roommates about yourself…" rows={4}
           maxLength={500}
-          className="block w-full rounded-xl border border-[#cfc5bd] bg-[#f7f3f1] px-4 py-3 text-sm text-[#1c1b1b] placeholder-[#7d766f] outline-none transition focus:border-[#2d4a3e] focus:ring-2 focus:ring-[#2d4a3e]/15 resize-none" />
+          className="block w-full rounded-xl border border-[#cfc5bd] bg-[#fdf4f9] px-4 py-3 text-sm text-[#1c1b1b] placeholder-[#7d766f] outline-none transition focus:border-[#7B2D5C] focus:ring-2 focus:ring-[#7B2D5C]/15 resize-none" />
       </div>
 
       <button type="submit" disabled={isPending}
-        className="w-full rounded-lg bg-[#1c1916] py-3 text-sm font-semibold text-white transition hover:bg-[#2e2b28] disabled:opacity-60">
+        className="w-full rounded-xl bg-[#7B2D5C] py-3 text-sm font-semibold text-white transition hover:bg-[#5A1F43] disabled:opacity-60">
         {isPending ? 'Saving…' : 'Save profile'}
       </button>
     </form>

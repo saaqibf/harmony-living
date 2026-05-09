@@ -62,7 +62,7 @@ export function BasicsStep({
           <input
             {...form.register('firstName')}
             placeholder="Your first name"
-            className="w-full rounded-xl border border-[#cfc5bd] bg-white px-4 py-3 text-sm text-[#1c1b1b] placeholder-[#7d766f] focus:outline-none focus:ring-2 focus:ring-[#2d4a3e]/20 focus:border-[#2d4a3e] transition-colors"
+            className="w-full rounded-xl border border-[#cfc5bd] bg-white px-4 py-3 text-sm text-[#1c1b1b] placeholder-[#7d766f] focus:outline-none focus:ring-2 focus:ring-[#7B2D5C]/20 focus:border-[#7B2D5C] transition-colors"
           />
           {form.formState.errors.firstName && (
             <p className="text-xs text-red-500">{form.formState.errors.firstName.message}</p>
@@ -94,8 +94,8 @@ export function BasicsStep({
                   onClick={() => form.setValue('gender', opt.value)}
                   className={`py-2.5 rounded-xl border text-sm font-medium transition-all ${
                     selected
-                      ? 'border-[#2d4a3e] bg-[#edf4f1] text-[#2d4a3e]'
-                      : 'border-[#cfc5bd] text-[#4c4640] hover:border-[#2d4a3e]/50'
+                      ? 'border-[#7B2D5C] bg-[#fdf4f9] text-[#7B2D5C]'
+                      : 'border-[#cfc5bd] text-[#4c4640] hover:border-[#7B2D5C]/50'
                   }`}
                 >
                   {opt.label}
@@ -110,7 +110,7 @@ export function BasicsStep({
           <input
             {...form.register('city')}
             placeholder="e.g. Calgary"
-            className="w-full rounded-xl border border-[#cfc5bd] bg-white px-4 py-3 text-sm text-[#1c1b1b] placeholder-[#7d766f] focus:outline-none focus:ring-2 focus:ring-[#2d4a3e]/20 focus:border-[#2d4a3e] transition-colors"
+            className="w-full rounded-xl border border-[#cfc5bd] bg-white px-4 py-3 text-sm text-[#1c1b1b] placeholder-[#7d766f] focus:outline-none focus:ring-2 focus:ring-[#7B2D5C]/20 focus:border-[#7B2D5C] transition-colors"
           />
           {form.formState.errors.city && (
             <p className="text-xs text-red-500">{form.formState.errors.city.message}</p>
@@ -120,7 +120,7 @@ export function BasicsStep({
         <button
           type="submit"
           disabled={pending}
-          className="w-full py-3 rounded-xl bg-[#1c1916] text-white font-semibold text-sm disabled:opacity-50 hover:bg-[#2e2b28] transition-colors"
+          className="w-full py-3 rounded-xl bg-[#7B2D5C] text-white font-semibold text-sm disabled:opacity-50 hover:bg-[#5A1F43] transition-colors"
         >
           {pending ? 'Saving…' : 'Continue →'}
         </button>

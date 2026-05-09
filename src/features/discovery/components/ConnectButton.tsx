@@ -41,7 +41,7 @@ export function ConnectButton({ targetId }: { targetId: string }) {
 
   if (state.kind === 'sent') {
     return (
-      <div className="w-full py-4 rounded-2xl bg-[#f7f3f1] text-[#c96d4d] border border-[#cfc5bd] text-center text-sm font-semibold">
+      <div className="w-full py-4 rounded-2xl bg-[#f7f3f1] text-[#7B2D5C] border border-[#cfc5bd] text-center text-sm font-semibold">
         Request sent ✓
       </div>
     );

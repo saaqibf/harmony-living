@@ -50,7 +50,7 @@ export function ListingCard({
     <Link
       href={`/listings/${id}`}
       className={cn(
-        'group block rounded-2xl border border-[#cfc5bd] bg-white overflow-hidden hover:shadow-md hover:border-[#c96d4d]/30 active:scale-[0.99] transition-all',
+        'group block rounded-2xl border border-[#cfc5bd] bg-white overflow-hidden hover:shadow-md hover:border-[#e8cede] active:scale-[0.99] transition-all',
         className,
       )}
     >

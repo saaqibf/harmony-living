@@ -52,8 +52,8 @@ function ChipGroup<T extends string>({
             onClick={() => onChange(opt.value)}
             className={`py-2.5 rounded-xl border text-sm font-medium transition-all ${
               value === opt.value
-                ? 'border-[#2d4a3e] bg-[#edf4f1] text-[#2d4a3e]'
-                : 'border-[#cfc5bd] text-[#4c4640] hover:border-[#2d4a3e]/50'
+                ? 'border-[#7B2D5C] bg-[#fdf4f9] text-[#7B2D5C]'
+                : 'border-[#cfc5bd] text-[#4c4640] hover:border-[#7B2D5C]/50'
             }`}
           >
             {opt.label}
@@ -113,7 +113,7 @@ export function VibeStep() {
               <button
                 type="button"
                 onClick={() => set(!value)}
-                className={`relative w-11 h-6 rounded-full transition-colors ${value ? 'bg-[#2d4a3e]' : 'bg-[#cfc5bd]'}`}
+                className={`relative w-11 h-6 rounded-full transition-colors ${value ? 'bg-[#7B2D5C]' : 'bg-[#cfc5bd]'}`}
               >
                 <span className={`absolute top-0.5 left-0.5 w-5 h-5 bg-white rounded-full shadow transition-transform ${value ? 'translate-x-5' : ''}`} />
               </button>
@@ -124,7 +124,7 @@ export function VibeStep() {
             <select
               value={drinkingSelf}
               onChange={(e) => setDrinkingSelf(e.target.value)}
-              className="w-full rounded-xl border border-[#cfc5bd] bg-white px-3 py-2 text-sm text-[#1c1b1b] focus:outline-none focus:ring-2 focus:ring-[#2d4a3e]/20 focus:border-[#2d4a3e]"
+              className="w-full rounded-xl border border-[#cfc5bd] bg-white px-3 py-2 text-sm text-[#1c1b1b] focus:outline-none focus:ring-2 focus:ring-[#7B2D5C]/20 focus:border-[#7B2D5C]"
             >
               <option value="never">Never</option>
               <option value="socially">Socially</option>
@@ -144,7 +144,7 @@ export function VibeStep() {
           maxLength={200}
           rows={2}
           placeholder="e.g. homebody who loves cooking, social butterfly, chill and laid-back..."
-          className="w-full rounded-xl border border-[#cfc5bd] bg-white px-3 py-2.5 text-sm text-[#1c1b1b] resize-none focus:outline-none focus:ring-2 focus:ring-[#2d4a3e]/20 focus:border-[#2d4a3e] placeholder:text-[#7d766f]"
+          className="w-full rounded-xl border border-[#cfc5bd] bg-white px-3 py-2.5 text-sm text-[#1c1b1b] resize-none focus:outline-none focus:ring-2 focus:ring-[#7B2D5C]/20 focus:border-[#7B2D5C] placeholder:text-[#7d766f]"
         />
         <p className="text-right text-xs text-[#7d766f]">{personality.length}/200</p>
       </div>
@@ -153,7 +153,7 @@ export function VibeStep() {
         type="button"
         onClick={handleSubmit}
         disabled={pending}
-        className="w-full py-3 rounded-xl bg-[#1c1916] text-white font-semibold text-sm disabled:opacity-50 hover:bg-[#2e2b28] transition-colors"
+        className="w-full py-3 rounded-xl bg-[#7B2D5C] text-white font-semibold text-sm disabled:opacity-50 hover:bg-[#5A1F43] transition-colors"
       >
         {pending ? 'Saving…' : 'Continue →'}
       </button>

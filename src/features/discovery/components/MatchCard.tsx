@@ -17,7 +17,7 @@ export function MatchCard({ conversationId, firstName, photoUrl, city, matchedAt
   const timeLabel = new Intl.DateTimeFormat('en-CA', { month: 'short', day: 'numeric' }).format(matchedAt);
 
   const card = (
-    <div className="rounded-2xl overflow-hidden bg-white border border-[#cfc5bd] hover:shadow-md hover:border-[#c96d4d]/30 active:scale-[0.98] transition-all group">
+    <div className="rounded-2xl overflow-hidden bg-white border border-[#cfc5bd] hover:shadow-md hover:border-[#e8cede] active:scale-[0.98] transition-all group">
       <div className="h-44 bg-[#f1edec] relative overflow-hidden">
         {photoUrl ? (
           <img src={photoUrl} alt={firstName} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
@@ -41,7 +41,7 @@ export function MatchCard({ conversationId, firstName, photoUrl, city, matchedAt
           )}
         </div>
         <div className="absolute top-2.5 right-2.5">
-          <span className="text-[10px] font-semibold text-white/90 bg-black/30 backdrop-blur-sm px-2 py-0.5 rounded-full">
+          <span className="text-[10px] font-semibold text-white bg-[#7B2D5C]/70 backdrop-blur-sm px-2 py-0.5 rounded-full">
             {timeLabel}
           </span>
         </div>
@@ -51,7 +51,7 @@ export function MatchCard({ conversationId, firstName, photoUrl, city, matchedAt
         {(occupation || faith) && (
           <div className="flex flex-wrap gap-1.5">
             {occupation && (
-              <span className="text-[10px] font-medium text-[#c96d4d] bg-[#f7f3f1] border border-[#cfc5bd] px-2 py-0.5 rounded-full truncate max-w-[90px]">
+              <span className="text-[10px] font-medium text-[#7B2D5C] bg-[#fdf4f9] border border-[#e8cede] px-2 py-0.5 rounded-full truncate max-w-[90px]">
                 {occupation}
               </span>
             )}
@@ -68,7 +68,7 @@ export function MatchCard({ conversationId, firstName, photoUrl, city, matchedAt
         )}
 
         {conversationId ? (
-          <div className="w-full bg-[#1c1916] text-white text-xs font-semibold py-2.5 rounded-xl text-center group-hover:bg-[#2e2b28] transition-colors mt-0.5">
+          <div className="w-full bg-[#7B2D5C] text-white text-xs font-semibold py-2.5 rounded-xl text-center group-hover:bg-[#5A1F43] transition-colors mt-0.5">
             Message →
           </div>
         ) : (

@@ -15,7 +15,7 @@ export function OnboardingProgress() {
       </div>
       <div className="h-2 overflow-hidden rounded-full bg-[#cfc5bd]">
         <div
-          className="h-full rounded-full bg-[#2d4a3e] transition-all"
+          className="h-full rounded-full bg-[#7B2D5C] transition-all"
           style={{ width: `${(current / 4) * 100}%` }}
         />
       </div>

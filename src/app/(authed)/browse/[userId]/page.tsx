@@ -135,7 +135,7 @@ export default async function BrowseProfilePage({
                   <h1 className="text-2xl font-serif font-semibold text-[#1c1b1b]">
                     Hi, I&apos;m {profile.firstName}
                   </h1>
-                  <span className="shrink-0 text-xs font-semibold bg-[#f7f3f1] text-[#c96d4d] border border-[#cfc5bd] rounded-full px-3 py-1">
+                  <span className="shrink-0 text-xs font-semibold bg-[#fdf4f9] text-[#7B2D5C] border border-[#cfc5bd] rounded-full px-3 py-1">
                     Looking for a place
                   </span>
                 </div>
@@ -259,7 +259,7 @@ export default async function BrowseProfilePage({
                 </div>
               )
             ) : existingSwipe?.direction === 'CONNECT' ? (
-              <div className="w-full py-4 rounded-2xl bg-[#f7f3f1] text-[#c96d4d] border border-[#cfc5bd] text-center text-sm font-semibold">
+              <div className="w-full py-4 rounded-2xl bg-[#fdf4f9] text-[#7B2D5C] border border-[#cfc5bd] text-center text-sm font-semibold">
                 Request sent ✓
               </div>
             ) : existingSwipe?.direction === 'PASS' ? (

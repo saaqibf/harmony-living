@@ -52,7 +52,7 @@ export function ProfileCard({ profile, hasMatch }: Props) {
 
         <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
 
-        <div className="absolute top-4 left-4 flex items-center gap-1.5 bg-[#2d4a3e] rounded-full px-3 py-1 shadow-lg">
+        <div className="absolute top-4 left-4 flex items-center gap-1.5 bg-[#7B2D5C] rounded-full px-3 py-1 shadow-lg">
           <span className="w-1.5 h-1.5 rounded-full bg-white" />
           <span className="text-white text-xs font-bold tracking-wide">Active</span>
         </div>
