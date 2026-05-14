@@ -128,8 +128,8 @@ export function SidebarLinks() {
         href={href}
         className={`flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition-colors ${
           active
-            ? 'bg-[#A86472] text-white'
-            : 'text-[#C4909A] hover:bg-[#2A1020] hover:text-white'
+            ? 'bg-white/25 text-white'
+            : 'text-white/75 hover:bg-white/15 hover:text-white'
         }`}
       >
         {icon}
@@ -142,7 +142,7 @@ export function SidebarLinks() {
     <nav className="space-y-0.5">
       {NAV.map((item) => navLink(item))}
 
-      <div className="pt-3 pb-1 px-3 text-[10px] font-mono text-[#C4909A] tracking-widest uppercase">
+      <div className="pt-3 pb-1 px-3 text-[10px] font-mono text-white/45 tracking-widest uppercase">
         Trust &amp; Safety
       </div>
 

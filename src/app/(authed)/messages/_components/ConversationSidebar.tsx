@@ -34,10 +34,11 @@ export function ConversationSidebar({
   );
 
   return (
-    <div className="w-[280px] shrink-0 border-r border-[#e8e0e5] bg-[#fdfafc] flex flex-col h-full">
+    <div className="w-[280px] shrink-0 border-r border-[#E8D5D0] bg-white flex flex-col h-full">
       {/* Header */}
       <div className="px-5 pt-6 pb-4">
-        <h2 className="text-xl font-serif font-semibold text-[#A86472] mb-4">Messages</h2>
+        <p className="text-[10px] font-mono tracking-widest uppercase text-[#A86472] mb-1">Inbox</p>
+        <h2 className="text-xl font-serif font-semibold text-[#1c1b1b] mb-4">Messages</h2>
         <div className="relative">
           <svg className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-[#9d9097]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
             <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
@@ -47,7 +48,7 @@ export function ConversationSidebar({
             placeholder="Search messages..."
             value={query}
             onChange={(e) => setQuery(e.target.value)}
-            className="w-full pl-10 pr-4 py-2.5 text-sm bg-[#F0E4E0] border-0 rounded-full text-[#1c1b1b] placeholder:text-[#9d9097] focus:outline-none focus:ring-2 focus:ring-[#A86472]/20 transition-all"
+            className="w-full pl-10 pr-4 py-2.5 text-sm bg-[#F5EAE4] border-0 rounded-full text-[#1c1b1b] placeholder:text-[#9d9097] focus:outline-none focus:ring-2 focus:ring-[#A86472]/20 transition-all"
           />
         </div>
       </div>
