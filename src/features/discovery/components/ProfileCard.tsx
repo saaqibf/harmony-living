@@ -35,7 +35,7 @@ export function ProfileCard({ profile, hasMatch }: Props) {
 
   return (
     <div className="rounded-3xl overflow-hidden bg-white shadow-2xl w-full select-none" style={{ height: 520 }}>
-      {/* Photo — top 65% */}
+      {/* Photo: top 65% */}
       <div className="relative" style={{ height: '65%' }}>
         {photoSrc ? (
           <img
@@ -45,14 +45,14 @@ export function ProfileCard({ profile, hasMatch }: Props) {
             style={!showPhoto ? { filter: 'blur(12px)', transform: 'scale(1.05)' } : undefined}
           />
         ) : (
-          <div className="w-full h-full bg-[#f1edec] flex items-center justify-center">
+          <div className="w-full h-full bg-[#EFE0D8] flex items-center justify-center">
             <span className="text-8xl opacity-40">👤</span>
           </div>
         )}
 
         <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
 
-        <div className="absolute top-4 left-4 flex items-center gap-1.5 bg-[#7B2D5C] rounded-full px-3 py-1 shadow-lg">
+        <div className="absolute top-4 left-4 flex items-center gap-1.5 bg-[#A86472] rounded-full px-3 py-1 shadow-lg">
           <span className="w-1.5 h-1.5 rounded-full bg-white" />
           <span className="text-white text-xs font-bold tracking-wide">Active</span>
         </div>
@@ -94,14 +94,14 @@ export function ProfileCard({ profile, hasMatch }: Props) {
         )}
       </div>
 
-      {/* Bottom info — 35% */}
+      {/* Bottom info: 35% */}
       <div className="px-5 py-4 flex flex-col justify-center" style={{ height: '35%' }}>
         {profile.bio ? (
           <p className="text-sm text-[#4c4640] leading-relaxed line-clamp-3">{profile.bio}</p>
         ) : (
           <div className="flex flex-col gap-2">
-            <div className="h-3 bg-[#f1edec] rounded-full w-4/5" />
-            <div className="h-3 bg-[#f1edec] rounded-full w-3/5" />
+            <div className="h-3 bg-[#EFE0D8] rounded-full w-4/5" />
+            <div className="h-3 bg-[#EFE0D8] rounded-full w-3/5" />
           </div>
         )}
       </div>

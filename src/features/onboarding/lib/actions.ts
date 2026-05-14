@@ -51,7 +51,7 @@ export async function saveBasicsAction(input: unknown) {
   redirect('/onboarding/3');
 }
 
-// Step 3 — lifestyle + essential values (gender preference)
+// Step 3: lifestyle + essential values (gender preference)
 const vibeSchema = z.object({
   cleanliness: z.enum(['VERY_TIDY', 'TIDY', 'AVERAGE', 'RELAXED']),
   schedule: z.enum(['EARLY_BIRD', 'NIGHT_OWL', 'FLEXIBLE', 'SHIFT_WORKER']),
@@ -100,7 +100,7 @@ export async function saveVibeAction(input: unknown) {
   redirect('/onboarding/4');
 }
 
-// Step 4 — housing prefs + proximity + profile finish (completes onboarding)
+// Step 4: housing prefs + proximity + profile finish (completes onboarding)
 const wrapupSchema = z.object({
   budgetMin: z.number().int().positive(),
   budgetMax: z.number().int().positive(),

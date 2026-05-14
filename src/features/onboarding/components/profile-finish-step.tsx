@@ -14,7 +14,7 @@ import { RadioGroup } from '@/components/ui/radio-group';
 import { Chips } from '@/components/ui/chips';
 
 const PRIVACY = [
-  { value: 'PUBLIC', label: 'Public — visible in discovery' },
+  { value: 'PUBLIC', label: 'Public (visible in discovery)' },
   { value: 'MATCHES_ONLY', label: 'Matches only' },
   { value: 'HIDDEN', label: 'Hidden until I connect' },
 ];

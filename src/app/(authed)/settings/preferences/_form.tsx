@@ -3,7 +3,7 @@
 import { useState, useTransition } from 'react';
 import { updatePreferencesAction } from '@/features/settings/lib/actions';
 
-const inputCls = 'block w-full rounded-xl border border-[#cfc5bd] bg-[#fdf4f9] px-4 py-3 text-sm text-[#1c1b1b] outline-none transition focus:border-[#7B2D5C] focus:ring-2 focus:ring-[#7B2D5C]/15';
+const inputCls = 'block w-full rounded-xl border border-[#cfc5bd] bg-[#F9F0EE] px-4 py-3 text-sm text-[#1c1b1b] outline-none transition focus:border-[#A86472] focus:ring-2 focus:ring-[#A86472]/15';
 const selectCls = inputCls;
 const labelCls = 'block text-sm font-medium text-[#1c1b1b] mb-1.5';
 
@@ -60,7 +60,7 @@ export function PreferencesForm({ initial }: Props) {
   return (
     <form onSubmit={handleSubmit} className="space-y-5">
       {saved && (
-        <div className="rounded-xl bg-[#fdf4f9] border border-[#e8cede] px-4 py-3 text-sm text-[#5A1F43]">
+        <div className="rounded-xl bg-[#F9F0EE] border border-[#E8D5D0] px-4 py-3 text-sm text-[#8A505E]">
           Preferences saved.
         </div>
       )}
@@ -122,18 +122,18 @@ export function PreferencesForm({ initial }: Props) {
       <div className="flex flex-wrap gap-5 pt-1">
         <label className="flex items-center gap-2.5 text-sm text-[#1c1b1b] cursor-pointer">
           <input type="checkbox" checked={smokingRoommate} onChange={(e) => setSmokingRoommate(e.target.checked)}
-            className="w-4 h-4 rounded border-[#cfc5bd] accent-[#7B2D5C]" />
+            className="w-4 h-4 rounded border-[#cfc5bd] accent-[#A86472]" />
           Smoking roommate OK
         </label>
         <label className="flex items-center gap-2.5 text-sm text-[#1c1b1b] cursor-pointer">
           <input type="checkbox" checked={pets} onChange={(e) => setPets(e.target.checked)}
-            className="w-4 h-4 rounded border-[#cfc5bd] accent-[#7B2D5C]" />
+            className="w-4 h-4 rounded border-[#cfc5bd] accent-[#A86472]" />
           I have pets
         </label>
       </div>
 
       <button type="submit" disabled={isPending}
-        className="w-full rounded-xl bg-[#7B2D5C] py-3 text-sm font-semibold text-white transition hover:bg-[#5A1F43] disabled:opacity-60">
+        className="w-full rounded-xl bg-[#A86472] py-3 text-sm font-semibold text-white transition hover:bg-[#8A505E] disabled:opacity-60">
         {isPending ? 'Saving…' : 'Save preferences'}
       </button>
     </form>

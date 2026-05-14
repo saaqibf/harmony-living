@@ -38,7 +38,7 @@ export async function GET(request: NextRequest) {
     secure: process.env.NODE_ENV === 'production',
     sameSite: 'lax',
     path: '/',
-    maxAge: 60 * 10, // 10 minutes — enough time to complete the OAuth redirect round-trip
+    maxAge: 60 * 10, // 10 minutes, enough time to complete the OAuth redirect round-trip
   });
 
   const hostedUiUrl = auth.getHostedUiUrl(provider, CALLBACK_URL, state);

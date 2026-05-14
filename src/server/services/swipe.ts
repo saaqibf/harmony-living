@@ -46,7 +46,7 @@ export async function recordSwipe(
     throw new SwipeError('QUOTA_EXCEEDED', 'Daily swipe limit reached');
   }
 
-  // Upsert — idempotent, allows pass→connect correction
+  // Upsert: idempotent, allows pass→connect correction
   await prisma.swipe.upsert({
     where: { swiperUserId_targetUserId: { swiperUserId: swiperId, targetUserId: targetId } },
     create: { swiperUserId: swiperId, targetUserId: targetId, direction },

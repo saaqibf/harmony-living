@@ -15,6 +15,7 @@ import {
   housingPrefsSchema,
   lifestyleSchema,
   type HousingPrefsForm,
+  type IntentValue,
   type LifestyleForm,
   type ValuesForm,
   valuesSchema,
@@ -67,12 +68,17 @@ function omitUndefinedRecord<T extends object>(obj: T): Partial<T> {
   ) as Partial<T>;
 }
 
-function intentToRoles(intent: 'seeker' | 'lister' | 'both'): Array<'SEEKER' | 'LISTER'> {
+function intentToRoles(intent: IntentValue): Array<'SEEKER' | 'LISTER'> {
   switch (intent) {
+    case 'room_seeker':
     case 'seeker':
       return ['SEEKER'];
+    case 'roommate_finder':
+    case 'tenant_lister':
+    case 'landlord':
     case 'lister':
       return ['LISTER'];
+    case 'room_seeker_and_lister':
     case 'both':
       return ['SEEKER', 'LISTER'];
   }
@@ -213,7 +219,7 @@ async function getOnboardingState(userId: string) {
 
 async function saveIntent(
   userId: string,
-  input: { intent: 'seeker' | 'lister' | 'both' },
+  input: { intent: IntentValue },
 ): Promise<void> {
   await prisma.$transaction(async (tx) => {
     const existing = await tx.user.findUnique({ where: { id: userId } });
@@ -392,7 +398,7 @@ async function finishOnboarding(
     ]);
 
     if (!profile) {
-      throw new OnboardingError('NOT_FOUND', 'Profile missing — complete basics first');
+      throw new OnboardingError('NOT_FOUND', 'Profile missing. Complete basics first.');
     }
     if (!state) {
       throw new OnboardingError('NOT_FOUND', 'Onboarding state missing');

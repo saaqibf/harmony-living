@@ -31,7 +31,7 @@ export async function POST(request: Request) {
     const tokens = await auth.signIn(parsed.data);
     const authUser = await auth.verifyIdToken(tokens.idToken);
 
-    // Idempotent — creates the Postgres User row on first login, updates on
+    // Idempotent: creates the Postgres User row on first login, updates on
     // subsequent logins. This is the only place User rows are created.
     await bootstrapUser(authUser);
     await setAuthCookies(tokens, authUser.cognitoSub);

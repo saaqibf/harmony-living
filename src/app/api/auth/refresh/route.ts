@@ -8,7 +8,7 @@ const REFRESH_COOKIE = 'hl_refresh_token';
 const USER_SUB_COOKIE = 'hl_user_sub';
 
 /**
- * Open redirects are a meaningful XSS escalation vector — only allow paths
+ * Open redirects are a meaningful XSS escalation vector. Only allow paths
  * that point back into our own app. Reject anything containing a scheme,
  * authority, or backslash, and reject paths that don't start with a single
  * slash.

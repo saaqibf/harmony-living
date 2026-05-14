@@ -9,8 +9,22 @@ import {
   petsRoommateSchema,
 } from '@/lib/onboarding/vocabulary';
 
+export const INTENT_VALUES = [
+  'room_seeker',
+  'roommate_finder',
+  'tenant_lister',
+  'landlord',
+  'room_seeker_and_lister',
+  // legacy: kept for existing users
+  'seeker',
+  'lister',
+  'both',
+] as const;
+
+export type IntentValue = (typeof INTENT_VALUES)[number];
+
 export const intentSchema = z.object({
-  intent: z.enum(['seeker', 'lister', 'both']),
+  intent: z.enum(INTENT_VALUES),
 });
 
 export type IntentForm = z.infer<typeof intentSchema>;

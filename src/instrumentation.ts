@@ -1,5 +1,5 @@
 /**
- * Next.js instrumentation hook — runs once at server startup, before the
+ * Next.js instrumentation hook, runs once at server startup, before the
  * first request is handled. Guaranteed bootstrap point for side effects.
  *
  * Guarded on NEXT_RUNTIME === 'nodejs' so this does NOT execute in the Edge

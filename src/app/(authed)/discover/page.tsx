@@ -15,9 +15,9 @@ export default async function DiscoverPage() {
 
   if (!user.preferences) {
     return (
-      <div className="min-h-screen bg-[#fdf8f7] flex items-center justify-center px-6">
+      <div className="min-h-screen bg-[#F2E6E0] flex items-center justify-center px-6">
         <div className="text-center max-w-sm">
-          <div className="w-20 h-20 bg-[#f7f3f1] rounded-full flex items-center justify-center mx-auto mb-6">
+          <div className="w-20 h-20 bg-[#F5EAE4] rounded-full flex items-center justify-center mx-auto mb-6">
             <span className="text-4xl">🏠</span>
           </div>
           <h1 className="text-xl font-serif font-semibold text-[#1c1b1b] mb-2">Finish your profile first</h1>

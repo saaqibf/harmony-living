@@ -1,19 +1,13 @@
 import type { Metadata } from 'next';
-import { Outfit, Playfair_Display, JetBrains_Mono } from 'next/font/google';
+import { Cormorant_Garamond, JetBrains_Mono } from 'next/font/google';
 import './globals.css';
 
-const outfit = Outfit({
+const cormorant = Cormorant_Garamond({
   subsets: ['latin'],
-  variable: '--font-outfit',
+  variable: '--font-cormorant',
   display: 'swap',
   weight: ['300', '400', '500', '600', '700'],
-});
-
-const playfair = Playfair_Display({
-  subsets: ['latin'],
-  variable: '--font-playfair',
-  display: 'swap',
-  weight: ['400', '500', '600', '700'],
+  style: ['normal', 'italic'],
 });
 
 const jetbrains = JetBrains_Mono({
@@ -24,7 +18,7 @@ const jetbrains = JetBrains_Mono({
 });
 
 export const metadata: Metadata = {
-  title: 'Harmony Living — Find a home. Find a roommate. Find harmony.',
+  title: 'Harmony Living: Find a home. Find a roommate. Find harmony.',
   description:
     'Compatibility-based roommate and room matching for people who actually want to live together.',
 };
@@ -35,7 +29,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${outfit.variable} ${playfair.variable} ${jetbrains.variable} h-full antialiased`} suppressHydrationWarning>
+    <html lang="en" className={`${cormorant.variable} ${jetbrains.variable} h-full antialiased`} suppressHydrationWarning>
       <body className="flex min-h-full flex-col">{children}</body>
     </html>
   );

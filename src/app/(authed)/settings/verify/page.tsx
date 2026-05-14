@@ -33,7 +33,7 @@ export default function VerifyPage() {
             <ul className="space-y-1.5 text-sm text-[#7d766f]">
               <li className="flex items-start gap-2">
                 <span className="text-[#2d4a3e] mt-0.5 shrink-0">✓</span>
-                A verified badge appears on your profile — builds trust instantly
+                A verified badge appears on your profile and builds trust instantly
               </li>
               <li className="flex items-start gap-2">
                 <span className="text-[#2d4a3e] mt-0.5 shrink-0">✓</span>
@@ -41,7 +41,7 @@ export default function VerifyPage() {
               </li>
               <li className="flex items-start gap-2">
                 <span className="text-[#2d4a3e] mt-0.5 shrink-0">✓</span>
-                One-time process — takes about 2 minutes
+                One-time process. Takes about 2 minutes.
               </li>
             </ul>
           </div>
@@ -51,7 +51,7 @@ export default function VerifyPage() {
           <h2 className="font-semibold text-[#1c1b1b] mb-2">What you&apos;ll need</h2>
           <p className="text-sm text-[#7d766f] leading-relaxed">
             A government-issued photo ID (passport, driver&apos;s licence, or national ID) and a selfie.
-            Powered by Stripe Identity — your ID is processed by Stripe and never stored on Harmony Living servers.
+            Powered by Stripe Identity. Your ID is processed by Stripe and never stored on Harmony Living servers.
           </p>
         </div>
 

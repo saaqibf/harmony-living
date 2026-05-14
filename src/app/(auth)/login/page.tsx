@@ -8,12 +8,12 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { signInSchema, type SignInInput } from '@/lib/auth/schemas';
 
 const BANNER_MESSAGES: Record<string, string> = {
-  confirmed: 'Your email is confirmed — log in below.',
+  confirmed: 'Your email is confirmed. Log in below.',
   logout: "You've been logged out.",
   reset: 'Password reset! Log in with your new password.',
 };
 
-const inputCls = 'block w-full rounded-xl border border-[#cfc5bd] bg-[#fdf4f9] px-4 py-3 text-sm text-[#1c1b1b] placeholder-[#7d766f] outline-none transition focus:border-[#7B2D5C] focus:ring-2 focus:ring-[#7B2D5C]/15';
+const inputCls = 'block w-full rounded-xl border border-[#cfc5bd] bg-[#F9F0EE] px-4 py-3 text-sm text-[#1c1b1b] placeholder-[#7d766f] outline-none transition focus:border-[#A86472] focus:ring-2 focus:ring-[#A86472]/15';
 
 function LoginForm() {
   const router = useRouter();
@@ -62,7 +62,7 @@ function LoginForm() {
       <p className="mb-8 text-sm text-[#7d766f]">Log in to your account.</p>
 
       {banner && (
-        <div className="mb-5 rounded-xl bg-[#fdf4f9] px-4 py-3 text-sm text-[#5A1F43] border border-[#e8cede]">
+        <div className="mb-5 rounded-xl bg-[#F9F0EE] px-4 py-3 text-sm text-[#8A505E] border border-[#E8D5D0]">
           {banner}
         </div>
       )}
@@ -91,7 +91,7 @@ function LoginForm() {
         <div>
           <div className="mb-1.5 flex items-center justify-between">
             <label htmlFor="password" className="text-sm font-medium text-[#1c1b1b]">Password</label>
-            <Link href="/forgot-password" className="text-xs text-[#7B2D5C] hover:underline">Forgot password?</Link>
+            <Link href="/forgot-password" className="text-xs text-[#A86472] hover:underline">Forgot password?</Link>
           </div>
           <input
             id="password"
@@ -107,28 +107,28 @@ function LoginForm() {
         <button
           type="submit"
           disabled={isSubmitting}
-          className="w-full rounded-xl bg-[#7B2D5C] py-3 text-sm font-semibold text-white transition hover:bg-[#5A1F43] active:scale-95 disabled:opacity-60"
+          className="w-full rounded-xl bg-[#A86472] py-3 text-sm font-semibold text-white transition hover:bg-[#8A505E] active:scale-95 disabled:opacity-60"
         >
           {isSubmitting ? 'Logging in…' : 'Log in'}
         </button>
       </form>
 
       <div className="my-6 flex items-center gap-3">
-        <span className="h-px flex-1 bg-[#e8cede]" />
+        <span className="h-px flex-1 bg-[#E8D5D0]" />
         <span className="text-xs text-[#7d766f]">or continue with</span>
-        <span className="h-px flex-1 bg-[#e8cede]" />
+        <span className="h-px flex-1 bg-[#E8D5D0]" />
       </div>
 
       <div className="grid grid-cols-2 gap-3">
         <a
           href="/api/auth/oauth-start?provider=Google"
-          className="flex items-center justify-center gap-2 rounded-xl border border-[#cfc5bd] px-3 py-2.5 text-sm font-medium text-[#4c4640] transition hover:bg-[#fdf4f9] hover:border-[#e8cede] active:scale-95"
+          className="flex items-center justify-center gap-2 rounded-xl border border-[#cfc5bd] px-3 py-2.5 text-sm font-medium text-[#4c4640] transition hover:bg-[#F9F0EE] hover:border-[#E8D5D0] active:scale-95"
         >
           <GoogleIcon /> Google
         </a>
         <a
           href="/api/auth/oauth-start?provider=Apple"
-          className="flex items-center justify-center gap-2 rounded-xl border border-[#cfc5bd] px-3 py-2.5 text-sm font-medium text-[#4c4640] transition hover:bg-[#fdf4f9] hover:border-[#e8cede] active:scale-95"
+          className="flex items-center justify-center gap-2 rounded-xl border border-[#cfc5bd] px-3 py-2.5 text-sm font-medium text-[#4c4640] transition hover:bg-[#F9F0EE] hover:border-[#E8D5D0] active:scale-95"
         >
           <AppleIcon /> Apple
         </a>
@@ -136,7 +136,7 @@ function LoginForm() {
 
       <p className="mt-6 text-center text-sm text-[#7d766f]">
         Don&apos;t have an account?{' '}
-        <Link href="/signup" className="font-semibold text-[#7B2D5C] hover:underline">Sign up</Link>
+        <Link href="/signup" className="font-semibold text-[#A86472] hover:underline">Sign up</Link>
       </p>
     </div>
   );

@@ -8,13 +8,13 @@ export function WhyWeAsk({ children }: { children: React.ReactNode }) {
     <div className="text-sm">
       <button
         type="button"
-        className="font-medium text-[#7B2D5C] underline decoration-[#7B2D5C]/30 underline-offset-2 hover:text-[#5A1F43]"
+        className="font-medium text-[#A86472] underline decoration-[#A86472]/30 underline-offset-2 hover:text-[#8A505E]"
         onClick={() => setOpen((o) => !o)}
       >
         Why we ask
       </button>
       {open ? (
-        <p className="mt-2 rounded-xl bg-[#f1edec] p-3 text-[#4c4640]">{children}</p>
+        <p className="mt-2 rounded-xl bg-[#EFE0D8] p-3 text-[#4c4640]">{children}</p>
       ) : null}
     </div>
   );

@@ -21,10 +21,10 @@ export async function POST(request: Request) {
     );
   }
 
-  // PRIVACY / ANTI-ENUMERATION — DO NOT "FIX" THIS WITHOUT CONSIDERING THE TRADE-OFF.
+  // PRIVACY / ANTI-ENUMERATION: DO NOT "FIX" THIS WITHOUT CONSIDERING THE TRADE-OFF.
   //
   // We intentionally respond with `200 { ok: true }` for every successful Zod
-  // validation — including the cases where Cognito raises an error such as:
+  // validation, including the cases where Cognito raises an error such as:
   //
   //   - UserNotFoundException     → email is not registered
   //   - NotAuthorizedException    → email is registered but already confirmed
@@ -32,8 +32,8 @@ export async function POST(request: Request) {
   //
   // Returning a distinguishable error in any of these cases would let an
   // attacker enumerate which emails are registered with us, and at what
-  // state. The cost of this protection is a small UX regression — a user who
-  // mistypes their email won't get an explicit "no such account" message —
+  // state. The cost of this protection is a small UX regression: a user who
+  // mistypes their email won't get an explicit "no such account" message,
   // which we accept. See `docs/decisions/0003-resend-silent-success.md`.
   //
   // Truly unexpected errors (network faults, unknown SDK exceptions) are NOT

@@ -119,7 +119,7 @@ export default async function DashboardPage() {
 
       {/* Main 2-col layout */}
       <div className="flex gap-6">
-        {/* Left — main content */}
+        {/* Left: main content */}
         <div className="flex-1 min-w-0">
           <h1 className="text-3xl font-serif font-semibold text-[#1c1b1b] mb-1">
             {greeting()}, {firstName}.
@@ -133,7 +133,7 @@ export default async function DashboardPage() {
           {/* Daily Picks */}
           <div className="flex items-center justify-between mb-4">
             <h2 className="text-base font-semibold text-[#1c1b1b]">Your Daily Picks</h2>
-            <Link href="/discover" className="text-sm text-[#7B2D5C] hover:text-[#5A1F43] font-medium transition-colors">
+            <Link href="/discover" className="text-sm text-[#A86472] hover:text-[#8A505E] font-medium transition-colors">
               View all →
             </Link>
           </div>
@@ -145,7 +145,7 @@ export default async function DashboardPage() {
               <p className="text-sm text-[#7d766f] mb-4">Complete your profile to start getting matches.</p>
               <Link
                 href="/discover"
-                className="inline-block px-5 py-2.5 bg-[#7B2D5C] text-white text-sm font-semibold rounded-lg hover:bg-[#5A1F43] transition-colors"
+                className="inline-block px-5 py-2.5 bg-[#A86472] text-white text-sm font-semibold rounded-lg hover:bg-[#8A505E] transition-colors"
               >
                 Start discovering
               </Link>
@@ -155,7 +155,7 @@ export default async function DashboardPage() {
               {dailyPicks.map((pick) => (
                 <div key={pick.userId} className="bg-white rounded-2xl border border-[#cfc5bd] flex overflow-hidden hover:shadow-sm transition-shadow">
                   {/* Photo */}
-                  <div className="w-40 h-40 shrink-0 bg-[#f1edec] relative">
+                  <div className="w-40 h-40 shrink-0 bg-[#EFE0D8] relative">
                     {pick.photoUrl ? (
                       <img src={pick.photoUrl} alt={pick.firstName ?? ''} className="w-full h-full object-cover" />
                     ) : (
@@ -169,7 +169,7 @@ export default async function DashboardPage() {
                         <p className="font-semibold text-[#1c1b1b]">
                           {pick.firstName}{pick.dateOfBirth ? `, ${calcAge(pick.dateOfBirth)}` : ''}
                         </p>
-                        <span className="font-mono text-xs font-semibold text-[#7B2D5C] bg-[#fdf4f9] border border-[#e8cede] rounded-full px-2.5 py-1">
+                        <span className="font-mono text-xs font-semibold text-[#A86472] bg-[#F9F0EE] border border-[#E8D5D0] rounded-full px-2.5 py-1">
                           MATCH {pick.score}%
                         </span>
                       </div>
@@ -184,11 +184,11 @@ export default async function DashboardPage() {
                     <div className="flex items-center gap-3">
                       <Link
                         href={`/browse/${pick.userId}`}
-                        className="px-4 py-2 bg-[#7B2D5C] text-white text-sm font-semibold rounded-lg hover:bg-[#5A1F43] transition-colors"
+                        className="px-4 py-2 bg-[#A86472] text-white text-sm font-semibold rounded-lg hover:bg-[#8A505E] transition-colors"
                       >
                         View Profile
                       </Link>
-                      <button className="p-2 rounded-lg border border-[#cfc5bd] text-[#7d766f] hover:text-[#7B2D5C] hover:border-[#7B2D5C] transition-colors">
+                      <button className="p-2 rounded-lg border border-[#cfc5bd] text-[#7d766f] hover:text-[#A86472] hover:border-[#A86472] transition-colors">
                         <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
                           <path strokeLinecap="round" strokeLinejoin="round" d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12z" />
                         </svg>
@@ -201,14 +201,14 @@ export default async function DashboardPage() {
           )}
         </div>
 
-        {/* Right — widgets */}
+        {/* Right: widgets */}
         <div className="w-64 shrink-0 space-y-4">
           {/* Profile Strength */}
           <div className="bg-white rounded-2xl border border-[#cfc5bd] p-5">
             <h3 className="text-sm font-semibold text-[#1c1b1b] mb-3">Profile Strength</h3>
-            <div className="w-full bg-[#f1edec] rounded-full h-2 mb-2">
+            <div className="w-full bg-[#EFE0D8] rounded-full h-2 mb-2">
               <div
-                className="bg-[#7B2D5C] h-2 rounded-full transition-all"
+                className="bg-[#A86472] h-2 rounded-full transition-all"
                 style={{ width: `${strengthPct}%` }}
               />
             </div>
@@ -257,7 +257,7 @@ export default async function DashboardPage() {
               <div className="space-y-3">
                 {recentMessages.map((msg) => (
                   <div key={msg.id} className="flex items-start gap-2.5">
-                    <div className="w-7 h-7 rounded-full bg-[#f1edec] shrink-0 overflow-hidden mt-0.5 flex items-center justify-center">
+                    <div className="w-7 h-7 rounded-full bg-[#EFE0D8] shrink-0 overflow-hidden mt-0.5 flex items-center justify-center">
                       {msg.sender.profile?.photoUrl ? (
                         <img src={msg.sender.profile.photoUrl} alt="" className="w-full h-full object-cover" />
                       ) : (
@@ -267,7 +267,7 @@ export default async function DashboardPage() {
                     <div className="min-w-0">
                       <p className="text-xs font-medium text-[#1c1b1b]">
                         New message from{' '}
-                        <span className="text-[#7B2D5C]">{msg.sender.profile?.firstName ?? 'Someone'}</span>
+                        <span className="text-[#A86472]">{msg.sender.profile?.firstName ?? 'Someone'}</span>
                       </p>
                       <p className="text-xs text-[#7d766f] truncate mt-0.5">"{msg.body}"</p>
                     </div>
@@ -276,7 +276,7 @@ export default async function DashboardPage() {
               </div>
             )}
             {unreadCount > 0 && (
-              <Link href="/messages" className="mt-4 block text-xs text-[#7B2D5C] hover:underline font-medium">
+              <Link href="/messages" className="mt-4 block text-xs text-[#A86472] hover:underline font-medium">
                 View all activity →
               </Link>
             )}

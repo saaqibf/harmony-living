@@ -120,7 +120,7 @@ export function AddressAutocomplete({ onSelect, defaultValue = '', error }: Prop
               <button
                 type="button"
                 onMouseDown={(e) => { e.preventDefault(); handleSelect(f); }}
-                className="w-full text-left px-4 py-3 text-sm hover:bg-[#fdf8f7] transition-colors border-b border-[#cfc5bd] last:border-0"
+                className="w-full text-left px-4 py-3 text-sm hover:bg-[#F2E6E0] transition-colors border-b border-[#cfc5bd] last:border-0"
               >
                 <span className="flex items-start gap-2">
                   <svg className="w-4 h-4 text-[#7d766f] shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">

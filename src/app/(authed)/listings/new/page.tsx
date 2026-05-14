@@ -15,7 +15,7 @@ export default async function NewListingPage() {
 
   if (!isVerified && !isAdmin) {
     return (
-      <div className="min-h-screen bg-[#fdf8f7] flex flex-col items-center justify-center px-6 text-center">
+      <div className="min-h-screen bg-[#F2E6E0] flex flex-col items-center justify-center px-6 text-center">
         <div className="w-16 h-16 rounded-full bg-[#edf4f1] flex items-center justify-center text-3xl mb-6">
           🛡️
         </div>
@@ -32,7 +32,7 @@ export default async function NewListingPage() {
           </Link>
           <Link
             href="/browse"
-            className="w-full py-3 rounded-xl bg-white border border-[#cfc5bd] text-[#4c4640] font-semibold text-center text-sm hover:bg-[#fdf8f7] transition-colors"
+            className="w-full py-3 rounded-xl bg-white border border-[#cfc5bd] text-[#4c4640] font-semibold text-center text-sm hover:bg-[#F2E6E0] transition-colors"
           >
             Browse rooms
           </Link>
@@ -42,7 +42,7 @@ export default async function NewListingPage() {
   }
 
   return (
-    <div className="min-h-screen bg-[#fdf8f7]">
+    <div className="min-h-screen bg-[#F2E6E0]">
       <div className="max-w-3xl mx-auto px-6 py-8">
         <h1 className="text-2xl font-serif font-semibold text-[#1c1b1b] mb-8">Create a listing</h1>
         <ListingForm />

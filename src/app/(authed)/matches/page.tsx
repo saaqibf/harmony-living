@@ -8,7 +8,7 @@ export default async function MatchesPage() {
   const matches = await getMyMatches(userId);
 
   return (
-    <div className="bg-[#fdf8f7] min-h-screen">
+    <div className="bg-[#F2E6E0] min-h-screen">
       <div className="bg-white border-b border-[#cfc5bd] px-6 pt-8 pb-5">
         <div className="flex items-center justify-between max-w-lg mx-auto">
           <div>
@@ -21,7 +21,7 @@ export default async function MatchesPage() {
           </div>
           <Link
             href="/discover"
-            className="bg-[#7B2D5C] text-white text-sm font-semibold px-5 py-2.5 rounded-xl hover:bg-[#5A1F43] active:scale-95 transition-all"
+            className="bg-[#A86472] text-white text-sm font-semibold px-5 py-2.5 rounded-xl hover:bg-[#8A505E] active:scale-95 transition-all"
           >
             Discover
           </Link>
@@ -31,8 +31,8 @@ export default async function MatchesPage() {
       <div className="max-w-lg mx-auto px-4 py-6 pb-24">
         {matches.length === 0 ? (
           <div className="flex flex-col items-center justify-center py-24 text-center">
-            <div className="w-20 h-20 rounded-full bg-[#f7f3f1] flex items-center justify-center mb-5">
-              <svg className="w-9 h-9 text-[#7B2D5C]" fill="currentColor" viewBox="0 0 24 24">
+            <div className="w-20 h-20 rounded-full bg-[#F5EAE4] flex items-center justify-center mb-5">
+              <svg className="w-9 h-9 text-[#A86472]" fill="currentColor" viewBox="0 0 24 24">
                 <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" />
               </svg>
             </div>

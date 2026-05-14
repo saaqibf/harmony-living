@@ -23,14 +23,14 @@ export default async function EditListingPage({
   if (!listing || listing.ownerId !== userId) notFound();
 
   return (
-    <div className="min-h-screen bg-[#fdf8f7] pb-12">
+    <div className="min-h-screen bg-[#F2E6E0] pb-12">
       <div className="bg-white border-b border-[#cfc5bd] px-6 py-4 sticky top-0 z-10">
         <div className="max-w-3xl mx-auto flex items-center justify-between">
           <h1 className="text-lg font-serif font-semibold text-[#1c1b1b]">Edit listing</h1>
           <div className="flex gap-2">
             <Link
               href={`/listings/${id}`}
-              className="text-sm font-semibold text-[#4c4640] bg-[#f1edec] hover:bg-[#cfc5bd] px-4 py-2 rounded-xl transition-colors"
+              className="text-sm font-semibold text-[#4c4640] bg-[#EFE0D8] hover:bg-[#cfc5bd] px-4 py-2 rounded-xl transition-colors"
             >
               View
             </Link>

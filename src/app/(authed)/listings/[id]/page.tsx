@@ -6,6 +6,7 @@ import { getActiveListing } from '@/server/services/listings';
 import { ListingMap } from '@/features/listings/components/listing-map';
 import { Button } from '@/components/ui/button';
 import { publishListingAction } from '@/features/listings/lib/actions';
+import { startListingConversationAction } from '@/features/messaging/lib/actions';
 
 export default async function ListingDetailPage({
   params,
@@ -36,13 +37,13 @@ export default async function ListingDetailPage({
   const totalMonthly = listing.rentAmount;
 
   return (
-    <div className="min-h-screen bg-[#fdf8f7]">
+    <div className="min-h-screen bg-[#F2E6E0]">
       {/* Sticky top bar */}
       <div className="bg-white border-b border-[#cfc5bd] px-6 py-3.5 sticky top-0 z-10">
         <div className="max-w-5xl mx-auto flex items-center justify-between">
           <Link
             href="/listings"
-            className="flex items-center gap-1.5 text-sm text-[#7d766f] hover:text-[#7B2D5C] transition-colors font-medium"
+            className="flex items-center gap-1.5 text-sm text-[#7d766f] hover:text-[#A86472] transition-colors font-medium"
           >
             <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
               <path strokeLinecap="round" strokeLinejoin="round" d="M15 19l-7-7 7-7" />
@@ -53,7 +54,7 @@ export default async function ListingDetailPage({
             <div className="flex gap-2">
               <Link
                 href={`/listings/${id}/edit`}
-                className="text-sm font-semibold text-[#4c4640] bg-[#f1edec] hover:bg-[#cfc5bd] px-4 py-2 rounded-lg transition-colors"
+                className="text-sm font-semibold text-[#4c4640] bg-[#EFE0D8] hover:bg-[#cfc5bd] px-4 py-2 rounded-lg transition-colors"
               >
                 Edit
               </Link>
@@ -85,7 +86,7 @@ export default async function ListingDetailPage({
               ))}
             </div>
           ) : (
-            <div className="h-72 bg-[#f1edec] flex flex-col items-center justify-center text-[#7d766f]">
+            <div className="h-72 bg-[#EFE0D8] flex flex-col items-center justify-center text-[#7d766f]">
               <span className="text-5xl mb-2">🏠</span>
               <span className="text-sm font-medium">No photos yet</span>
             </div>
@@ -116,16 +117,16 @@ export default async function ListingDetailPage({
             {(listing.utilitiesIncluded || listing.furnished || listing.smokingAllowed || listing.petsAllowed || listing.genderPref !== 'ANY') && (
               <div className="flex flex-wrap gap-2">
                 {listing.utilitiesIncluded && (
-                  <span className="text-sm px-3 py-1.5 rounded-full bg-[#f7f3f1] text-[#b05e3d] border border-[#cfc5bd] font-medium">⚡ Utilities included</span>
+                  <span className="text-sm px-3 py-1.5 rounded-full bg-[#F5EAE4] text-[#b05e3d] border border-[#cfc5bd] font-medium">⚡ Utilities included</span>
                 )}
                 {listing.furnished && (
                   <span className="text-sm px-3 py-1.5 rounded-full bg-amber-50 text-amber-700 border border-amber-100 font-medium">🛋️ Furnished</span>
                 )}
                 {listing.smokingAllowed && (
-                  <span className="text-sm px-3 py-1.5 rounded-full bg-[#f1edec] text-[#4c4640] border border-[#cfc5bd] font-medium">🚬 Smoking OK</span>
+                  <span className="text-sm px-3 py-1.5 rounded-full bg-[#EFE0D8] text-[#4c4640] border border-[#cfc5bd] font-medium">🚬 Smoking OK</span>
                 )}
                 {listing.petsAllowed && (
-                  <span className="text-sm px-3 py-1.5 rounded-full bg-[#f1edec] text-[#4c4640] border border-[#cfc5bd] font-medium">🐾 Pets OK</span>
+                  <span className="text-sm px-3 py-1.5 rounded-full bg-[#EFE0D8] text-[#4c4640] border border-[#cfc5bd] font-medium">🐾 Pets OK</span>
                 )}
                 {listing.genderPref !== 'ANY' && (
                   <span className="text-sm px-3 py-1.5 rounded-full bg-purple-50 text-purple-700 border border-purple-100 font-medium">
@@ -162,7 +163,7 @@ export default async function ListingDetailPage({
             <div className="bg-white rounded-2xl border border-[#cfc5bd] p-6">
               <h2 className="font-serif font-semibold text-[#1c1b1b] mb-4">Location</h2>
               <div className="rounded-xl overflow-hidden border border-[#cfc5bd]" style={{ height: 220 }}>
-                <Suspense fallback={<div className="w-full h-full bg-[#f1edec]" />}>
+                <Suspense fallback={<div className="w-full h-full bg-[#EFE0D8]" />}>
                   <ListingMap pins={[pin]} className="w-full h-full" />
                 </Suspense>
               </div>
@@ -170,7 +171,7 @@ export default async function ListingDetailPage({
             </div>
           </div>
 
-          {/* Right sidebar — booking card */}
+          {/* Right sidebar: booking card */}
           <div className="w-72 shrink-0 space-y-4 sticky top-20">
             {/* Booking card */}
             <div className="bg-white rounded-2xl border border-[#cfc5bd] p-5 shadow-sm">
@@ -199,20 +200,14 @@ export default async function ListingDetailPage({
               </div>
 
               {!isOwner && (
-                <div className="space-y-2">
-                  <Link
-                    href={`/messages`}
-                    className="block w-full text-center py-3 bg-[#1c1916] text-white font-semibold rounded-lg hover:bg-[#2e2b28] transition-colors text-sm"
-                  >
-                    Apply in Room
-                  </Link>
-                  <Link
-                    href={`/messages`}
-                    className="block w-full text-center py-3 border border-[#cfc5bd] text-[#1c1b1b] font-semibold rounded-lg hover:bg-[#f1edec] transition-colors text-sm"
+                <form action={startListingConversationAction.bind(null, id)} className="space-y-2">
+                  <button
+                    type="submit"
+                    className="w-full py-3 bg-[#A86472] text-white font-semibold rounded-xl hover:bg-[#8A505E] transition-colors text-sm active:scale-95"
                   >
                     Message Host
-                  </Link>
-                </div>
+                  </button>
+                </form>
               )}
             </div>
 

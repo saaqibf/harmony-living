@@ -19,7 +19,7 @@ type ListingCardProps = {
 
 const STATUS_LABELS: Record<string, { label: string; color: string }> = {
   DRAFT: { label: 'Draft', color: 'bg-amber-50 text-amber-700 border border-amber-200' },
-  INACTIVE: { label: 'Inactive', color: 'bg-[#f1edec] text-[#7d766f] border border-[#cfc5bd]' },
+  INACTIVE: { label: 'Inactive', color: 'bg-[#EFE0D8] text-[#7d766f] border border-[#cfc5bd]' },
   PENDING: { label: 'Pending review', color: 'bg-blue-50 text-blue-700 border border-blue-200' },
 };
 
@@ -44,17 +44,17 @@ export function ListingCard({
     year: 'numeric',
   }).format(new Date(availableFrom));
 
-  const statusInfo = status && status !== 'ACTIVE' ? (STATUS_LABELS[status] ?? { label: status, color: 'bg-[#f1edec] text-[#7d766f] border border-[#cfc5bd]' }) : null;
+  const statusInfo = status && status !== 'ACTIVE' ? (STATUS_LABELS[status] ?? { label: status, color: 'bg-[#EFE0D8] text-[#7d766f] border border-[#cfc5bd]' }) : null;
 
   return (
     <Link
       href={`/listings/${id}`}
       className={cn(
-        'group block rounded-2xl border border-[#cfc5bd] bg-white overflow-hidden hover:shadow-md hover:border-[#e8cede] active:scale-[0.99] transition-all',
+        'group block rounded-2xl border border-[#cfc5bd] bg-white overflow-hidden hover:shadow-md hover:border-[#E8D5D0] active:scale-[0.99] transition-all',
         className,
       )}
     >
-      <div className="aspect-[4/3] bg-[#f1edec] overflow-hidden relative">
+      <div className="aspect-[4/3] bg-[#EFE0D8] overflow-hidden relative">
         {coverImageUrl ? (
           <img
             src={coverImageUrl}
@@ -86,11 +86,11 @@ export function ListingCard({
             {currency} {rentAmount.toLocaleString()}<span className="text-xs font-medium text-[#7d766f]">/mo</span>
           </span>
           <div className="flex items-center gap-1.5 flex-wrap justify-end">
-            <span className="text-[11px] text-[#7d766f] bg-[#f1edec] px-2 py-0.5 rounded-full">
+            <span className="text-[11px] text-[#7d766f] bg-[#EFE0D8] px-2 py-0.5 rounded-full">
               {bedroomsTotal}bd · {bathroomsTotal}ba
             </span>
             {furnished && (
-              <span className="text-[11px] text-[#b05e3d] bg-[#f7f3f1] border border-[#cfc5bd] px-2 py-0.5 rounded-full">
+              <span className="text-[11px] text-[#b05e3d] bg-[#F5EAE4] border border-[#cfc5bd] px-2 py-0.5 rounded-full">
                 Furnished
               </span>
             )}

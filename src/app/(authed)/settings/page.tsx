@@ -5,20 +5,20 @@ export default async function SettingsPage() {
   await requireUser();
 
   return (
-    <div className="min-h-screen bg-[#fdf8f7]">
+    <div className="min-h-screen bg-[#F2E6E0]">
       <div className="px-6 pt-8 pb-5 border-b border-[#cfc5bd] bg-white">
         <h1 className="text-2xl font-serif font-semibold text-[#1c1b1b]">Settings</h1>
       </div>
 
       <div className="max-w-lg mx-auto px-4 py-6 pb-24 flex flex-col gap-3">
-        <p className="text-xs font-semibold text-[#7B2D5C] uppercase tracking-widest px-1 mb-1">Account</p>
+        <p className="text-xs font-semibold text-[#A86472] uppercase tracking-widest px-1 mb-1">Account</p>
 
         <Link
           href="/settings/profile"
-          className="bg-white rounded-2xl border border-[#cfc5bd] px-5 py-4 flex items-center justify-between hover:border-[#e8cede] hover:shadow-sm active:scale-[0.99] transition-all group"
+          className="bg-white rounded-2xl border border-[#cfc5bd] px-5 py-4 flex items-center justify-between hover:border-[#E8D5D0] hover:shadow-sm active:scale-[0.99] transition-all group"
         >
           <div className="flex items-center gap-4">
-            <div className="w-10 h-10 rounded-xl bg-[#f7f3f1] flex items-center justify-center text-xl">
+            <div className="w-10 h-10 rounded-xl bg-[#F5EAE4] flex items-center justify-center text-xl">
               👤
             </div>
             <div>
@@ -26,14 +26,14 @@ export default async function SettingsPage() {
               <p className="text-xs text-[#7d766f] mt-0.5">Name, photo, bio, preferences</p>
             </div>
           </div>
-          <svg className="w-4 h-4 text-[#7d766f] group-hover:text-[#7B2D5C] transition-colors" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
+          <svg className="w-4 h-4 text-[#7d766f] group-hover:text-[#A86472] transition-colors" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
             <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
           </svg>
         </Link>
 
         <Link
           href="/settings/verify"
-          className="bg-white rounded-2xl border border-[#cfc5bd] px-5 py-4 flex items-center justify-between hover:border-[#e8cede] hover:shadow-sm active:scale-[0.99] transition-all group"
+          className="bg-white rounded-2xl border border-[#cfc5bd] px-5 py-4 flex items-center justify-between hover:border-[#E8D5D0] hover:shadow-sm active:scale-[0.99] transition-all group"
         >
           <div className="flex items-center gap-4">
             <div className="w-10 h-10 rounded-xl bg-[#edf4f1] flex items-center justify-center text-xl">
@@ -44,17 +44,17 @@ export default async function SettingsPage() {
               <p className="text-xs text-[#7d766f] mt-0.5">ID and identity checks</p>
             </div>
           </div>
-          <svg className="w-4 h-4 text-[#7d766f] group-hover:text-[#7B2D5C] transition-colors" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
+          <svg className="w-4 h-4 text-[#7d766f] group-hover:text-[#A86472] transition-colors" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
             <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
           </svg>
         </Link>
 
         <Link
           href="/settings/preferences"
-          className="bg-white rounded-2xl border border-[#cfc5bd] px-5 py-4 flex items-center justify-between hover:border-[#e8cede] hover:shadow-sm active:scale-[0.99] transition-all group"
+          className="bg-white rounded-2xl border border-[#cfc5bd] px-5 py-4 flex items-center justify-between hover:border-[#E8D5D0] hover:shadow-sm active:scale-[0.99] transition-all group"
         >
           <div className="flex items-center gap-4">
-            <div className="w-10 h-10 rounded-xl bg-[#f7f3f1] flex items-center justify-center text-xl">
+            <div className="w-10 h-10 rounded-xl bg-[#F5EAE4] flex items-center justify-center text-xl">
               🏡
             </div>
             <div>
@@ -62,17 +62,17 @@ export default async function SettingsPage() {
               <p className="text-xs text-[#7d766f] mt-0.5">Budget, lifestyle, roommate rules</p>
             </div>
           </div>
-          <svg className="w-4 h-4 text-[#7d766f] group-hover:text-[#7B2D5C] transition-colors" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
+          <svg className="w-4 h-4 text-[#7d766f] group-hover:text-[#A86472] transition-colors" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
             <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
           </svg>
         </Link>
 
         <Link
           href="/settings/privacy"
-          className="bg-white rounded-2xl border border-[#cfc5bd] px-5 py-4 flex items-center justify-between hover:border-[#e8cede] hover:shadow-sm active:scale-[0.99] transition-all group"
+          className="bg-white rounded-2xl border border-[#cfc5bd] px-5 py-4 flex items-center justify-between hover:border-[#E8D5D0] hover:shadow-sm active:scale-[0.99] transition-all group"
         >
           <div className="flex items-center gap-4">
-            <div className="w-10 h-10 rounded-xl bg-[#f7f3f1] flex items-center justify-center text-xl">
+            <div className="w-10 h-10 rounded-xl bg-[#F5EAE4] flex items-center justify-center text-xl">
               🔒
             </div>
             <div>
@@ -80,7 +80,7 @@ export default async function SettingsPage() {
               <p className="text-xs text-[#7d766f] mt-0.5">Photo visibility, discoverability</p>
             </div>
           </div>
-          <svg className="w-4 h-4 text-[#7d766f] group-hover:text-[#7B2D5C] transition-colors" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
+          <svg className="w-4 h-4 text-[#7d766f] group-hover:text-[#A86472] transition-colors" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
             <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
           </svg>
         </Link>
@@ -89,10 +89,10 @@ export default async function SettingsPage() {
 
         <Link
           href="/listings/my"
-          className="bg-white rounded-2xl border border-[#cfc5bd] px-5 py-4 flex items-center justify-between hover:border-[#e8cede] hover:shadow-sm active:scale-[0.99] transition-all group"
+          className="bg-white rounded-2xl border border-[#cfc5bd] px-5 py-4 flex items-center justify-between hover:border-[#E8D5D0] hover:shadow-sm active:scale-[0.99] transition-all group"
         >
           <div className="flex items-center gap-4">
-            <div className="w-10 h-10 rounded-xl bg-[#f7f3f1] flex items-center justify-center text-xl">
+            <div className="w-10 h-10 rounded-xl bg-[#F5EAE4] flex items-center justify-center text-xl">
               🏠
             </div>
             <div>
@@ -100,7 +100,7 @@ export default async function SettingsPage() {
               <p className="text-xs text-[#7d766f] mt-0.5">Manage your rooms</p>
             </div>
           </div>
-          <svg className="w-4 h-4 text-[#7d766f] group-hover:text-[#7B2D5C] transition-colors" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
+          <svg className="w-4 h-4 text-[#7d766f] group-hover:text-[#A86472] transition-colors" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
             <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
           </svg>
         </Link>

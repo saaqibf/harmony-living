@@ -7,7 +7,7 @@ import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { signUpSchema, type SignUpInput } from '@/lib/auth/schemas';
 
-const inputCls = 'block w-full rounded-xl border border-[#cfc5bd] bg-[#fdf4f9] px-4 py-3 text-sm text-[#1c1b1b] placeholder-[#7d766f] outline-none transition focus:border-[#7B2D5C] focus:ring-2 focus:ring-[#7B2D5C]/15';
+const inputCls = 'block w-full rounded-xl border border-[#cfc5bd] bg-[#F9F0EE] px-4 py-3 text-sm text-[#1c1b1b] placeholder-[#7d766f] outline-none transition focus:border-[#A86472] focus:ring-2 focus:ring-[#A86472]/15';
 
 export default function SignUpPage() {
   const router = useRouter();
@@ -109,15 +109,15 @@ export default function SignUpPage() {
             id="terms"
             type="checkbox"
             {...register('terms')}
-            className="mt-0.5 h-4 w-4 shrink-0 rounded border-[#cfc5bd] accent-[#7B2D5C]"
+            className="mt-0.5 h-4 w-4 shrink-0 rounded border-[#cfc5bd] accent-[#A86472]"
           />
           <label htmlFor="terms" className="text-sm text-[#4c4640]">
             I agree to the{' '}
-            <Link href="/terms" className="text-[#7B2D5C] underline-offset-2 hover:underline">
+            <Link href="/terms" className="text-[#A86472] underline-offset-2 hover:underline">
               Terms of Service
             </Link>{' '}
             and{' '}
-            <Link href="/privacy" className="text-[#7B2D5C] underline-offset-2 hover:underline">
+            <Link href="/privacy" className="text-[#A86472] underline-offset-2 hover:underline">
               Privacy Policy
             </Link>
           </label>
@@ -127,28 +127,28 @@ export default function SignUpPage() {
         <button
           type="submit"
           disabled={isSubmitting}
-          className="w-full rounded-xl bg-[#7B2D5C] py-3 text-sm font-semibold text-white transition hover:bg-[#5A1F43] active:scale-95 disabled:opacity-60"
+          className="w-full rounded-xl bg-[#A86472] py-3 text-sm font-semibold text-white transition hover:bg-[#8A505E] active:scale-95 disabled:opacity-60"
         >
           {isSubmitting ? 'Creating account…' : 'Create account'}
         </button>
       </form>
 
       <div className="my-6 flex items-center gap-3">
-        <span className="h-px flex-1 bg-[#e8cede]" />
+        <span className="h-px flex-1 bg-[#E8D5D0]" />
         <span className="text-xs text-[#7d766f]">or continue with</span>
-        <span className="h-px flex-1 bg-[#e8cede]" />
+        <span className="h-px flex-1 bg-[#E8D5D0]" />
       </div>
 
       <div className="grid grid-cols-2 gap-3">
         <a
           href="/api/auth/oauth-start?provider=Google"
-          className="flex items-center justify-center gap-2 rounded-xl border border-[#cfc5bd] px-3 py-2.5 text-sm font-medium text-[#4c4640] transition hover:bg-[#fdf4f9] hover:border-[#e8cede] active:scale-95"
+          className="flex items-center justify-center gap-2 rounded-xl border border-[#cfc5bd] px-3 py-2.5 text-sm font-medium text-[#4c4640] transition hover:bg-[#F9F0EE] hover:border-[#E8D5D0] active:scale-95"
         >
           <GoogleIcon /> Google
         </a>
         <a
           href="/api/auth/oauth-start?provider=Apple"
-          className="flex items-center justify-center gap-2 rounded-xl border border-[#cfc5bd] px-3 py-2.5 text-sm font-medium text-[#4c4640] transition hover:bg-[#fdf4f9] hover:border-[#e8cede] active:scale-95"
+          className="flex items-center justify-center gap-2 rounded-xl border border-[#cfc5bd] px-3 py-2.5 text-sm font-medium text-[#4c4640] transition hover:bg-[#F9F0EE] hover:border-[#E8D5D0] active:scale-95"
         >
           <AppleIcon /> Apple
         </a>
@@ -156,7 +156,7 @@ export default function SignUpPage() {
 
       <p className="mt-6 text-center text-sm text-[#7d766f]">
         Already have an account?{' '}
-        <Link href="/login" className="font-semibold text-[#7B2D5C] hover:underline">Log in</Link>
+        <Link href="/login" className="font-semibold text-[#A86472] hover:underline">Log in</Link>
       </p>
     </div>
   );

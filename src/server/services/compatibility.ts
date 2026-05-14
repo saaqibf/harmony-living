@@ -81,7 +81,7 @@ export function scoreUsers(a: ScoringUser, b: ScoringUser): ScoreResult {
   if (b.requireVerifiedConnections && !a.isVerified) {
     return { score: 0, breakdown, passesHardFilters: false, hardFilterReason: 'requireVerified' };
   }
-  // Faith hard filter — only applies when both have stated a faith
+  // Faith hard filter: only applies when both have stated a faith
   if (ap.faithMatchRequired && ap.faith && bp.faith && ap.faith.toLowerCase() !== bp.faith.toLowerCase()) {
     return { score: 0, breakdown, passesHardFilters: false, hardFilterReason: 'faithMatchRequired' };
   }

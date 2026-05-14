@@ -49,14 +49,14 @@ export async function GET(request: NextRequest) {
     );
   }
 
-  // CSRF state validation — constant-time compare of query param against the
+  // CSRF state validation: constant-time compare of query param against the
   // cookie we set in /api/auth/oauth-start before the redirect to Cognito.
   const jar = await cookies();
   const stateCookie = jar.get(STATE_COOKIE)?.value;
 
   if (!statesMatch(stateCookie, stateParam)) {
     return Response.json(
-      { ok: false, error: { code: 'STATE_MISMATCH', message: 'OAuth state mismatch — possible CSRF attempt' } },
+      { ok: false, error: { code: 'STATE_MISMATCH', message: 'OAuth state mismatch, possible CSRF attempt' } },
       { status: 400 },
     );
   }

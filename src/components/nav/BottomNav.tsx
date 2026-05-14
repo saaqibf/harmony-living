@@ -57,7 +57,7 @@ export function BottomNav() {
   if (pathname.match(/^\/messages\/.+/)) return null;
 
   return (
-    <nav className="fixed bottom-0 left-0 right-0 z-40 border-t border-[#e8cede] bg-white/95 backdrop-blur-md">
+    <nav className="fixed bottom-0 left-0 right-0 z-40 border-t border-[#E8D5D0] bg-white/95 backdrop-blur-md">
       <div className="mx-auto flex h-16 max-w-lg items-center justify-around px-2">
         {NAV.map((item) => {
           const active = pathname === item.href || pathname.startsWith(item.href + '/');
@@ -66,14 +66,14 @@ export function BottomNav() {
               key={item.href}
               href={item.href}
               className={`flex flex-col items-center gap-0.5 px-3 py-2 rounded-xl transition-colors text-xs ${
-                active ? 'text-[#7B2D5C]' : 'text-[#7d766f] hover:text-[#7B2D5C]'
+                active ? 'text-[#A86472]' : 'text-[#7d766f] hover:text-[#A86472]'
               }`}
             >
               <span className={`leading-none transition-transform ${active ? 'scale-110' : ''}`}>
                 {item.icon}
               </span>
-              <span className={`font-medium ${active ? 'text-[#7B2D5C]' : ''}`}>{item.label}</span>
-              {active && <span className="w-1 h-1 rounded-full bg-[#7B2D5C]" />}
+              <span className={`font-medium ${active ? 'text-[#A86472]' : ''}`}>{item.label}</span>
+              {active && <span className="w-1 h-1 rounded-full bg-[#A86472]" />}
             </Link>
           );
         })}

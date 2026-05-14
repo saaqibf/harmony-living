@@ -5,14 +5,14 @@ import { HL_ONBOARDED_COOKIE } from '@/lib/auth/cookie-names';
 /**
  * Route protection map.
  *
- * PROTECTED — unauthenticated visitors are redirected to /login, with the
+ * PROTECTED: unauthenticated visitors are redirected to /login, with the
  *             original path preserved in `?from=` so we can redirect back
  *             after a successful login.
  *
- * AUTH_ONLY — already-authenticated visitors are redirected away (onboarding
+ * AUTH_ONLY: already-authenticated visitors are redirected away (onboarding
  *             vs dashboard based on `hl_onboarded`).
  *
- * Everything else is public — the proxy just calls NextResponse.next().
+ * Everything else is public; the proxy just calls NextResponse.next().
  *
  * IMPORTANT: This is a fast, first-line-of-defense check based on cookie
  * *presence* only. Full JWT verification (signature + expiry) happens inside

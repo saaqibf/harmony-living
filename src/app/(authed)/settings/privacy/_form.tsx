@@ -32,7 +32,7 @@ export function PrivacyForm({ initial }: { initial: string }) {
   return (
     <form onSubmit={handleSubmit} className="space-y-5">
       {saved && (
-        <div className="rounded-xl bg-[#fdf4f9] border border-[#e8cede] px-4 py-3 text-sm text-[#5A1F43]">
+        <div className="rounded-xl bg-[#F9F0EE] border border-[#E8D5D0] px-4 py-3 text-sm text-[#8A505E]">
           Privacy settings saved.
         </div>
       )}
@@ -46,12 +46,12 @@ export function PrivacyForm({ initial }: { initial: string }) {
           <label key={opt.value}
             className={`flex items-start gap-3 p-4 rounded-xl border cursor-pointer transition-colors ${
               visibility === opt.value
-                ? 'border-[#7B2D5C] bg-[#fdf4f9]'
-                : 'border-[#cfc5bd] bg-white hover:bg-[#fdf4f9]'
+                ? 'border-[#A86472] bg-[#F9F0EE]'
+                : 'border-[#cfc5bd] bg-white hover:bg-[#F9F0EE]'
             }`}
           >
             <input type="radio" name="visibility" value={opt.value} checked={visibility === opt.value}
-              onChange={() => setVisibility(opt.value)} className="mt-0.5 accent-[#7B2D5C]" />
+              onChange={() => setVisibility(opt.value)} className="mt-0.5 accent-[#A86472]" />
             <div>
               <p className="text-sm font-semibold text-[#1c1b1b]">{opt.label}</p>
               <p className="text-xs text-[#7d766f] mt-0.5">{opt.desc}</p>
@@ -61,7 +61,7 @@ export function PrivacyForm({ initial }: { initial: string }) {
       </div>
 
       <button type="submit" disabled={isPending}
-        className="w-full rounded-xl bg-[#7B2D5C] py-3 text-sm font-semibold text-white transition hover:bg-[#5A1F43] disabled:opacity-60">
+        className="w-full rounded-xl bg-[#A86472] py-3 text-sm font-semibold text-white transition hover:bg-[#8A505E] disabled:opacity-60">
         {isPending ? 'Saving…' : 'Save privacy settings'}
       </button>
     </form>

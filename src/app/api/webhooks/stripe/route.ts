@@ -42,7 +42,7 @@ export async function POST(req: NextRequest) {
         where: { userId, providerRef: session.id, type: 'ID_DOCUMENT' },
         data: { status: 'REJECTED' },
       });
-      log.info('stripe identity requires_input — marked rejected', { userId, sessionId: session.id });
+      log.info('stripe identity requires_input, marked rejected', { userId, sessionId: session.id });
     }
   }
 

@@ -9,7 +9,7 @@ export async function POST() {
   if (accessToken) {
     try {
       // Revoke all tokens for this session in Cognito.
-      // If the token is already expired, GlobalSignOut throws NotAuthorizedException —
+      // If the token is already expired, GlobalSignOut throws NotAuthorizedException;
       // the cognito-provider swallows that specific error, so we proceed to clear cookies.
       await auth.signOut(accessToken);
     } catch {

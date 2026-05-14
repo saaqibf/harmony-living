@@ -143,7 +143,7 @@ export function HousingPrefsStep({ initial }: { initial: Partial<HousingPrefsFor
                 <Chips
                   value={field.value}
                   onChange={field.onChange}
-                  placeholder="e.g. Calgary — press Enter"
+                  placeholder="e.g. Calgary, press Enter"
                 />
               )}
             />
@@ -161,7 +161,7 @@ export function HousingPrefsStep({ initial }: { initial: Partial<HousingPrefsFor
                 <Chips
                   value={field.value ?? []}
                   onChange={field.onChange}
-                  placeholder="Neighborhood — press Enter"
+                  placeholder="Neighborhood, press Enter"
                 />
               )}
             />

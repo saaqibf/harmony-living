@@ -14,10 +14,10 @@ import { z } from 'zod';
  * - DATABASE_URL is validated as a non-empty string rather than `.url()`.
  *   Postgres connection strings (especially with SSL params and special
  *   characters in passwords) are not always accepted by strict URL parsers.
- * - NODE_ENV is NOT given a default — Node / Next.js always set it based
+ * - NODE_ENV is NOT given a default. Node / Next.js always set it based
  *   on the command being run (`next dev` → development, `next build` →
  *   production). Setting it manually is almost always a bug.
- * - COGNITO_CLIENT_SECRET is required — our app client is confidential
+ * - COGNITO_CLIENT_SECRET is required. Our app client is confidential
  *   (created via the "Traditional web application" quick-setup flow).
  *   All Cognito API calls that require a SECRET_HASH use this value.
  */
@@ -30,10 +30,10 @@ const envSchema = z.object({
     .default('http://localhost:3000'),
   NODE_ENV: z.enum(['development', 'production', 'test']),
 
-  // --- AWS Cognito (all required — pool is set up and auth phase is active) ---
+  // --- AWS Cognito (all required; pool is set up and auth phase is active) ---
   COGNITO_USER_POOL_ID: z.string().min(1, 'COGNITO_USER_POOL_ID is required'),
   COGNITO_CLIENT_ID: z.string().min(1, 'COGNITO_CLIENT_ID is required'),
-  // Confidential client — the quick-setup "Traditional web app" flow generates
+  // Confidential client: the quick-setup "Traditional web app" flow generates
   // a client secret. All Cognito USER_PASSWORD_AUTH calls include a SECRET_HASH
   // computed from this value. Never expose it to the browser.
   COGNITO_CLIENT_SECRET: z
@@ -64,7 +64,7 @@ const envSchema = z.object({
   STRIPE_WEBHOOK_SECRET: z.string().min(1, 'STRIPE_WEBHOOK_SECRET is required'),
 
   // --- Auth / Session ---
-  AUTH_SECRET: z.string().min(32, 'AUTH_SECRET must be at least 32 chars — run: openssl rand -base64 32'),
+  AUTH_SECRET: z.string().min(32, 'AUTH_SECRET must be at least 32 chars; run: openssl rand -base64 32'),
 });
 
 const parsed = envSchema.safeParse(process.env);

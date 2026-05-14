@@ -54,7 +54,7 @@ export default function ForgotPasswordPage() {
     <div className="rounded-2xl bg-white border border-[#cfc5bd] px-8 py-8">
       {stage === 'request' ? (
         <>
-          <div className="mb-5 w-12 h-12 rounded-2xl bg-[#f1edec] flex items-center justify-center">
+          <div className="mb-5 w-12 h-12 rounded-2xl bg-[#EFE0D8] flex items-center justify-center">
             <svg className="w-6 h-6 text-[#4c4640]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
               <path strokeLinecap="round" strokeLinejoin="round" d="M16.5 10.5V6.75a4.5 4.5 0 10-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 002.25-2.25v-6.75a2.25 2.25 0 00-2.25-2.25H6.75a2.25 2.25 0 00-2.25 2.25v6.75a2.25 2.25 0 002.25 2.25z" />
             </svg>
@@ -122,7 +122,7 @@ export default function ForgotPasswordPage() {
 
       <p className="mt-6 text-center text-sm text-[#7d766f]">
         Remembered it?{' '}
-        <Link href="/login" className="font-semibold text-[#7B2D5C] hover:underline">Log in</Link>
+        <Link href="/login" className="font-semibold text-[#A86472] hover:underline">Log in</Link>
       </p>
     </div>
   );

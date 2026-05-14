@@ -4,39 +4,44 @@
   /* ── Stitch design system: Harmony Living ── */
 
   /* Surfaces */
-  --color-surface:                  #fdf8f7;
+  --color-surface:                  #F2E6E0;
   --color-surface-dim:              #ddd9d8;
   --color-surface-container-lowest: #ffffff;
-  --color-surface-container-low:    #f7f3f1;
-  --color-surface-container:        #f1edec;
-  --color-surface-container-high:   #ece7e6;
-  --color-surface-container-highest:#e6e1e0;
+  --color-surface-container-low:    #F5EAE4;
+  --color-surface-container:        #EFE0D8;
+  --color-surface-container-high:   #E8D5CC;
+  --color-surface-container-highest:#E0CCC4;
 
   /* Text */
   --color-on-surface:         #1c1b1b;
   --color-on-surface-variant: #4c4640;
 
-  /* Primary — Ink (near-black charcoal) */
+  /* Primary: Ink (near-black charcoal) */
   --color-ink:        #1c1916;
   --color-ink-light:  #2e2b28;
 
-  /* Secondary — Forest Green */
+  /* Secondary: Forest Green */
   --color-forest:         #2d4a3e;
   --color-forest-light:   #476558;
   --color-forest-surface: #c9ead9;
 
-  /* Tertiary — Soft Terracotta (accent only, not primary CTA) */
+  /* Tertiary: Soft Terracotta (accent only, not primary CTA) */
   --color-terra:        #c96d4d;
   --color-terra-dark:   #b05e3d;
   --color-terra-light:  #ffdbd0;
 
-  /* Plum — primary brand accent */
-  --color-plum:         #7B2D5C;
-  --color-plum-dark:    #5A1F43;
-  --color-plum-dim:     #9E5580;
-  --color-plum-surface: #fdf4f9;
-  --color-plum-border:  #e8cede;
-  --color-plum-mid:     #c28aab;
+  /* Plum: primary brand accent */
+  --color-plum:         #A86472;
+  --color-plum-dark:    #8A505E;
+  --color-plum-dim:     #C4909A;
+  --color-plum-surface: #F9F0EE;
+  --color-plum-border:  #E8D5D0;
+  --color-plum-mid:     #C4909A;
+
+  /* Caramel: CTA/action button accent */
+  --color-caramel:         #C4A070;
+  --color-caramel-dark:    #A8865C;
+  --color-caramel-surface: #F5E6D0;
 
   /* Outline / borders */
   --color-outline:         #7d766f;
@@ -52,8 +57,8 @@
   --color-error:   #ba1a1a;
 
   /* Fonts */
-  --font-sans:  var(--font-outfit), system-ui, -apple-system, sans-serif;
-  --font-serif: var(--font-playfair), Georgia, serif;
+  --font-sans:  var(--font-cormorant), 'Cormorant Garamond', Georgia, serif;
+  --font-serif: var(--font-cormorant), 'Cormorant Garamond', Georgia, serif;
   --font-mono:  var(--font-jetbrains), 'JetBrains Mono', monospace;
 
   /* Radii (Stitch rounded-8 scale) */

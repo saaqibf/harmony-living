@@ -13,17 +13,17 @@ const COOKIE_REFRESH_TOKEN = 'hl_refresh_token';
 /**
  * Stores the Cognito `sub` of the signed-in user. Required at refresh time
  * because Cognito's `REFRESH_TOKEN_AUTH` flow needs `SECRET_HASH` keyed on
- * the username — and by the time we want to refresh, the ID token cookie
+ * the username, and by the time we want to refresh, the ID token cookie
  * (which carries the sub claim) has already expired.
  *
  * The `sub` is an opaque UUID, not PII. Same lifetime as the refresh cookie.
  */
 const COOKIE_USER_SUB = 'hl_user_sub';
 
-/** 30 days — matches Cognito's default refresh token expiry. */
+/** 30 days: matches Cognito's default refresh token expiry. */
 const REFRESH_TOKEN_MAX_AGE = 60 * 60 * 24 * 30;
 
-/** 60 minutes — matches Cognito's default access/ID token expiry. */
+/** 60 minutes: matches Cognito's default access/ID token expiry. */
 const ACCESS_TOKEN_MAX_AGE = 60 * 60;
 
 const COOKIE_BASE = {
@@ -35,7 +35,7 @@ const COOKIE_BASE = {
 
 /**
  * Writes all auth cookies (3 tokens + `hl_user_sub`) as httpOnly cookies.
- * Must be called from a Route Handler or Server Function — not during render.
+ * Must be called from a Route Handler or Server Function, not during render.
  *
  * Pass `userSub` when it is already known (after `verifyIdToken` upstream) so
  * we don't double-decode the JWT just to read the `sub` claim.
@@ -69,7 +69,7 @@ export async function setAuthCookies(
 
 /**
  * Clears all auth cookies.
- * Must be called from a Route Handler or Server Function — not during render.
+ * Must be called from a Route Handler or Server Function, not during render.
  */
 export async function clearAuthCookies(): Promise<void> {
   const jar = await cookies();
@@ -110,7 +110,7 @@ export async function getCurrentUser(): Promise<AuthUser | null> {
 /**
  * Returns the current authenticated user, redirecting to /login if not authed.
  *
- * IMPORTANT: `redirect()` throws a NEXT_REDIRECT error — call this function
+ * IMPORTANT: `redirect()` throws a NEXT_REDIRECT error; call this function
  * OUTSIDE any try/catch block, or the redirect will be swallowed.
  */
 export async function requireUser(): Promise<AuthUser> {

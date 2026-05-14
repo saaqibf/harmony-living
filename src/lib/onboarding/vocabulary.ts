@@ -9,7 +9,7 @@ export const DRINKING_SELF = [
 ] as const;
 export const drinkingSelfSchema = z.enum(['never', 'rarely', 'socially', 'regularly']);
 
-// drinkingRoommate (symmetric — no _ok suffix)
+// drinkingRoommate (symmetric, no _ok suffix)
 export const DRINKING_ROOMMATE = [
   { value: 'none', label: "Don't want a drinker" },
   { value: 'rarely', label: 'Rarely OK' },
@@ -53,7 +53,7 @@ export const COOKING_FREQUENCY = [
 ] as const;
 export const cookingFrequencySchema = z.enum(['rarely', 'sometimes', 'often', 'daily']);
 
-// dietaryPractice — NOTE the _personal vs _kitchen split
+// dietaryPractice: NOTE the _personal vs _kitchen split
 export const DIETARY_PRACTICE = [
   { value: 'none', label: 'No specific dietary practice' },
   { value: 'vegetarian', label: 'Vegetarian' },

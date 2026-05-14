@@ -16,7 +16,7 @@ export function ageFromDob(dob: Date, now: Date = new Date()): number {
   return Math.floor(ageMs / (365.2425 * 24 * 60 * 60 * 1000));
 }
 
-/** Precise age in whole years — birthday-aware, use for display. */
+/** Precise age in whole years, birthday-aware, use for display. */
 export function calcAge(dob: Date): number {
   const today = new Date();
   const age = today.getFullYear() - dob.getFullYear();

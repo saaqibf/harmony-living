@@ -23,7 +23,7 @@ export default async function SettingsProfilePage() {
   const p = user?.profile;
 
   return (
-    <div className="min-h-screen bg-[#fdf8f7]">
+    <div className="min-h-screen bg-[#F2E6E0]">
       <div className="px-6 pt-8 pb-5 border-b border-[#cfc5bd] bg-white">
         <h1 className="text-2xl font-serif font-semibold text-[#1c1b1b]">Edit profile</h1>
       </div>

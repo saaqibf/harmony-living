@@ -12,7 +12,7 @@ export default function DiscoverError({ reset }: { error: Error; reset: () => vo
         <button onClick={reset} className="px-5 py-2.5 rounded-lg bg-[#1c1916] text-white text-sm font-semibold hover:bg-[#2e2b28] transition">
           Try again
         </button>
-        <Link href="/dashboard" className="px-5 py-2.5 rounded-lg border border-[#cfc5bd] text-sm font-medium text-[#4c4640] hover:bg-[#f1edec] transition">
+        <Link href="/dashboard" className="px-5 py-2.5 rounded-lg border border-[#cfc5bd] text-sm font-medium text-[#4c4640] hover:bg-[#EFE0D8] transition">
           Go home
         </Link>
       </div>

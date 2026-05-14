@@ -207,7 +207,7 @@ export class CognitoAuthProvider implements AuthProvider {
         new GlobalSignOutCommand({ AccessToken: accessToken }),
       );
     } catch (err) {
-      // GlobalSignOut can fail if the token is already expired — that's fine,
+      // GlobalSignOut can fail if the token is already expired; that's fine,
       // we clear cookies regardless on the caller side.
       if ((err as { name?: string }).name !== 'NotAuthorizedException') {
         throw mapCognitoError(err);
@@ -253,7 +253,7 @@ export class CognitoAuthProvider implements AuthProvider {
       return {
         accessToken: result.AccessToken,
         idToken: result.IdToken,
-        // Cognito does not return a new refresh token on refresh — reuse the old one.
+        // Cognito does not return a new refresh token on refresh; reuse the old one.
         refreshToken,
         expiresIn: result.ExpiresIn ?? 3600,
       };
@@ -271,7 +271,7 @@ export class CognitoAuthProvider implements AuthProvider {
     // TODO(auth-phase-3): Wire up Google and Apple identity providers in the
     // Cognito console (Social and external providers → Add identity provider).
     // Until then, these URLs will redirect to Cognito's hosted UI but fail
-    // with an "IdP not configured" error — expected behaviour for now.
+    // with an "IdP not configured" error; expected behaviour for now.
     const params = new URLSearchParams({
       identity_provider: provider,
       client_id: env.COGNITO_CLIENT_ID,

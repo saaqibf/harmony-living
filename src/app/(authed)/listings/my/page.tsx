@@ -14,7 +14,7 @@ export default async function MyListingsPage() {
   const canCreate = user?.roles.includes('LISTER') || user?.roles.includes('ADMIN');
 
   return (
-    <div className="min-h-screen bg-[#fdf8f7]">
+    <div className="min-h-screen bg-[#F2E6E0]">
       <div className="bg-white border-b border-[#cfc5bd] px-6 pt-8 pb-5">
         <div className="max-w-5xl mx-auto flex items-center justify-between">
           <div>
@@ -37,7 +37,7 @@ export default async function MyListingsPage() {
       <div className="max-w-5xl mx-auto px-6 py-6 pb-24">
         {listings.length === 0 ? (
           <div className="flex flex-col items-center justify-center py-24 text-center">
-            <div className="w-20 h-20 rounded-full bg-[#f7f3f1] flex items-center justify-center mb-5">
+            <div className="w-20 h-20 rounded-full bg-[#F5EAE4] flex items-center justify-center mb-5">
               <span className="text-4xl">🏠</span>
             </div>
             <h2 className="text-xl font-serif font-semibold text-[#1c1b1b] mb-2">No listings yet</h2>

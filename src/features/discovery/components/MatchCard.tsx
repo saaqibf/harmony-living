@@ -17,8 +17,8 @@ export function MatchCard({ conversationId, firstName, photoUrl, city, matchedAt
   const timeLabel = new Intl.DateTimeFormat('en-CA', { month: 'short', day: 'numeric' }).format(matchedAt);
 
   const card = (
-    <div className="rounded-2xl overflow-hidden bg-white border border-[#cfc5bd] hover:shadow-md hover:border-[#e8cede] active:scale-[0.98] transition-all group">
-      <div className="h-44 bg-[#f1edec] relative overflow-hidden">
+    <div className="rounded-2xl overflow-hidden bg-white border border-[#cfc5bd] hover:shadow-md hover:border-[#E8D5D0] active:scale-[0.98] transition-all group">
+      <div className="h-44 bg-[#EFE0D8] relative overflow-hidden">
         {photoUrl ? (
           <img src={photoUrl} alt={firstName} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
         ) : (
@@ -41,7 +41,7 @@ export function MatchCard({ conversationId, firstName, photoUrl, city, matchedAt
           )}
         </div>
         <div className="absolute top-2.5 right-2.5">
-          <span className="text-[10px] font-semibold text-white bg-[#7B2D5C]/70 backdrop-blur-sm px-2 py-0.5 rounded-full">
+          <span className="text-[10px] font-semibold text-white bg-[#A86472]/70 backdrop-blur-sm px-2 py-0.5 rounded-full">
             {timeLabel}
           </span>
         </div>
@@ -51,12 +51,12 @@ export function MatchCard({ conversationId, firstName, photoUrl, city, matchedAt
         {(occupation || faith) && (
           <div className="flex flex-wrap gap-1.5">
             {occupation && (
-              <span className="text-[10px] font-medium text-[#7B2D5C] bg-[#fdf4f9] border border-[#e8cede] px-2 py-0.5 rounded-full truncate max-w-[90px]">
+              <span className="text-[10px] font-medium text-[#A86472] bg-[#F9F0EE] border border-[#E8D5D0] px-2 py-0.5 rounded-full truncate max-w-[90px]">
                 {occupation}
               </span>
             )}
             {faith && (
-              <span className="text-[10px] font-medium text-[#4c4640] bg-[#f1edec] border border-[#cfc5bd] px-2 py-0.5 rounded-full truncate max-w-[90px]">
+              <span className="text-[10px] font-medium text-[#4c4640] bg-[#EFE0D8] border border-[#cfc5bd] px-2 py-0.5 rounded-full truncate max-w-[90px]">
                 {faith}
               </span>
             )}
@@ -68,11 +68,11 @@ export function MatchCard({ conversationId, firstName, photoUrl, city, matchedAt
         )}
 
         {conversationId ? (
-          <div className="w-full bg-[#7B2D5C] text-white text-xs font-semibold py-2.5 rounded-xl text-center group-hover:bg-[#5A1F43] transition-colors mt-0.5">
+          <div className="w-full bg-[#A86472] text-white text-xs font-semibold py-2.5 rounded-xl text-center group-hover:bg-[#8A505E] transition-colors mt-0.5">
             Message →
           </div>
         ) : (
-          <div className="w-full bg-[#f1edec] text-[#7d766f] text-xs font-medium py-2.5 rounded-xl text-center cursor-default mt-0.5">
+          <div className="w-full bg-[#EFE0D8] text-[#7d766f] text-xs font-medium py-2.5 rounded-xl text-center cursor-default mt-0.5">
             No chat yet
           </div>
         )}

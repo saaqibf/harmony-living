@@ -92,7 +92,7 @@ export default async function BrowseProfilePage({
   ].filter(Boolean) as string[];
 
   return (
-    <div className="min-h-screen bg-[#fdf8f7]">
+    <div className="min-h-screen bg-[#F2E6E0]">
       <div className="max-w-4xl mx-auto px-6 py-8">
         <Link
           href="/browse?tab=roommates"
@@ -105,11 +105,11 @@ export default async function BrowseProfilePage({
         </Link>
 
         <div className="grid grid-cols-1 md:grid-cols-[1fr,300px] gap-8">
-          {/* Left — profile content */}
+          {/* Left: profile content */}
           <div className="space-y-6">
             {/* Hero: photo + header */}
             <div className="bg-white rounded-2xl border border-[#cfc5bd] overflow-hidden">
-              <div className="h-56 bg-[#f1edec] relative">
+              <div className="h-56 bg-[#EFE0D8] relative">
                 {photoToShow ? (
                   <img
                     src={photoToShow}
@@ -135,7 +135,7 @@ export default async function BrowseProfilePage({
                   <h1 className="text-2xl font-serif font-semibold text-[#1c1b1b]">
                     Hi, I&apos;m {profile.firstName}
                   </h1>
-                  <span className="shrink-0 text-xs font-semibold bg-[#fdf4f9] text-[#7B2D5C] border border-[#cfc5bd] rounded-full px-3 py-1">
+                  <span className="shrink-0 text-xs font-semibold bg-[#F9F0EE] text-[#A86472] border border-[#cfc5bd] rounded-full px-3 py-1">
                     Looking for a place
                   </span>
                 </div>
@@ -169,7 +169,7 @@ export default async function BrowseProfilePage({
                   {lifestyleTags.map((tag) => (
                     <span
                       key={tag}
-                      className="text-sm px-3 py-1.5 rounded-full bg-[#f1edec] text-[#4c4640] border border-[#cfc5bd]"
+                      className="text-sm px-3 py-1.5 rounded-full bg-[#EFE0D8] text-[#4c4640] border border-[#cfc5bd]"
                     >
                       {tag}
                     </span>
@@ -199,7 +199,7 @@ export default async function BrowseProfilePage({
             )}
           </div>
 
-          {/* Right — sidebar */}
+          {/* Right: sidebar */}
           <div className="space-y-4">
             {/* Renter info */}
             <div className="bg-white rounded-2xl border border-[#cfc5bd] p-5">
@@ -242,7 +242,7 @@ export default async function BrowseProfilePage({
 
             {/* CTA */}
             {isSelf ? (
-              <div className="w-full py-4 rounded-2xl bg-[#f1edec] text-[#7d766f] text-center text-sm font-semibold">
+              <div className="w-full py-4 rounded-2xl bg-[#EFE0D8] text-[#7d766f] text-center text-sm font-semibold">
                 This is your profile
               </div>
             ) : existingMatch ? (
@@ -254,16 +254,16 @@ export default async function BrowseProfilePage({
                   Send a message →
                 </Link>
               ) : (
-                <div className="w-full py-4 rounded-2xl bg-[#f1edec] text-[#7d766f] text-center text-sm font-semibold">
+                <div className="w-full py-4 rounded-2xl bg-[#EFE0D8] text-[#7d766f] text-center text-sm font-semibold">
                   Matched
                 </div>
               )
             ) : existingSwipe?.direction === 'CONNECT' ? (
-              <div className="w-full py-4 rounded-2xl bg-[#fdf4f9] text-[#7B2D5C] border border-[#cfc5bd] text-center text-sm font-semibold">
+              <div className="w-full py-4 rounded-2xl bg-[#F9F0EE] text-[#A86472] border border-[#cfc5bd] text-center text-sm font-semibold">
                 Request sent ✓
               </div>
             ) : existingSwipe?.direction === 'PASS' ? (
-              <div className="w-full py-4 rounded-2xl bg-[#f1edec] text-[#7d766f] text-center text-sm font-semibold">
+              <div className="w-full py-4 rounded-2xl bg-[#EFE0D8] text-[#7d766f] text-center text-sm font-semibold">
                 You passed on this person
               </div>
             ) : (
