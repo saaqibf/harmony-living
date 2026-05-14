@@ -12,9 +12,8 @@ export function Sidebar({ firstName, photoUrl }: Props) {
       {/* Logo */}
       <Link href="/dashboard" className="mb-8 block">
         <p className="font-serif text-xl font-semibold text-white leading-tight">
-          Harmony<span className="text-[#F5E6D0]">.</span>Living
+          Harmony Living
         </p>
-        <p className="text-xs text-white/55 mt-0.5 font-mono tracking-wide">Domestic Serenity</p>
       </Link>
 
       {/* Nav */}
